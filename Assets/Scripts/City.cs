@@ -13,7 +13,7 @@ public class City : MonoBehaviour
             Debug.LogError("No carPrefab added");
     }
 
-    float timer = 5.0f;
+    float timer = 0.0f;
     void Update()
     {
         timer -= Time.deltaTime;
@@ -21,6 +21,20 @@ public class City : MonoBehaviour
         {
             timer = 5.0f;
             GameObject car = Instantiate(carPrefab, transform.position, Quaternion.identity);
+            Car carScript = car.GetComponent<Car>();
+            carScript.homeCity = this.gameObject;
+
+            List<GameObject> Cities = new List<GameObject>(GameObject.FindGameObjectsWithTag("City"));
+
+            foreach(GameObject c in Cities)
+            {
+                if(c != this.gameObject)
+                {
+                    carScript.destination = c;
+                    break;
+                }
+            }
+
         }
     }
 }
