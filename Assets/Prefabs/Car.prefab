@@ -140,7 +140,7 @@ MonoBehaviour:
   speed: 20
   capacity: 10
   load: 0
-  interactDistance: 10
+  interactDistance: 25
 --- !u!1 &8584171108033420226
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using TMPro;
 
 public class City : MonoBehaviour
 {
+    [SerializeField] bool isOwned = false;
+    [SerializeField] int price = 100;
     public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
@@ -19,14 +21,15 @@ public class City : MonoBehaviour
 
     }
 
-    float timer = 0.0f;
+    float timer = 3.0f;
     float tickTimer = 0.0f;
     void Update()
     {
         timer -= Time.deltaTime;    //  Car spawner
-        if(timer <= 0)
+        if(timer <= 0 && isOwned)
         {
-            timer = Random.Range(5.0f, 10.0f);
+            timer = Random.Range(5.0f, 10.0f);                
+
             GameObject car = Instantiate(carPrefab, transform.position, Quaternion.identity);
             Car carScript = car.GetComponent<Car>();
             carScript.homeCity = this.gameObject;
@@ -57,9 +60,19 @@ public class City : MonoBehaviour
 
     void Tick()
     {
-        if (Random.Range(0.0f, 1.0f) < 0.5f)    //  Random passenger increase
+        if (Random.Range(0.0f, 1.0f) < 0.5f && isOwned)    //  Random passenger increase
         {
             passengers += Random.Range(1, 3);
+        }
+    }
+
+    void BuyCity()
+    {
+        GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();   //  TO DO: change to singleton
+        if(gm.money >= price && !isOwned)
+        {
+            gm.money -= price;
+            isOwned = true;
         }
     }
 }

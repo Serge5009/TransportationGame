@@ -13,7 +13,7 @@ public class Car : MonoBehaviour
     public int capacity = 10;
     public int load = 0;
 
-    [SerializeField] float interactDistance = 10.0f;
+    [SerializeField] float interactDistance = 25.0f;
 
     TextMeshProUGUI counter;
 
@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
 
         if (Vector3.Distance(transform.position, destination.transform.position) <= interactDistance)     //  If within range with destination will try to unload
         {
-            //TO DO  Do some money stuff here !!
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().money += load; //  TO DO: change to singleton , make money logic more ineresting
 
             Destroy(gameObject);
         }
