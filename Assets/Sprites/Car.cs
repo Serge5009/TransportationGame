@@ -43,6 +43,13 @@ public class Car : MonoBehaviour
             }
         }
 
+        if (Vector3.Distance(transform.position, destination.transform.position) <= interactDistance)     //  If within range with destination will try to unload
+        {
+            //TO DO  Do some money stuff here !!
+
+            Destroy(gameObject);
+        }
+            
         counter.text = load.ToString();
     }
 }

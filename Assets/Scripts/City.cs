@@ -42,7 +42,7 @@ public class City : MonoBehaviour
                 }
             }
 
-            car.transform.parent = this.transform.parent;   //  Car should be on the canvas
+            car.transform.SetParent(transform.parent);   //  Car should be on the canvas
         }
 
         tickTimer += Time.deltaTime;
