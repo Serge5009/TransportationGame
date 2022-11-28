@@ -19,7 +19,7 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
@@ -50,6 +50,6 @@ public class Car : MonoBehaviour
             Destroy(gameObject);
         }
             
-        counter.text = load.ToString();
+        //counter.text = load.ToString();
     }
 }

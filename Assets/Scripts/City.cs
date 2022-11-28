@@ -23,7 +23,7 @@ public class City : MonoBehaviour
             Debug.LogError("No purchasePanel added");
 
 
-        counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
     }
 
@@ -61,9 +61,9 @@ public class City : MonoBehaviour
             tickTimer -= 1;
         }
 
-        counter.text = passengers.ToString();
+        //counter.text = passengers.ToString();
 
-        purchasePanel.SetActive(isSelected);
+        //purchasePanel.SetActive(isSelected);
     }
 
     void Tick()
