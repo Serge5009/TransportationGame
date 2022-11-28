@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class City : MonoBehaviour
 {
-
+    public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
     void Start()
@@ -14,9 +14,10 @@ public class City : MonoBehaviour
     }
 
     float timer = 0.0f;
+    float tickTimer = 0.0f;
     void Update()
     {
-        timer -= Time.deltaTime;
+        timer -= Time.deltaTime;    //  Car spawner
         if(timer <= 0)
         {
             timer = 5.0f;
@@ -34,7 +35,21 @@ public class City : MonoBehaviour
                     break;
                 }
             }
+        }
 
+        tickTimer += Time.deltaTime;
+        if(tickTimer >= 1)
+        {
+            Tick();
+            tickTimer -= 1;
+        }
+    }
+
+    void Tick()
+    {
+        if (Random.Range(0.0f, 1.0f) < 0.5f)    //  Random passenger increase
+        {
+            passengers++;
         }
     }
 }

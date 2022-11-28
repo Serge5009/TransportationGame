@@ -8,6 +8,11 @@ public class Car : MonoBehaviour
     public GameObject destination;
     public float speed = 5.0f;
 
+    public int capacity = 10;
+    public int load = 0;
+
+    [SerializeField] float interactDistance = 1.0f;
+
     void Start()
     {
     }
@@ -24,5 +29,13 @@ public class Car : MonoBehaviour
 
         transform.position += (destination.transform.position - transform.position).normalized * speed * Time.deltaTime;
 
+        if (Vector3.Distance(transform.position, homeCity.transform.position) <= interactDistance )     //  If within range with home city will try to load more
+        {
+            while (load < capacity && homeCity.GetComponent<City>().passengers > 0)
+            {
+                load++;
+                homeCity.GetComponent<City>().passengers--;
+            }
+        }
     }
 }
