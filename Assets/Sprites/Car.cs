@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
+//using UnityEngine.UI;
+using TMPro;
 
 public class Car : MonoBehaviour
 {
@@ -13,8 +15,11 @@ public class Car : MonoBehaviour
 
     [SerializeField] float interactDistance = 10.0f;
 
+    TextMeshProUGUI counter;
+
     void Start()
     {
+        counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
@@ -37,5 +42,7 @@ public class Car : MonoBehaviour
                 homeCity.GetComponent<City>().passengers--;
             }
         }
+
+        counter.text = load.ToString();
     }
 }
