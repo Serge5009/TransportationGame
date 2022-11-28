@@ -27,7 +27,7 @@ public class City : MonoBehaviour
 
             List<GameObject> Cities = new List<GameObject>(GameObject.FindGameObjectsWithTag("City"));
 
-            foreach(GameObject c in Cities)
+            foreach(GameObject c in Cities) //  Find target
             {
                 if(c != this.gameObject)
                 {
@@ -35,6 +35,8 @@ public class City : MonoBehaviour
                     break;
                 }
             }
+
+            car.transform.parent = this.transform.parent;   //  Car should be on the canvas
         }
 
         tickTimer += Time.deltaTime;

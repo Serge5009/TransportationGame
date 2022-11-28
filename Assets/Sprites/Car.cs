@@ -6,12 +6,12 @@ public class Car : MonoBehaviour
 {
     public GameObject homeCity;
     public GameObject destination;
-    public float speed = 5.0f;
+    public float speed = 20.0f;
 
     public int capacity = 10;
     public int load = 0;
 
-    [SerializeField] float interactDistance = 1.0f;
+    [SerializeField] float interactDistance = 10.0f;
 
     void Start()
     {
