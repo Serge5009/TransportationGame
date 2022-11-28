@@ -10,13 +10,19 @@ public class City : MonoBehaviour
     public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
+    [SerializeField] GameObject purchasePanel;
 
     TextMeshProUGUI counter;
+    bool isSelected = false;
 
     void Start()
     {
         if (!carPrefab)
             Debug.LogError("No carPrefab added");
+        if (!purchasePanel)
+            Debug.LogError("No purchasePanel added");
+
+
         counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
     }
@@ -56,6 +62,8 @@ public class City : MonoBehaviour
         }
 
         counter.text = passengers.ToString();
+
+        purchasePanel.SetActive(isSelected);
     }
 
     void Tick()
@@ -66,13 +74,20 @@ public class City : MonoBehaviour
         }
     }
 
-    void BuyCity()
+    public void BuyCity()
     {
         GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();   //  TO DO: change to singleton
         if(gm.money >= price && !isOwned)
         {
             gm.money -= price;
             isOwned = true;
+            isSelected = false;
         }
+    }
+
+    public void OnCityClick()
+    {
+        Debug.Log("City selected");
+        isSelected = !isSelected;
     }
 }
