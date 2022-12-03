@@ -1,6 +1,7 @@
 //using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class City : MonoBehaviour
@@ -62,8 +63,16 @@ public class City : MonoBehaviour
         }
 
         //counter.text = passengers.ToString();
-
         //purchasePanel.SetActive(isSelected);
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if(Vector2.Distance(transform.position, clickPos) <= 1)
+            {
+                Debug.Log("Clicked");
+            }
+        }
     }
 
     void Tick()
@@ -85,7 +94,7 @@ public class City : MonoBehaviour
         }
     }
 
-    public void OnCityClick()
+    public void OnClick()
     {
         Debug.Log("City selected");
         isSelected = !isSelected;
