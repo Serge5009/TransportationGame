@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
             cities.Add(o.GetComponent<City>());
         Debug.Log("GameManager found " + cities.Count + " cities on the map.");
 
+        if (cities.Count <= 0)
+            Debug.LogWarning("GM couldn't find any cities!");
     }
 
     void Update()
@@ -40,5 +42,12 @@ public class GameManager : MonoBehaviour
     public void SelectCity(City newSelected)
     {
         selectedCity = newSelected;
+        foreach (City c in cities)
+        {   //  TO DO: i'm too lazy to optimize now)
+            if (c == newSelected)
+                c.isSelected = true;
+            else
+                c.isSelected = false;
+        }
     }
 }

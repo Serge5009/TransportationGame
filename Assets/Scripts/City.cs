@@ -72,9 +72,7 @@ public class City : MonoBehaviour
             if(Vector2.Distance(transform.position, clickPos) <= 1)     //  Possible issues: multiple objects might be selected if nearby
             {
                 GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SelectCity(this);   //  TO DO: change to singleton
-
                 //TO DO: add sound effects
-                isSelected = !isSelected;
             }
         }
 
