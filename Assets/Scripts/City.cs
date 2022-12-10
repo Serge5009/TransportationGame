@@ -1,6 +1,7 @@
 //using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 
 public class City : MonoBehaviour
@@ -10,20 +11,16 @@ public class City : MonoBehaviour
     public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
-    [SerializeField] GameObject purchasePanel;
 
     TextMeshProUGUI counter;
-    bool isSelected = false;
+    [HideInInspector] public bool isSelected = false;
 
     void Start()
     {
         if (!carPrefab)
             Debug.LogError("No carPrefab added");
-        if (!purchasePanel)
-            Debug.LogError("No purchasePanel added");
 
-
-        counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
     }
 
@@ -61,9 +58,19 @@ public class City : MonoBehaviour
             tickTimer -= 1;
         }
 
-        counter.text = passengers.ToString();
+        //counter.text = passengers.ToString();
 
-        purchasePanel.SetActive(isSelected);
+        //  Click registering
+        //  https://www.youtube.com/watch?v=5KLV6QpSAdI
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if(Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
+            {
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SelectCity(this);   //  TO DO: change to singleton
+                //TO DO: add sound effects
+            }
+        }
     }
 
     void Tick()
@@ -81,13 +88,7 @@ public class City : MonoBehaviour
         {
             gm.money -= price;
             isOwned = true;
-            isSelected = false;
+            gm.DeselectCity();
         }
-    }
-
-    public void OnCityClick()
-    {
-        Debug.Log("City selected");
-        isSelected = !isSelected;
     }
 }
