@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
             else
                 c.isSelected = false;
         }
+
+        cityMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
+        cityMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
     }
 
     public void DeselectCity()

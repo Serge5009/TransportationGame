@@ -9,7 +9,7 @@ public class CityMenu : MonoBehaviour
 {
     public City selectedCity;
 
-    void Start()
+    void OnEnable()
     {
         selectedCity = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().selectedCity;    //  TO DO: change to singleton
         if (!selectedCity)
@@ -18,7 +18,8 @@ public class CityMenu : MonoBehaviour
 
     public void Buy()
     {
-
+        selectedCity.BuyCity();
+        // TO DO: Add sound effects
     }
 
     public void Close()

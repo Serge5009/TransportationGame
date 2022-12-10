@@ -88,7 +88,7 @@ public class City : MonoBehaviour
         {
             gm.money -= price;
             isOwned = true;
-            isSelected = false;
+            gm.DeselectCity();
         }
     }
 }
