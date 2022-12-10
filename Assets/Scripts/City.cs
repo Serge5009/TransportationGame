@@ -14,7 +14,7 @@ public class City : MonoBehaviour
     [SerializeField] GameObject purchasePanel;
 
     TextMeshProUGUI counter;
-    bool isSelected = false;
+    [HideInInspector] public bool isSelected = false;
 
     void Start()
     {
@@ -71,7 +71,10 @@ public class City : MonoBehaviour
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if(Vector2.Distance(transform.position, clickPos) <= 1)     //  Possible issues: multiple objects might be selected if nearby
             {
-                OnClick();
+                GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SelectCity(this);   //  TO DO: change to singleton
+
+                //TO DO: add sound effects
+                isSelected = !isSelected;
             }
         }
 
@@ -96,13 +99,5 @@ public class City : MonoBehaviour
             isOwned = true;
             isSelected = false;
         }
-    }
-
-    void OnClick()
-    {
-        GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();   //  TO DO: change to singleton
-        gm.selectedCity = this;
-        isSelected = !isSelected;
-        //TO DO: add sound effects
     }
 }

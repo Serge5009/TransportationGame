@@ -24,7 +24,11 @@ public class GameManager : MonoBehaviour
     {
         moneyText.text = money.ToString();
 
-        if (selectedCity)
-            cityMenuUI.SetActive(true);
+        cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
+    }
+
+    public void SelectCity(City newSelected)
+    {
+        selectedCity = newSelected;
     }
 }
