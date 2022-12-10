@@ -7,6 +7,8 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI moneyText;
+    public City selectedCity;
+    [SerializeField] GameObject cityMenuUI;
 
     public int money = 1000;
 
@@ -14,10 +16,15 @@ public class GameManager : MonoBehaviour
     {
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
+        if (!cityMenuUI)
+            Debug.LogError("No cityMenuUI assigned to the GameManager");
     }
 
     void Update()
     {
         moneyText.text = money.ToString();
+
+        if (selectedCity)
+            cityMenuUI.SetActive(true);
     }
 }

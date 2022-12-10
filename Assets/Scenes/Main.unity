@@ -1122,6 +1122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 800928499}
+  selectedCity: {fileID: 0}
+  cityMenuUI: {fileID: 2094406655}
   money: 1000
 --- !u!1 &1961758470
 GameObject:
@@ -1279,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcba9dd3123656749ab35028973c023b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCity: {fileID: 0}
+  selectedCity: {fileID: 0}
 --- !u!114 &2094406658
 MonoBehaviour:
   m_ObjectHideFlags: 0

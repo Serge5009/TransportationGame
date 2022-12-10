@@ -100,6 +100,8 @@ public class City : MonoBehaviour
 
     void OnClick()
     {
+        GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();   //  TO DO: change to singleton
+        gm.selectedCity = this;
         isSelected = !isSelected;
         //TO DO: add sound effects
     }

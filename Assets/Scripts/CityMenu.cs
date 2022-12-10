@@ -7,14 +7,15 @@ using UnityEngine;
 
 public class CityMenu : MonoBehaviour
 {
-    public City activeCity;
+    public City selectedCity;
 
 
 
     void Start()
     {
-        if (!activeCity)
-            Debug.LogError("CityMeny couldn't find an active city");
+        selectedCity = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().selectedCity;    //  TO DO: change to singleton
+        if (!selectedCity)
+            Debug.LogError("CityMeny couldn't find a selectedCity");
     }
 
     void Update()
