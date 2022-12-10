@@ -11,7 +11,6 @@ public class City : MonoBehaviour
     public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
-    [SerializeField] GameObject purchasePanel;
 
     TextMeshProUGUI counter;
     [HideInInspector] public bool isSelected = false;
@@ -20,9 +19,6 @@ public class City : MonoBehaviour
     {
         if (!carPrefab)
             Debug.LogError("No carPrefab added");
-        if (!purchasePanel)
-            Debug.LogError("No purchasePanel added");
-
 
         //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
 
@@ -69,15 +65,12 @@ public class City : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if(Vector2.Distance(transform.position, clickPos) <= 1)     //  Possible issues: multiple objects might be selected if nearby
+            if(Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
             {
                 GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SelectCity(this);   //  TO DO: change to singleton
                 //TO DO: add sound effects
             }
         }
-
-        purchasePanel.SetActive(isSelected);
-
     }
 
     void Tick()

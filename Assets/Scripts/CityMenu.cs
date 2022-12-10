@@ -9,8 +9,6 @@ public class CityMenu : MonoBehaviour
 {
     public City selectedCity;
 
-
-
     void Start()
     {
         selectedCity = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().selectedCity;    //  TO DO: change to singleton
@@ -18,8 +16,14 @@ public class CityMenu : MonoBehaviour
             Debug.LogError("CityMeny couldn't find a selectedCity");
     }
 
-    void Update()
+    public void Buy()
     {
-        
+
+    }
+
+    public void Close()
+    {
+        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().DeselectCity();    //  TO DO: change to singleton
+        // TO DO: Add sound effects
     }
 }

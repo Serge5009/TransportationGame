@@ -50,4 +50,11 @@ public class GameManager : MonoBehaviour
                 c.isSelected = false;
         }
     }
+
+    public void DeselectCity()
+    {
+        selectedCity = null;
+        foreach (City c in cities)
+            c.isSelected = false;
+    }
 }
