@@ -63,16 +63,20 @@ public class City : MonoBehaviour
         }
 
         //counter.text = passengers.ToString();
-        //purchasePanel.SetActive(isSelected);
 
-        if(Input.GetMouseButtonDown(0))
+        //  Click registering
+        //  https://www.youtube.com/watch?v=5KLV6QpSAdI
+        if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if(Vector2.Distance(transform.position, clickPos) <= 1)
+            if(Vector2.Distance(transform.position, clickPos) <= 1)     //  Possible issues: multiple objects might be selected if nearby
             {
-                Debug.Log("Clicked");
+                OnClick();
             }
         }
+
+        purchasePanel.SetActive(isSelected);
+
     }
 
     void Tick()
@@ -94,9 +98,9 @@ public class City : MonoBehaviour
         }
     }
 
-    public void OnClick()
+    void OnClick()
     {
-        Debug.Log("City selected");
         isSelected = !isSelected;
+        //TO DO: add sound effects
     }
 }
