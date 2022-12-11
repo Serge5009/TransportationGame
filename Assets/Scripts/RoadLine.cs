@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class RoadLine : MonoBehaviour
 {
+    RoadNetwork rNet;
+
     public List<RoadNode> ends;
 
     void Start()
     {
-        
+        rNet = GameObject.FindGameObjectWithTag("RoadNetwork").GetComponent<RoadNetwork>();
+        rNet.roads.Add(this);
+        rNet.RoadDuplicateCheck(this);
     }
 
     void Update()
