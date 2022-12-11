@@ -9,7 +9,18 @@ public class RoadNode : MonoBehaviour
 
     void Start()
     {
-        
+
+        foreach (RoadNode n in connections) //  Loop thru all connected nodes and make sure that they're aware about the connection
+        {
+            bool isThisInConnections = false;
+            foreach (RoadNode i in n.connections)
+            {
+                if (i == this)
+                    isThisInConnections = true;
+            }
+            if (!isThisInConnections)
+                n.connections.Add(this);
+        }
     }
 
     void Update()
