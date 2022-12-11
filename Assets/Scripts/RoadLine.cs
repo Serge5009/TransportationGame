@@ -12,14 +12,22 @@ public class RoadLine : MonoBehaviour
 
     void Start()
     {
+        if (ends.Count != 2)
+        {
+            Debug.LogError("This road got unusual number of ends -_- ");
+            Destroy(gameObject);
+        }
+
         rNet = GameObject.FindGameObjectWithTag("RoadNetwork").GetComponent<RoadNetwork>();
         rNet.roads.Add(this);
         rNet.RoadDuplicateCheck(this);
+
+
+        float newX = (ends[0].transform.position.x + ends[1].transform.position.x) / 2;
+        float newY = (ends[0].transform.position.y + ends[1].transform.position.y) / 2;
+        transform.position = new Vector2(newX, newY);
+
+
     }
 
-    void Update()
-    {
-        if (ends.Count != 2)
-            Debug.LogError("This road got unusual number of ends -_- ");
-    }
 }
