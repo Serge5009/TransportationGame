@@ -11,11 +11,12 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         zoomSens *= 0.01f;  //  Some default ajustments
-        mouseZoomSens *= 5;
+        mouseZoomSens *= 5; //  TO DO: new zoom multiplier logic would be nice
     }
 
     private void Update()
     {
+        //  TO DO: Try to make touch controls smooth
         Vector3 screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // https://www.youtube.com/watch?v=K_aAnBn5khA
         if (Input.GetMouseButtonDown(0))    //  Remember the tocuh position every time player touches the screen
@@ -55,7 +56,11 @@ public class CameraController : MonoBehaviour
     }
 
 
-    //  Failed to use raycast for object selection
+
+
+
+    //  Failed to use raycast for object selection, still might be a good idea...
+
     //void FixedUpdate()
     //{
     //    RaycastHit hit;
@@ -64,9 +69,5 @@ public class CameraController : MonoBehaviour
     //        Debug.Log("Wow");
     //    }
     //    Debug.DrawRay(transform.position, Vector3.forward, Color.red);
-
     //}
-
-
-
 }
