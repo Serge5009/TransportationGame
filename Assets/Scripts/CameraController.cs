@@ -2,6 +2,31 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    Vector3 touchStart;
+
+    private void Start()
+    {
+        
+    }
+
+    private void Update()
+    {
+        Vector3 screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // https://www.youtube.com/watch?v=K_aAnBn5khA
+        if (Input.GetMouseButtonDown(0))    //  Remember the tocuh position every time player touches the screen
+        {
+            touchStart = screenTouchPosition;
+        }
+        if (Input.GetMouseButton(0))        //  While finger is down - move relatively to the start position
+        {
+            Vector3 camMoveDirection = touchStart - screenTouchPosition;
+            Camera.main.transform.position += camMoveDirection;
+        }
+    }
+
+
+
+
 
     //void FixedUpdate()
     //{
@@ -13,4 +38,7 @@ public class CameraController : MonoBehaviour
     //    Debug.DrawRay(transform.position, Vector3.forward, Color.red);
 
     //}
+
+
+
 }
