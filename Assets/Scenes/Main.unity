@@ -494,6 +494,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minZoom: 2
   maxZoom: 50
+  zoomSens: 1
+  mouseZoomSens: 1
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,6 +945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: City (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: name
+      value: Cornwall
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -999,6 +1005,10 @@ PrefabInstance:
     - target: {fileID: 2445437245721363110, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_Name
       value: City (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: name
+      value: Ottawa
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -1483,7 +1493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2094406656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1520,6 +1530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCity: {fileID: 0}
+  cityName: {fileID: 1417922792}
 --- !u!114 &2094406658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1568,6 +1579,10 @@ PrefabInstance:
     - target: {fileID: 2445437245721363110, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_Name
       value: City
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: name
+      value: Kingston
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
