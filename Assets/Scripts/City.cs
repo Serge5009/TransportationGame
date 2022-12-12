@@ -37,6 +37,7 @@ public class City : MonoBehaviour
         {
             timer = Random.Range(5.0f, 10.0f);                
 
+            /*
             GameObject car = Instantiate(carPrefab, transform.position, Quaternion.identity);
             Car carScript = car.GetComponent<Car>();
             carScript.homeCity = this.gameObject;
@@ -52,7 +53,7 @@ public class City : MonoBehaviour
                 }
             }
 
-            car.transform.SetParent(transform.parent);   //  Car should be on the canvas
+            car.transform.SetParent(transform.parent);   //  Car should be on the canvas*/
         }
 
         tickTimer += Time.deltaTime;

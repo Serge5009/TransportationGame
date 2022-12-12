@@ -44,14 +44,6 @@ public class Car : MonoBehaviour
 
         transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
 
-        if (Vector3.Distance(transform.position, path[nextNode].transform.position) <= interactDistance)     //  If within range with with the next node will swith to the next one
-        {
-            if (isMovingTo)
-                nextNode++;
-            else
-                nextNode--;
-        }
-
 
         if (Vector3.Distance(transform.position, homeCity.transform.position) <= interactDistance )     //  If within range with home city will try to load more
         {
@@ -68,7 +60,17 @@ public class Car : MonoBehaviour
             isMovingTo = false;
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().money += load; //  TO DO: change to singleton , make money logic more ineresting
         }
-            
+
+
+        if (Vector3.Distance(transform.position, path[nextNode].transform.position) <= interactDistance)     //  If within range with with the next node will swith to the next one
+        {
+            if (isMovingTo)
+                nextNode++;
+            else
+                nextNode--;
+        }
+
+
         //counter.text = load.ToString();
     }
 }

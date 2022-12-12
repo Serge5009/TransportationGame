@@ -1172,6 +1172,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3714011775833860874, guid: e3896c2d733b07c43ae3356bdd050098, type: 3}
+      propertyPath: interactDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714011775833860874, guid: e3896c2d733b07c43ae3356bdd050098, type: 3}
       propertyPath: path.Array.data[0]
       value: 
       objectReference: {fileID: 1351015134}
@@ -1400,7 +1404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7433126467894582849, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7433126467894582849, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2022,6 +2026,10 @@ PrefabInstance:
       propertyPath: name
       value: Toronto
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: isOwned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -2098,6 +2106,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Belleville
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: isOwned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -2938,7 +2950,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1613518072
 MonoBehaviour:
