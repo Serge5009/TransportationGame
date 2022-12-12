@@ -27,7 +27,9 @@ public class RoadLine : MonoBehaviour
         float newY = (ends[0].transform.position.y + ends[1].transform.position.y) / 2;
         transform.position = new Vector2(newX, newY);
 
-
+        //  Making the road face it's nodes
+        transform.LookAt(ends[0].transform.position);
+        transform.Rotate(0.0f, 90.0f, 90.0f);
     }
 
 }
