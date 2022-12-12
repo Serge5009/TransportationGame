@@ -1,5 +1,5 @@
-//using System.Collections;
-//using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.UI;
 using TMPro;
@@ -15,11 +15,21 @@ public class Car : MonoBehaviour
 
     [SerializeField] float interactDistance = 25.0f;
 
-    TextMeshProUGUI counter;
+    public List<RoadNode> path;
+    int nextNode;
+    bool isMovingTo = true;
 
     void Start()
     {
-        //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (path[0] != homeCity)
+            Debug.LogWarning("Path should start with a home city");
+
+        if (path[path.Count] != destination)
+        {
+            Debug.LogWarning("Path should end with a destination");
+            path.Add(destination.GetComponent<RoadNode>());
+        }
+        nextNode = 0;
     }
 
     void Update()
@@ -32,10 +42,20 @@ public class Car : MonoBehaviour
         if (!destination)
             Debug.LogError("No destination found");
 
-        transform.position += (destination.transform.position - transform.position).normalized * speed * Time.deltaTime;
+        transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
+
+        if (Vector3.Distance(transform.position, path[nextNode].transform.position) <= interactDistance)     //  If within range with with the next node will swith to the next one
+        {
+            if (isMovingTo)
+                nextNode++;
+            else
+                nextNode--;
+        }
+
 
         if (Vector3.Distance(transform.position, homeCity.transform.position) <= interactDistance )     //  If within range with home city will try to load more
         {
+            isMovingTo = true;
             while (load < capacity && homeCity.GetComponent<City>().passengers > 0)
             {
                 load++;
@@ -45,9 +65,8 @@ public class Car : MonoBehaviour
 
         if (Vector3.Distance(transform.position, destination.transform.position) <= interactDistance)     //  If within range with destination will try to unload
         {
+            isMovingTo = false;
             GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().money += load; //  TO DO: change to singleton , make money logic more ineresting
-
-            Destroy(gameObject);
         }
             
         //counter.text = load.ToString();
