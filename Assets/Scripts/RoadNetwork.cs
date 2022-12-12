@@ -40,8 +40,10 @@ public class RoadNetwork : MonoBehaviour
 
             if (similarNodes == 2)
             {
+                roads.Remove(toCheck);
                 Destroy(toCheck.gameObject);
                 Debug.Log("Duplicate road was destroyed");
+                return;
             }
             else if (similarNodes > 2)
                 Debug.LogError("What the...?");
