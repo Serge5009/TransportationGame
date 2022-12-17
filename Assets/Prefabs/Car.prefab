@@ -99,7 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   homeCity: {fileID: 0}
   destination: {fileID: 0}
-  speed: 5
+  speed: 2
   capacity: 10
   load: 0
-  interactDistance: 1
+  interactDistance: 0.1
+  path: []

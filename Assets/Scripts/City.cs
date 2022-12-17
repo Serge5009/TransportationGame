@@ -37,6 +37,7 @@ public class City : MonoBehaviour
         {
             timer = Random.Range(5.0f, 10.0f);                
 
+            /*
             GameObject car = Instantiate(carPrefab, transform.position, Quaternion.identity);
             Car carScript = car.GetComponent<Car>();
             carScript.homeCity = this.gameObject;
@@ -52,7 +53,7 @@ public class City : MonoBehaviour
                 }
             }
 
-            car.transform.SetParent(transform.parent);   //  Car should be on the canvas
+            car.transform.SetParent(transform.parent);   //  Car should be on the canvas*/
         }
 
         tickTimer += Time.deltaTime;
@@ -71,7 +72,8 @@ public class City : MonoBehaviour
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if(Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
             {
-                GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().SelectCity(this);   //  TO DO: change to singleton
+                GameManager.gm.SelectCity(this);
+
                 //TO DO: add sound effects
             }
         }
@@ -87,12 +89,11 @@ public class City : MonoBehaviour
 
     public void BuyCity()
     {
-        GameManager gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();   //  TO DO: change to singleton
-        if(gm.money >= price && !isOwned)
+        if(GameManager.gm.money >= price && !isOwned)
         {
-            gm.money -= price;
+            GameManager.gm.money -= price;
             isOwned = true;
-            gm.DeselectCity();
+            GameManager.gm.DeselectCity();
         }
     }
 }
