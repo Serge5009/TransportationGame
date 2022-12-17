@@ -51,14 +51,14 @@ public class Car : MonoBehaviour
             while (load < capacity && homeCity.GetComponent<City>().passengers > 0)
             {
                 load++;
-                homeCity.GetComponent<City>().passengers--;
+                homeCity.GetComponent<City>().passengers--; //  TO DO: this seems like it doesn't work
             }
         }
 
         if (Vector3.Distance(transform.position, destination.transform.position) <= interactDistance)     //  If within range with destination will try to unload
         {
             isMovingTo = false;
-            GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().money += load; //  TO DO: change to singleton , make money logic more ineresting
+            GameManager.gm.money += load; //  TO DO: make money logic more ineresting
         }
 
 

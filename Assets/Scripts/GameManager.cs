@@ -6,12 +6,22 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gm { get; private set; }
+
     [SerializeField] TextMeshProUGUI moneyText;
     public City selectedCity;
     [SerializeField] GameObject cityMenuUI;
     List<City> cities;
 
     public int money = 1000;
+
+    void Awake()
+    {
+        if (gm != null && gm != this)
+            Destroy(this);
+        else
+            gm = this;
+    }
 
     void Start()
     {

@@ -15,7 +15,7 @@ public class CityMenu : MonoBehaviour
 
     void OnEnable()
     {
-        selectedCity = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().selectedCity;    //  TO DO: change to singleton
+        selectedCity = GameManager.gm.selectedCity;
         if (!selectedCity)
         {
             Debug.LogError("CityMenu couldn't find a selectedCity");
@@ -33,7 +33,7 @@ public class CityMenu : MonoBehaviour
 
     public void Close()
     {
-        GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>().DeselectCity();    //  TO DO: change to singleton
+        GameManager.gm.DeselectCity();
         // TO DO: Add sound effects
     }
 }
