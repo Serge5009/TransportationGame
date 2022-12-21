@@ -4,6 +4,7 @@ public class CameraController : MonoBehaviour
 {
     Vector3 touchStart;
     Vector3 touchStartLocal;
+    Vector3 screenTouchPosition;
     [SerializeField] float minZoom = 2.0f;
     [SerializeField] float maxZoom = 50.0f;
 
@@ -22,7 +23,7 @@ public class CameraController : MonoBehaviour
         //Debug.Log(Input.mousePosition);
 
         //  TO DO: Try to make touch controls smooth
-        Vector3 screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // https://www.youtube.com/watch?v=K_aAnBn5khA
         if (Input.GetMouseButtonDown(0))    //  Remember the tocuh position every time player touches the screen
         {
@@ -65,7 +66,14 @@ public class CameraController : MonoBehaviour
 
     void Click()
     {
-        Debug.Log("Click! ");
+        float edgeRadiusIgnore = 70.0f; //  This is done in order to ignore click while interacting with the UI
+        if (Input.mousePosition.x <= edgeRadiusIgnore || Input.mousePosition.y <= edgeRadiusIgnore || Input.mousePosition.x >= Screen.width - edgeRadiusIgnore || Input.mousePosition.y >= Screen.height - edgeRadiusIgnore)
+            return;
+
+        if(GameManager.gm.gState == GAME_STATE.BUILD)
+        {
+            GameManager.gm.AddRoadNode(screenTouchPosition);
+        }
     }
 
     void Zoom(float amount)
