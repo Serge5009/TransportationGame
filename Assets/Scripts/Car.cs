@@ -71,6 +71,10 @@ public class Car : MonoBehaviour
         }
 
 
+        //  Making the car face it's direction
+        transform.LookAt(path[nextNode].transform.position);
+        transform.Rotate(0.0f, 90.0f, 90.0f);
+
         //counter.text = load.ToString();
     }
 }
