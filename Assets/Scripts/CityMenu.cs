@@ -36,4 +36,10 @@ public class CityMenu : MonoBehaviour
         GameManager.gm.DeselectCity();
         // TO DO: Add sound effects
     }
+
+    public void ConnectThis()
+    {
+        RoadNode node = selectedCity.gameObject.GetComponent<RoadNode>();
+        node.ConnectFromThis();
+    }
 }

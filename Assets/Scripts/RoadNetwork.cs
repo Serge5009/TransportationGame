@@ -2,11 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//  ! SINGLETON !
 //  This script must be attached to ONE object that contains the information about all roads and nodes
 public class RoadNetwork : MonoBehaviour
 {
+    public static RoadNetwork rn { get; private set; }
+
     public List<RoadNode> nodes;
     public List<RoadLine> roads;
+
+    public RoadNode activeForConnection = null;
+
+    void Awake()
+    {
+        if (rn != null && rn != this)
+            Destroy(this);
+        else
+            rn = this;
+    }
 
     void Start()
     {

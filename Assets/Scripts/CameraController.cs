@@ -3,11 +3,15 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     Vector3 touchStart;
-    [SerializeField] float minZoom = 2;
-    [SerializeField] float maxZoom = 50;
+    Vector3 touchStartLocal;
+    Vector3 screenTouchPosition;
+    [SerializeField] float minZoom = 2.0f;
+    [SerializeField] float maxZoom = 50.0f;
 
-    [SerializeField] float zoomSens = 1;
-    [SerializeField] float mouseZoomSens = 1;
+    [SerializeField] float zoomSens = 1.0f;
+    [SerializeField] float mouseZoomSens = 1.0f;
+
+    [SerializeField] float clickRadius = 10.0f;
     private void Start()
     {
         zoomSens *= 0.01f;  //  Some default ajustments
@@ -16,12 +20,15 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(Input.mousePosition);
+
         //  TO DO: Try to make touch controls smooth
-        Vector3 screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        screenTouchPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // https://www.youtube.com/watch?v=K_aAnBn5khA
         if (Input.GetMouseButtonDown(0))    //  Remember the tocuh position every time player touches the screen
         {
             touchStart = screenTouchPosition;
+            touchStartLocal = Input.mousePosition;
         }
         if (Input.touchCount == 2)
         {
@@ -44,11 +51,30 @@ public class CameraController : MonoBehaviour
             Camera.main.transform.position += camMoveDirection;
         }
 
+        if (Input.GetMouseButtonUp(0))
+        {
+            Vector3 touchEndLocal = Input.mousePosition;
+
+            if (Vector3.Distance(touchStartLocal, touchEndLocal) <= clickRadius)
+                Click();
+        }
+
         //  TO DO: Add keyboard input
 
         Zoom(Input.GetAxis("Mouse ScrollWheel") * mouseZoomSens);
     }
 
+    void Click()
+    {
+        float edgeRadiusIgnore = 70.0f; //  This is done in order to ignore click while interacting with the UI
+        if (Input.mousePosition.x <= edgeRadiusIgnore || Input.mousePosition.y <= edgeRadiusIgnore || Input.mousePosition.x >= Screen.width - edgeRadiusIgnore || Input.mousePosition.y >= Screen.height - edgeRadiusIgnore)
+            return;
+
+        if(GameManager.gm.gState == GAME_STATE.BUILD)
+        {
+            GameManager.gm.AddRoadNode(screenTouchPosition);
+        }
+    }
 
     void Zoom(float amount)
     {

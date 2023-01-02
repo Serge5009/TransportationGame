@@ -70,7 +70,7 @@ public class City : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            if(Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
+            if(Vector2.Distance(transform.position, clickPos) <= 1 && GameManager.gm.gState == GAME_STATE.PLAY)     //  TO DO: new selection logic might be needed later
             {
                 GameManager.gm.SelectCity(this);
 
