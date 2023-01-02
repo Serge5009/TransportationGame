@@ -62,28 +62,34 @@ public class RoadNode : MonoBehaviour
             {
                 if (rNet.activeForConnection)    //  If first node for connection is selected
                 {
-                    AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
-                    //  TO DO: add cost
-                    rNet.activeForConnection = null;
-                    GameManager.gm.DeselectCity();  //  Remove city selection
-                    GameManager.gm.gState = GAME_STATE.PLAY;
-
+                    ConnectToThis();
                 }
                 else                            //  If not in connection mode
                 {
                     if (gameObject.GetComponent<City>() != null)    //  If this node is a city
                         return;                                     //  Don't select
-
-                    rNet.activeForConnection = this;                //  Else - start connecting
-                    GameManager.gm.gState = GAME_STATE.CONNECT;
-
+                    ConnectFromThis();                              //  Else - start connecting
                 }
-
                 //TO DO: add sound effects
             }
-        }   //  TO DO: make it more readable
-
-
+        }
 
     }
+
+    public void ConnectFromThis()   //  Starts connect mode and selects this node
+    {                                   
+        rNet.activeForConnection = this;                
+        GameManager.gm.gState = GAME_STATE.CONNECT;
+        GameManager.gm.DeselectCity();  //  Remove city selection
+    }
+
+    void ConnectToThis()            //  Final step of connection between actibe node and this
+    {
+        AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+                                                    //  TO DO: add cost
+        rNet.activeForConnection = null;
+        GameManager.gm.DeselectCity();  //  Remove city selection
+        GameManager.gm.gState = GAME_STATE.PLAY;
+    }
+
 }
