@@ -11,6 +11,8 @@ public class RoadNetwork : MonoBehaviour
     public List<RoadNode> nodes;
     public List<RoadLine> roads;
 
+    public RoadNode activeForConnection = null;
+
     void Awake()
     {
         if (rn != null && rn != this)

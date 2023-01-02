@@ -53,6 +53,27 @@ public class RoadNode : MonoBehaviour
 
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))    //  Click monitor   //  TO DO: move all controls to camera controller
+        {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
+            {
+                if (rNet.activeForConnection)    //  If first node for connection is selected
+                {
+                    AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+                    //  TO DO: add cost
+                    rNet.activeForConnection = null;
+                    GameManager.gm.gState = GAME_STATE.PLAY;
+                }
+                else                            //  If not in connection mode
+                {
+                    rNet.activeForConnection = this;
+                    GameManager.gm.gState = GAME_STATE.CONNECT;
+
+                }
+
+                //TO DO: add sound effects
+            }
+        }
     }
 }
