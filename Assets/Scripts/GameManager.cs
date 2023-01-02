@@ -4,6 +4,8 @@ using UnityEngine;
 //using UnityEngine.UI;
 using TMPro;
 
+//  ! SINGLETON !
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager gm { get; private set; }
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
 
         //  Add all existing cities to the list
-        cities = new List<City>();          
+        cities = new List<City>();
         List<GameObject> CityObjs = new List<GameObject>();
         CityObjs.AddRange(GameObject.FindGameObjectsWithTag("City"));
         foreach (GameObject o in CityObjs)
@@ -106,6 +108,11 @@ public class GameManager : MonoBehaviour
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
     }
+
+    public void ConnectRoadNodes()
+    {
+
+    }
 }
 
 public enum GAME_STATE
@@ -113,6 +120,7 @@ public enum GAME_STATE
     PLAY,
     PAUSE,
     BUILD,
+    CONNECT,
     SLOW,
     FAST,
 

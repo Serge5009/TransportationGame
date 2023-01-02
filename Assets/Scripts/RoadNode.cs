@@ -13,7 +13,7 @@ public class RoadNode : MonoBehaviour
 
     void Start()
     {
-        rNet = GameObject.FindGameObjectWithTag("RoadNetwork").GetComponent<RoadNetwork>();
+        rNet = RoadNetwork.rn;
 
         if (!roadPrefab)
             Debug.LogError("No roadPrefab attached");
@@ -22,23 +22,33 @@ public class RoadNode : MonoBehaviour
 
         foreach (RoadNode n in connections) //  Loop thru all connected nodes and make sure that they're aware about the connection
         {
-            bool isThisInConnections = false;
-            foreach (RoadNode i in n.connections)
-            {
-                if (i == this)
-                    isThisInConnections = true;
-            }
-            if (!isThisInConnections)
-                n.connections.Add(this);
-
-            //  Spawn a road between nodes
-            GameObject newRoad = Instantiate(roadPrefab, transform.position, Quaternion.identity);
-            RoadLine roadScript = newRoad.GetComponent<RoadLine>();
-            roadScript.ends.Add(this);
-            roadScript.ends.Add(n);
+            AddConnection(n);
         }
 
         rNet.nodes.Add(this);
+    }
+
+    public void AddConnection(RoadNode other)
+    {
+        if(!connections.Contains(other))    //  If this node doesn't list other in connections - add
+        {
+            connections.Add(other);
+        }
+
+        bool isThisInConnections = false;   //  If other node doesn't list this in connections - add
+        foreach (RoadNode i in other.connections)
+        {
+            if (i == this)
+                isThisInConnections = true;
+        }
+        if (!isThisInConnections)
+            other.connections.Add(this);
+
+        //  Spawn a road between nodes
+        GameObject newRoad = Instantiate(roadPrefab, transform.position, Quaternion.identity);
+        RoadLine roadScript = newRoad.GetComponent<RoadLine>();
+        roadScript.ends.Add(this);
+        roadScript.ends.Add(other);
     }
 
     void Update()
