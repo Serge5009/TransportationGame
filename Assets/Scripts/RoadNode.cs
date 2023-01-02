@@ -67,7 +67,10 @@ public class RoadNode : MonoBehaviour
                 }
                 else                            //  If not in connection mode
                 {
-                    rNet.activeForConnection = this;
+                    if (gameObject.GetComponent<City>() != null)    //  If this node is a city
+                        return;                                     //  Don't select
+
+                    rNet.activeForConnection = this;                //  Else - start connecting
                     GameManager.gm.gState = GAME_STATE.CONNECT;
 
                 }

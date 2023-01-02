@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI moneyText;
     [SerializeField] GameObject UIBuildEffect;
+    [SerializeField] GameObject UIConnectEffect;
     public City selectedCity;
     [SerializeField] GameObject cityMenuUI;
     List<City> cities;
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
+        if (!UIConnectEffect)
+            Debug.LogError("No UIConnectEffect assigned to the GameManager");
 
         //  Add all existing cities to the list
         cities = new List<City>();
@@ -68,6 +71,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("FSM Error!");
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);    //  If in build mode - will show UI effect
+        UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  If in connect mode - will show UI effect
     }
 
     public void SelectCity(City newSelected)
