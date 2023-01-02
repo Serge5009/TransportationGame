@@ -53,6 +53,8 @@ public class RoadNode : MonoBehaviour
 
     void Update()
     {
+
+        //  Connections:
         if (Input.GetMouseButtonDown(0))    //  Click monitor   //  TO DO: move all controls to camera controller
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -63,7 +65,9 @@ public class RoadNode : MonoBehaviour
                     AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
                     //  TO DO: add cost
                     rNet.activeForConnection = null;
+                    GameManager.gm.DeselectCity();  //  Remove city selection
                     GameManager.gm.gState = GAME_STATE.PLAY;
+
                 }
                 else                            //  If not in connection mode
                 {
@@ -77,6 +81,9 @@ public class RoadNode : MonoBehaviour
 
                 //TO DO: add sound effects
             }
-        }
+        }   //  TO DO: make it more readable
+
+
+
     }
 }
