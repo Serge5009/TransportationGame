@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     List<City> cities;
     [SerializeField] GameObject roadNodePrefab;
 
+    //  Gameplay settings
+    public float roadNodeCost = 50.0f;
 
-    public int money = 1000;
+
+    public float money = 1000.0f;
 
     public GAME_STATE gState;   //  Sorta FSM for the game
 
@@ -94,6 +97,12 @@ public class GameManager : MonoBehaviour
 
     public void AddRoadNode(Vector2 placement)
     {
+        if(money < roadNodeCost)
+        {
+            //  TO DO: Show an error message
+            return;
+        }
+        money -= roadNodeCost;
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
     }
