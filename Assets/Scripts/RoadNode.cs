@@ -92,8 +92,16 @@ public class RoadNode : MonoBehaviour
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
-        AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
-                                                    //  TO DO: add cost
+        if(Vector2.Distance(transform.position, rNet.activeForConnection.transform.position) <= rNet.maxRoadLenght) //  If distance is fine
+        {
+            AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+        }
+        else
+        {
+            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");
+        }
+
+        //  TO DO: add cost
         rNet.activeForConnection = null;
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.PLAY;

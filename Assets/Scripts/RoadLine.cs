@@ -10,20 +10,25 @@ public class RoadLine : MonoBehaviour
 
     public List<RoadNode> ends;
 
+    public float roadLenght;
+
     void Start()
     {
-        if (ends.Count != 2)
+        rNet = RoadNetwork.rn;              //  Saving a refereence to the RoadNetwork singletone
+        rNet.roads.Add(this);               //  Adding this rode to a list
+        rNet.RoadDuplicateCheck(this);      //  Removing duplicating roads
+        transform.parent = rNet.transform;  //  Setting this road as a child of RoadNetwork
+
+        if (ends.Count != 2)                //  Another useless check
         {
             Debug.LogError("This road got an unusual number of ends -_- ");
             GameManager.gm.PopUp("ERROR! Something happened to one of your roads -_-");
             Destroy(gameObject);
         }
 
-        rNet = RoadNetwork.rn;
-        rNet.roads.Add(this);
-        rNet.RoadDuplicateCheck(this);
-        transform.parent = rNet.transform;
-
+        roadLenght = Vector2.Distance(ends[0].transform.position, ends[1].transform.position);  //  Checking the length
+        if (roadLenght > rNet.maxRoadLenght)
+            Debug.LogWarning("There's a long road!");
 
         float newX = (ends[0].transform.position.x + ends[1].transform.position.x) / 2;
         float newY = (ends[0].transform.position.y + ends[1].transform.position.y) / 2;
