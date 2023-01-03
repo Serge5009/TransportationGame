@@ -15,6 +15,7 @@ public class RoadLine : MonoBehaviour
         if (ends.Count != 2)
         {
             Debug.LogError("This road got an unusual number of ends -_- ");
+            GameManager.gm.PopUp("ERROR! Something happened to one of your roads -_-");
             Destroy(gameObject);
         }
 

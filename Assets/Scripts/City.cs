@@ -89,11 +89,15 @@ public class City : MonoBehaviour
 
     public void BuyCity()
     {
-        if(GameManager.gm.money >= price && !isOwned)
+        if (GameManager.gm.money >= price && !isOwned)
         {
             GameManager.gm.money -= price;
             isOwned = true;
             GameManager.gm.DeselectCity();
         }
+        else if (isOwned)
+            GameManager.gm.PopUp("This city is already owned");
+        else if (GameManager.gm.money < price)
+            GameManager.gm.PopUp("Not enough money");
     }
 }

@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
 
         gState = GAME_STATE.PLAY;
 
-        PopUp("Hello world!");
+        //PopUp("Hello world!");
     }
 
     void Update()
