@@ -30,7 +30,13 @@ public class RoadNode : MonoBehaviour
 
     public void AddConnection(RoadNode other)
     {
-        if(!connections.Contains(other))    //  If this node doesn't list other in connections - add
+        if(other == this)
+        {
+            GameManager.gm.PopUp("You can't connect this node to itself!");
+            return;
+        }
+
+        if (!connections.Contains(other))    //  If this node doesn't list other in connections - add
         {
             connections.Add(other);
         }
