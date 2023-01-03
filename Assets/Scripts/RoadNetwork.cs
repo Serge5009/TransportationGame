@@ -13,6 +13,8 @@ public class RoadNetwork : MonoBehaviour
 
     public RoadNode activeForConnection = null;
 
+    public float maxRoadLenght = 5.0f;
+
     void Awake()
     {
         if (rn != null && rn != this)

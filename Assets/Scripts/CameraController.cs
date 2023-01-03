@@ -20,6 +20,9 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.gm.gState == GAME_STATE.INMENU) //  If there's a menu open - will ignore camera controlls
+            return;
+
         //Debug.Log(Input.mousePosition);
 
         //  TO DO: Try to make touch controls smooth
@@ -67,6 +70,7 @@ public class CameraController : MonoBehaviour
     void Click()
     {
         float edgeRadiusIgnore = 70.0f; //  This is done in order to ignore click while interacting with the UI
+        
         if (Input.mousePosition.x <= edgeRadiusIgnore || Input.mousePosition.y <= edgeRadiusIgnore || Input.mousePosition.x >= Screen.width - edgeRadiusIgnore || Input.mousePosition.y >= Screen.height - edgeRadiusIgnore)
             return;
 

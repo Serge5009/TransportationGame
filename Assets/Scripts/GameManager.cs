@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyText;
     [SerializeField] GameObject UIBuildEffect;
     [SerializeField] GameObject UIConnectEffect;
+    [SerializeField] GameObject UIPopUp;
     public City selectedCity;
     [SerializeField] GameObject cityMenuUI;
     List<City> cities;
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
         if (!UIConnectEffect)
             Debug.LogError("No UIConnectEffect assigned to the GameManager");
+        if (!UIPopUp)
+            Debug.LogError("No UIPopUp assigned to the GameManager");
 
         //  Add all existing cities to the list
         cities = new List<City>();
@@ -59,6 +62,8 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("GM couldn't find any cities!");
 
         gState = GAME_STATE.PLAY;
+
+        //PopUp("Hello world!");
     }
 
     void Update()
@@ -87,6 +92,8 @@ public class GameManager : MonoBehaviour
 
         cityMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
         cityMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+
+        gState = GAME_STATE.INMENU;
     }
 
     public void DeselectCity()
@@ -94,6 +101,8 @@ public class GameManager : MonoBehaviour
         selectedCity = null;
         foreach (City c in cities)
             c.isSelected = false;
+
+        gState = GAME_STATE.PLAY;
     }
 
     public void BuildingMode()
@@ -113,20 +122,21 @@ public class GameManager : MonoBehaviour
         gState = GAME_STATE.PLAY;
     }
 
-    public void ConnectRoadNodes()
+    public void PopUp(string content)
     {
-
+        Debug.Log("Spawned a PopUp with a following message:\n" + content);
+        UIPopUp.SetActive(true);
+        TextMeshProUGUI popupText = UIPopUp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        popupText.text = content;
     }
 }
 
 public enum GAME_STATE
 {
     PLAY,
-    PAUSE,
     BUILD,
     CONNECT,
-    SLOW,
-    FAST,
+    INMENU,
 
     NUM_GAME_STATE
 }

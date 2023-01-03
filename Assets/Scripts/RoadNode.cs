@@ -30,7 +30,13 @@ public class RoadNode : MonoBehaviour
 
     public void AddConnection(RoadNode other)
     {
-        if(!connections.Contains(other))    //  If this node doesn't list other in connections - add
+        if(other == this)
+        {
+            GameManager.gm.PopUp("You can't connect this node to itself!");
+            return;
+        }
+
+        if (!connections.Contains(other))    //  If this node doesn't list other in connections - add
         {
             connections.Add(other);
         }
@@ -55,7 +61,7 @@ public class RoadNode : MonoBehaviour
     {
 
         //  Connections:
-        if (Input.GetMouseButtonDown(0))    //  Click monitor   //  TO DO: move all controls to camera controller
+        if (Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.PLAY || Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.CONNECT)    //  Click monitor   //  TO DO: move all controls to camera controller
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
@@ -79,14 +85,23 @@ public class RoadNode : MonoBehaviour
     public void ConnectFromThis()   //  Starts connect mode and selects this node
     {                                   
         rNet.activeForConnection = this;                
-        GameManager.gm.gState = GAME_STATE.CONNECT;
         GameManager.gm.DeselectCity();  //  Remove city selection
+        GameManager.gm.gState = GAME_STATE.CONNECT;
+
     }
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
-        AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
-                                                    //  TO DO: add cost
+        if(Vector2.Distance(transform.position, rNet.activeForConnection.transform.position) <= rNet.maxRoadLenght) //  If distance is fine
+        {
+            AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+        }
+        else
+        {
+            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");
+        }
+
+        //  TO DO: add cost
         rNet.activeForConnection = null;
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.PLAY;
