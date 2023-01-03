@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour
 
         cityMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
         cityMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+
+        gState = GAME_STATE.INMENU;
     }
 
     public void DeselectCity()
@@ -99,6 +101,8 @@ public class GameManager : MonoBehaviour
         selectedCity = null;
         foreach (City c in cities)
             c.isSelected = false;
+
+        gState = GAME_STATE.PLAY;
     }
 
     public void BuildingMode()
@@ -130,11 +134,9 @@ public class GameManager : MonoBehaviour
 public enum GAME_STATE
 {
     PLAY,
-    PAUSE,
     BUILD,
     CONNECT,
-    SLOW,
-    FAST,
+    INMENU,
 
     NUM_GAME_STATE
 }

@@ -61,7 +61,7 @@ public class RoadNode : MonoBehaviour
     {
 
         //  Connections:
-        if (Input.GetMouseButtonDown(0))    //  Click monitor   //  TO DO: move all controls to camera controller
+        if (Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.PLAY || Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.CONNECT)    //  Click monitor   //  TO DO: move all controls to camera controller
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
@@ -85,8 +85,9 @@ public class RoadNode : MonoBehaviour
     public void ConnectFromThis()   //  Starts connect mode and selects this node
     {                                   
         rNet.activeForConnection = this;                
-        GameManager.gm.gState = GAME_STATE.CONNECT;
         GameManager.gm.DeselectCity();  //  Remove city selection
+        GameManager.gm.gState = GAME_STATE.CONNECT;
+
     }
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
