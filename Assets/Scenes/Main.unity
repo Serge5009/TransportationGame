@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1726606
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3664,6 +3664,7 @@ MonoBehaviour:
   moneyText: {fileID: 800928499}
   UIBuildEffect: {fileID: 1415096134}
   UIConnectEffect: {fileID: 613820529}
+  UIPopUp: {fileID: 1726605}
   selectedCity: {fileID: 0}
   cityMenuUI: {fileID: 2094406655}
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyText;
     [SerializeField] GameObject UIBuildEffect;
     [SerializeField] GameObject UIConnectEffect;
+    [SerializeField] GameObject UIPopUp;
     public City selectedCity;
     [SerializeField] GameObject cityMenuUI;
     List<City> cities;
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
         if (!UIConnectEffect)
             Debug.LogError("No UIConnectEffect assigned to the GameManager");
+        if (!UIPopUp)
+            Debug.LogError("No UIPopUp assigned to the GameManager");
 
         //  Add all existing cities to the list
         cities = new List<City>();
@@ -59,6 +62,8 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("GM couldn't find any cities!");
 
         gState = GAME_STATE.PLAY;
+
+        PopUp("Hello world!");
     }
 
     void Update()
@@ -113,9 +118,12 @@ public class GameManager : MonoBehaviour
         gState = GAME_STATE.PLAY;
     }
 
-    public void ConnectRoadNodes()
+    public void PopUp(string content)
     {
-
+        Debug.Log("Spawned a PopUp with a following message:\n" + content);
+        UIPopUp.SetActive(true);
+        TextMeshProUGUI popupText = UIPopUp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        popupText.text = content;
     }
 }
 
