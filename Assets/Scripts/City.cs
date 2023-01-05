@@ -8,8 +8,13 @@ public class City : MonoBehaviour
 {
     public string name;
 
-    [SerializeField] bool isOwned = false;
-    [SerializeField] int price = 100;
+    public int population = 0;
+
+    [SerializeField] bool isOwned = false;      //  If true - player can buy vehicles and start routes in this city
+    [SerializeField] bool isAccessed = false;   //  If true - player's routs passing thru this city will bring profit
+
+    float priceToOwn = 100000;
+    float priceToAccess = 100000;
     public int passengers = 0;
 
     [SerializeField] GameObject carPrefab;
@@ -23,12 +28,13 @@ public class City : MonoBehaviour
             Debug.LogError("No carPrefab added");
         if (!(name.Length > 3))
             Debug.LogError("No name added to the city or the name is too short");
+        if (population <= 0)
+            Debug.LogWarning("There's a city with no people");
 
         //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-
     }
 
-    float timer = 3.0f;
+    float timer = 0.01f;
     float tickTimer = 0.0f;
     void Update()
     {
@@ -81,6 +87,9 @@ public class City : MonoBehaviour
 
     void Tick()
     {
+        priceToOwn = population / 100;
+        priceToAccess = population / 10000;
+
         if (Random.Range(0.0f, 1.0f) < 0.5f && isOwned)    //  Random passenger increase
         {
             passengers += Random.Range(1, 3);
@@ -89,15 +98,15 @@ public class City : MonoBehaviour
 
     public void BuyCity()
     {
-        if (GameManager.gm.money >= price && !isOwned)
+        if (GameManager.gm.money >= priceToOwn && !isOwned)
         {
-            GameManager.gm.money -= price;
+            GameManager.gm.money -= priceToOwn;
             isOwned = true;
             GameManager.gm.DeselectCity();
         }
         else if (isOwned)
             GameManager.gm.PopUp("This city is already owned");
-        else if (GameManager.gm.money < price)
+        else if (GameManager.gm.money < priceToOwn)
             GameManager.gm.PopUp("Not enough money");
     }
 }

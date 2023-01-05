@@ -272,6 +272,10 @@ PrefabInstance:
       propertyPath: name
       value: Rimouski
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -337,6 +341,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Fredericton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -585,6 +593,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Timmins
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -836,6 +848,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Montreal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -1109,6 +1125,10 @@ PrefabInstance:
       propertyPath: name
       value: Shawinigan
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -1174,6 +1194,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Mont-Laurier
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -1510,6 +1534,10 @@ PrefabInstance:
       propertyPath: name
       value: Saint John
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -1695,6 +1723,10 @@ PrefabInstance:
       propertyPath: name
       value: Gaspe
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -1760,6 +1792,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Orillia
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -1997,6 +2033,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Moncton
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -2367,6 +2407,10 @@ PrefabInstance:
       propertyPath: name
       value: St. John's
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -2432,6 +2476,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Saguenay
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -2571,6 +2619,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Prince Edward Island
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -2780,6 +2832,10 @@ PrefabInstance:
       propertyPath: name
       value: Halifax
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 24
@@ -2849,6 +2905,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: isOwned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -2930,6 +2990,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: isOwned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -3359,6 +3423,10 @@ PrefabInstance:
       propertyPath: name
       value: Quebec
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -3424,6 +3492,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Peterborouhg
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -3513,6 +3585,10 @@ PrefabInstance:
       propertyPath: name
       value: Cornwall
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -3578,6 +3654,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Ottawa
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -3779,6 +3859,10 @@ PrefabInstance:
       propertyPath: name
       value: Trois-Rivieres
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3845,6 +3929,10 @@ PrefabInstance:
       propertyPath: name
       value: London
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3910,6 +3998,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Parry Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -4030,6 +4122,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Sherbrooke
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -4253,6 +4349,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Moosonee
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -5000,6 +5100,10 @@ PrefabInstance:
       propertyPath: name
       value: Niagara Falls
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -5076,6 +5180,10 @@ PrefabInstance:
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: name
       value: Kingston
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: population
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
