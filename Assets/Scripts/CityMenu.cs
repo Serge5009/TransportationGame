@@ -46,9 +46,20 @@ public class CityMenu : MonoBehaviour
         }
     }
 
-    public void Buy()
+    public void OnHubButtonClick()
     {
-        selectedCity.BuyCity();
+        if (!selectedCity.isAccessed)
+        {
+            selectedCity.BuyCityAccess();
+        }
+        else if (!selectedCity.isOwned)
+        {
+            selectedCity.BuyCityHub();
+        }
+        else
+        {
+            GameManager.gm.PopUp("Not implemented!");
+        }
         // TO DO: Add sound effects
     }
 

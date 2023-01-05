@@ -1644,7 +1644,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2094406657}
         m_TargetAssemblyTypeName: CityMenu, Assembly-CSharp
-        m_MethodName: Buy
+        m_MethodName: OnHubButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4452,7 +4452,7 @@ MonoBehaviour:
   cityMenuUI: {fileID: 2094406655}
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   roadNodeCost: 50
-  money: 1000
+  money: 5000
   gState: 0
 --- !u!1001 &1656532091
 PrefabInstance:
@@ -5386,7 +5386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2094406656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5427,7 +5427,8 @@ MonoBehaviour:
   selectedCity: {fileID: 0}
   cityName: {fileID: 1417922792}
   population: {fileID: 674436329}
-  hubText: {fileID: 0}
+  hubText: {fileID: 1746573628}
+  hubButtonText: {fileID: 414306817}
 --- !u!114 &2094406658
 MonoBehaviour:
   m_ObjectHideFlags: 0

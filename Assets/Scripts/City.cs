@@ -96,17 +96,31 @@ public class City : MonoBehaviour
         }
     }
 
-    public void BuyCity()
+    public void BuyCityHub()
     {
-        if (GameManager.gm.money >= priceToOwn && !isOwned)
+        if (GameManager.gm.money >= priceToOwn)
         {
             GameManager.gm.money -= priceToOwn;
             isOwned = true;
-            GameManager.gm.DeselectCity();
+            isAccessed = true;
+            GameManager.gm.DeselectCity();  
         }
         else if (isOwned)
-            GameManager.gm.PopUp("This city is already owned");
+            GameManager.gm.PopUp("This city is already accessed");
         else if (GameManager.gm.money < priceToOwn)
+            GameManager.gm.PopUp("Not enough money");
+    }
+    public void BuyCityAccess()
+    {
+        if (GameManager.gm.money >= priceToAccess)
+        {
+            GameManager.gm.money -= priceToAccess;
+            isAccessed = true;
+            GameManager.gm.DeselectCity();
+        }
+        else if (isAccessed)
+            GameManager.gm.PopUp("This city is already owned");
+        else if (GameManager.gm.money < priceToAccess)
             GameManager.gm.PopUp("Not enough money");
     }
 }
