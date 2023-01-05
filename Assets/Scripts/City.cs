@@ -90,10 +90,15 @@ public class City : MonoBehaviour
         priceToOwn = population / 100;
         priceToAccess = population / 10000;
 
+        float populationFactor = population / 100000;
+        //int populationFactor = (int)Mathf.Ceil(population / 100000);
+
         if (Random.Range(0.0f, 1.0f) < 0.5f && isOwned)    //  Random passenger increase
         {
-            passengers += Random.Range(1, 3);
+            passengers += Random.Range(1, (int)(3 * populationFactor));
         }
+
+        population += Random.Range(-population / 20000, population / 10000);  //  For dynamic population  //  TO DO: needs more factors
     }
 
     public void BuyCityHub()
