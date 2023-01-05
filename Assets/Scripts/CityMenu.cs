@@ -12,6 +12,7 @@ public class CityMenu : MonoBehaviour
     public City selectedCity;
 
     [SerializeField] TMP_Text cityName;
+    [SerializeField] TMP_Text population;
 
     void OnEnable()
     {
@@ -24,6 +25,7 @@ public class CityMenu : MonoBehaviour
         }
 
         cityName.text = selectedCity.name;
+        population.text = selectedCity.population.ToString();
     }
 
     public void Buy()
