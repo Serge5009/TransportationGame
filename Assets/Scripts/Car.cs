@@ -45,7 +45,7 @@ public class Car : MonoBehaviour
         transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
 
 
-        if (Vector3.Distance(transform.position, homeCity.transform.position) <= interactDistance )     //  If within range with home city will try to load more
+        if (isNear(homeCity))     //  If within range with home city will try to load more
         {
             isMovingTo = true;
             while (load < capacity && homeCity.GetComponent<City>().passengers > 0)
@@ -54,15 +54,12 @@ public class Car : MonoBehaviour
                 homeCity.GetComponent<City>().passengers--; //  TO DO: this seems like it doesn't work
             }
         }
-
-        if (Vector3.Distance(transform.position, destination.transform.position) <= interactDistance)     //  If within range with destination will try to unload
+        if (isNear(destination))     //  If within range with destination will try to unload
         {
             isMovingTo = false;
             GameManager.gm.money += load; //  TO DO: make money logic more ineresting
         }
-
-
-        if (Vector3.Distance(transform.position, path[nextNode].transform.position) <= interactDistance)     //  If within range with with the next node will swith to the next one
+        if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
         {
             if (isMovingTo)
                 nextNode++;
@@ -76,5 +73,11 @@ public class Car : MonoBehaviour
         transform.Rotate(0.0f, 90.0f, 90.0f);
 
         //counter.text = load.ToString();
+    }
+
+    bool isNear(GameObject place)   //  This function allows to check if a certain object is within car's range
+    {
+        float distance = Vector2.Distance(transform.position, place.transform.position);
+        return (distance <= interactDistance);
     }
 }

@@ -71,7 +71,6 @@ public class CityMenu : MonoBehaviour
             GameManager.gm.PopUp("You need to buy a hub\nin this city first!");
 
         // TO DO: Add sound effects
-
     }
 
     public void Close()
