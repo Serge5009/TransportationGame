@@ -16,6 +16,7 @@ public class City : MonoBehaviour
     [HideInInspector] public float priceToOwn = 100000;
     [HideInInspector] public float priceToAccess = 100000;
     public int passengers = 0;
+    public List<Car> assignedCars;
 
     [SerializeField] GameObject carPrefab;
 
@@ -31,6 +32,7 @@ public class City : MonoBehaviour
         if (population <= 0)
             Debug.LogWarning("There's a city with no people");
 
+        assignedCars = new List<Car>();
         //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
@@ -127,5 +129,15 @@ public class City : MonoBehaviour
             GameManager.gm.PopUp("This city is already owned");
         else if (GameManager.gm.money < priceToAccess)
             GameManager.gm.PopUp("Not enough money");
+    }
+
+    public void BuyNewCar()
+    {
+        //  TO DO: Add incremental price
+
+        GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
+        Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
+        newCar.homeCity = this.gameObject;                                                      //  Set the home base
+        assignedCars.Add(newCar);                                                               //  Add our new car to the list
     }
 }

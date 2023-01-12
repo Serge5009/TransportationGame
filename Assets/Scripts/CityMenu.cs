@@ -63,6 +63,17 @@ public class CityMenu : MonoBehaviour
         // TO DO: Add sound effects
     }
 
+    public void BuyCar()
+    {
+        if (selectedCity.isOwned)
+            selectedCity.BuyNewCar();
+        else
+            GameManager.gm.PopUp("You need to buy a hub\nin this city first!");
+
+        // TO DO: Add sound effects
+
+    }
+
     public void Close()
     {
         GameManager.gm.DeselectCity();
