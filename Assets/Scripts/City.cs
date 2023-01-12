@@ -95,7 +95,7 @@ public class City : MonoBehaviour
         float populationFactor = population / 100000;
         //int populationFactor = (int)Mathf.Ceil(population / 100000);
 
-        if (Random.Range(0.0f, 1.0f) < 0.5f && isOwned)    //  Random passenger increase
+        if (Random.Range(0.0f, 1.0f) < 0.5f && isAccessed)    //  Random passenger increase
         {
             passengers += Random.Range(1, (int)(3 * populationFactor));
         }
