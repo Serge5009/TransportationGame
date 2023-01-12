@@ -8,9 +8,15 @@ public class City : MonoBehaviour
 {
     public string name;
 
-    [SerializeField] bool isOwned = false;
-    [SerializeField] int price = 100;
+    public int population = 0;
+
+    public bool isOwned = false;      //  If true - player can buy vehicles and start routes in this city
+    public bool isAccessed = false;   //  If true - player's routs passing thru this city will bring profit
+
+    [HideInInspector] public float priceToOwn = 100000;
+    [HideInInspector] public float priceToAccess = 100000;
     public int passengers = 0;
+    public List<Car> assignedCars;
 
     [SerializeField] GameObject carPrefab;
 
@@ -23,12 +29,14 @@ public class City : MonoBehaviour
             Debug.LogError("No carPrefab added");
         if (!(name.Length > 3))
             Debug.LogError("No name added to the city or the name is too short");
+        if (population <= 0)
+            Debug.LogWarning("There's a city with no people");
 
+        assignedCars = new List<Car>();
         //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-
     }
 
-    float timer = 3.0f;
+    float timer = 0.01f;
     float tickTimer = 0.0f;
     void Update()
     {
@@ -81,23 +89,55 @@ public class City : MonoBehaviour
 
     void Tick()
     {
-        if (Random.Range(0.0f, 1.0f) < 0.5f && isOwned)    //  Random passenger increase
+        priceToOwn = population / 100;
+        priceToAccess = population / 10000;
+
+        float populationFactor = population / 100000;
+        //int populationFactor = (int)Mathf.Ceil(population / 100000);
+
+        if (Random.Range(0.0f, 1.0f) < 0.5f && isAccessed)    //  Random passenger increase
         {
-            passengers += Random.Range(1, 3);
+            passengers += Random.Range(1, (int)(3 * populationFactor));
         }
+
+        population += Random.Range(-population / 20000, population / 10000);  //  For dynamic population  //  TO DO: needs more factors
     }
 
-    public void BuyCity()
+    public void BuyCityHub()
     {
-        if (GameManager.gm.money >= price && !isOwned)
+        if (GameManager.gm.money >= priceToOwn)
         {
-            GameManager.gm.money -= price;
+            GameManager.gm.money -= priceToOwn;
             isOwned = true;
-            GameManager.gm.DeselectCity();
+            isAccessed = true;
+            GameManager.gm.DeselectCity();  
         }
         else if (isOwned)
-            GameManager.gm.PopUp("This city is already owned");
-        else if (GameManager.gm.money < price)
+            GameManager.gm.PopUp("This city is already accessed");
+        else if (GameManager.gm.money < priceToOwn)
             GameManager.gm.PopUp("Not enough money");
+    }
+    public void BuyCityAccess()
+    {
+        if (GameManager.gm.money >= priceToAccess)
+        {
+            GameManager.gm.money -= priceToAccess;
+            isAccessed = true;
+            GameManager.gm.DeselectCity();
+        }
+        else if (isAccessed)
+            GameManager.gm.PopUp("This city is already owned");
+        else if (GameManager.gm.money < priceToAccess)
+            GameManager.gm.PopUp("Not enough money");
+    }
+
+    public void BuyNewCar()
+    {
+        //  TO DO: Add incremental price
+
+        GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
+        Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
+        newCar.homeCity = this.gameObject;                                                      //  Set the home base
+        assignedCars.Add(newCar);                                                               //  Add our new car to the list
     }
 }
