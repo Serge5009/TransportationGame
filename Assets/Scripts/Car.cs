@@ -21,14 +21,7 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        if (path[0] != homeCity)
-            Debug.LogWarning("Path should start with a home city");
 
-        if (path[path.Count] != destination)
-        {
-            Debug.LogWarning("Path should end with a destination");
-            path.Add(destination.GetComponent<RoadNode>());
-        }
         nextNode = 0;
     }
 
@@ -100,9 +93,37 @@ public class Car : MonoBehaviour
     {
         bool returnVal = true;
 
+        if (path[0] != homeCity)
+        {
+            Debug.LogWarning("Path should start with a home city");
+            GameManager.gm.PopUp("Path should start with a home city");
+        }
+
         for (int i = 0; i < path.Count - 1; i++)
         {
             if(!path[i].connections.Contains(path[i + 1]))
+            {
+                GameManager.gm.PopUp("This car has an invalid path!");
+                Debug.LogWarning("This car has an invalid path!");
+                return false;
+            }
+        }
+
+        return returnVal;
+    }
+    bool CheckPath(List<RoadNode> nodeList)
+    {
+        bool returnVal = true;
+
+        if (nodeList[0] != homeCity)
+        {
+            Debug.LogWarning("Path should start with a home city");
+            GameManager.gm.PopUp("Path should start with a home city");
+        }
+
+        for (int i = 0; i < nodeList.Count - 1; i++)
+        {
+            if (!nodeList[i].connections.Contains(nodeList[i + 1]))
             {
                 GameManager.gm.PopUp("This car has an invalid path!");
                 Debug.LogWarning("This car has an invalid path!");
