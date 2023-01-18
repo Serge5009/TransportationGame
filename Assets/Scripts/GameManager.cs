@@ -16,8 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject UIPathEffect;
     [SerializeField] GameObject UIPopUp;
     public City selectedCity;
+    public Car selectedCar;
     [SerializeField] GameObject cityMenuUI;
     List<City> cities;
+    List<Car> cars;
     [SerializeField] GameObject roadNodePrefab;
 
     //  Gameplay settings
@@ -60,6 +62,14 @@ public class GameManager : MonoBehaviour
         foreach (GameObject o in CityObjs)
             cities.Add(o.GetComponent<City>());
         Debug.Log("GameManager found " + cities.Count + " cities on the map.");
+
+        //  Add all existing cars to the list
+        cars = new List<Car>();
+        List<GameObject> CarObjs = new List<GameObject>();
+        CarObjs.AddRange(GameObject.FindGameObjectsWithTag("Car"));
+        foreach (GameObject o in CarObjs)
+            cars.Add(o.GetComponent<Car>());
+        Debug.Log("GameManager found " + cars.Count + " cars on the map.");
 
         if (cities.Count <= 0)
             Debug.LogWarning("GM couldn't find any cities!");
@@ -107,6 +117,15 @@ public class GameManager : MonoBehaviour
             c.isSelected = false;
 
         gState = GAME_STATE.PLAY;
+    }
+
+    public void SelectCar(Car newSelected)
+    {
+
+    }
+    public void DeselectCar()
+    {
+        selectedCar = null;
     }
 
     public void BuildingMode()
