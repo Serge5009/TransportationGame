@@ -152,6 +152,7 @@ public class Car : MonoBehaviour
 
     public void CreatePath()
     {
+        GameManager.gm.DeselectCar();
         GameManager.gm.gState = GAME_STATE.PATH;
         newPath = new List<RoadNode>();
         newPath.Add(homeCity.GetComponent<RoadNode>());

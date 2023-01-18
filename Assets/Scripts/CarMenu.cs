@@ -25,5 +25,10 @@ public class CarMenu : MonoBehaviour
         // TO DO: Add sound effects
     }
 
-    //  TO DO: path creation
+    public void NewRoute()
+    {
+        selectedCar.CreatePath();
+
+        //  TO DO: Add sound effect
+    }
 }

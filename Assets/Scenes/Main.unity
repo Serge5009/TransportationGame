@@ -1472,9 +1472,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CityMenu, Assembly-CSharp
-        m_MethodName: ConnectThis
+      - m_Target: {fileID: 992462600}
+        m_TargetAssemblyTypeName: CarMenu, Assembly-CSharp
+        m_MethodName: NewRoute
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5787,6 +5787,7 @@ MonoBehaviour:
   selectedCar: {fileID: 0}
   cityMenuUI: {fileID: 2094406655}
   carMenuUI: {fileID: 992462596}
+  cars: []
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   roadNodeCost: 50
   money: 5000
