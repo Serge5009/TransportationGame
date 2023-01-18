@@ -136,6 +136,7 @@ public enum GAME_STATE
     PLAY,
     BUILD,
     CONNECT,
+    PATH,
     INMENU,
 
     NUM_GAME_STATE

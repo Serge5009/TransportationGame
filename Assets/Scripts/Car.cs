@@ -19,9 +19,11 @@ public class Car : MonoBehaviour
     int nextNode;
     bool isMovingTo = true;
 
+    [HideInInspector] public static List<RoadNode> newPath;
+
     void Start()
     {
-
+        CheckPath();
         nextNode = 0;
     }
 
@@ -93,7 +95,7 @@ public class Car : MonoBehaviour
     {
         bool returnVal = true;
 
-        if (path[0] != homeCity)
+        if (path[0].gameObject != homeCity)
         {
             Debug.LogWarning("Path should start with a home city");
             GameManager.gm.PopUp("Path should start with a home city");
@@ -115,7 +117,7 @@ public class Car : MonoBehaviour
     {
         bool returnVal = true;
 
-        if (nodeList[0] != homeCity)
+        if (nodeList[0].gameObject != homeCity)
         {
             Debug.LogWarning("Path should start with a home city");
             GameManager.gm.PopUp("Path should start with a home city");
@@ -132,5 +134,12 @@ public class Car : MonoBehaviour
         }
 
         return returnVal;
+    }
+
+    public void CreatePath()
+    {
+        GameManager.gm.gState = GAME_STATE.PATH;
+        newPath = new List<RoadNode>();
+        newPath.Add(homeCity.GetComponent<RoadNode>());
     }
 }
