@@ -95,4 +95,21 @@ public class Car : MonoBehaviour
         float distance = Vector2.Distance(transform.position, place.transform.position);
         return (distance <= interactDistance);
     }
+
+    bool CheckPath()
+    {
+        bool returnVal = true;
+
+        for (int i = 0; i < path.Count - 1; i++)
+        {
+            if(!path[i].connections.Contains(path[i + 1]))
+            {
+                GameManager.gm.PopUp("This car has an invalid path!");
+                Debug.LogWarning("This car has an invalid path!");
+                return false;
+            }
+        }
+
+        return returnVal;
+    }
 }
