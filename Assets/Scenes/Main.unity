@@ -5771,6 +5771,7 @@ MonoBehaviour:
   selectedCity: {fileID: 0}
   selectedCar: {fileID: 0}
   cityMenuUI: {fileID: 2094406655}
+  carMenuUI: {fileID: 992462596}
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   roadNodeCost: 50
   money: 5000

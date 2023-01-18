@@ -9,7 +9,6 @@ public class Car : MonoBehaviour
     public GameObject homeCity;
     public GameObject destination;
     public float speed = 20.0f;
-
     public int capacity = 10;
     public int load = 0;
 
@@ -18,6 +17,8 @@ public class Car : MonoBehaviour
     public List<RoadNode> path;
     int nextNode;
     bool isMovingTo = true;
+
+    public bool isSelected = false;
 
     [HideInInspector] public static List<RoadNode> newPath;
 
@@ -68,6 +69,19 @@ public class Car : MonoBehaviour
         //  Making the car face it's direction
         transform.LookAt(path[nextNode].transform.position);
         transform.Rotate(0.0f, 90.0f, 90.0f);
+
+        //  Click registering
+        //  https://www.youtube.com/watch?v=5KLV6QpSAdI
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (Vector2.Distance(transform.position, clickPos) <= 1 && GameManager.gm.gState == GAME_STATE.PLAY)     //  TO DO: new selection logic might be needed later
+            {
+                GameManager.gm.SelectCar(this);
+
+                //TO DO: add sound effects
+            }
+        }
     }
 
     void UnloadTo(City toUnload)

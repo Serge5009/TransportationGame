@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public City selectedCity;
     public Car selectedCar;
     [SerializeField] GameObject cityMenuUI;
+    [SerializeField] GameObject carMenuUI;
     List<City> cities;
     List<Car> cars;
     [SerializeField] GameObject roadNodePrefab;
@@ -44,6 +45,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No moneyText assigned to the GameManager");
         if (!cityMenuUI)
             Debug.LogError("No cityMenuUI assigned to the GameManager");
+        if (!carMenuUI)
+            Debug.LogError("No carMenuUI assigned to the GameManager");
         if (!roadNodePrefab)
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
@@ -109,7 +112,6 @@ public class GameManager : MonoBehaviour
 
         gState = GAME_STATE.INMENU;
     }
-
     public void DeselectCity()
     {
         selectedCity = null;
@@ -121,11 +123,27 @@ public class GameManager : MonoBehaviour
 
     public void SelectCar(Car newSelected)
     {
+        selectedCar = newSelected;
+        foreach (Car c in cars)
+        {   //  TO DO: i'm too lazy to optimize this now)
+            if (c == newSelected)
+                c.isSelected = true;
+            else
+                c.isSelected = false;
+        }
 
+        carMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
+        carMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+
+        gState = GAME_STATE.INMENU;
     }
     public void DeselectCar()
     {
         selectedCar = null;
+        foreach (Car c in cars)
+            c.isSelected = false;
+
+        gState = GAME_STATE.PLAY;
     }
 
     public void BuildingMode()
