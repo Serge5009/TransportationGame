@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI moneyText;
     [SerializeField] GameObject UIBuildEffect;
     [SerializeField] GameObject UIConnectEffect;
+    [SerializeField] GameObject UIPathEffect;
     [SerializeField] GameObject UIPopUp;
     public City selectedCity;
     [SerializeField] GameObject cityMenuUI;
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
         if (!UIConnectEffect)
             Debug.LogError("No UIConnectEffect assigned to the GameManager");
+        if (!UIPathEffect)
+            Debug.LogError("No UIPathEffect assigned to the GameManager");
         if (!UIPopUp)
             Debug.LogError("No UIPopUp assigned to the GameManager");
 
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);    //  If in build mode - will show UI effect
         UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  If in connect mode - will show UI effect
+        UIPathEffect.SetActive(gState == GAME_STATE.PATH);    //  If in connect mode - will show UI effect
     }
 
     public void SelectCity(City newSelected)
