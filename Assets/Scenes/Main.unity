@@ -3374,7 +3374,7 @@ GameObject:
   - component: {fileID: 732508865}
   - component: {fileID: 732508864}
   m_Layer: 5
-  m_Name: PopTitle
+  m_Name: LoadTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3774,8 +3774,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CityMenu, Assembly-CSharp
+      - m_Target: {fileID: 992462600}
+        m_TargetAssemblyTypeName: CarMenu, Assembly-CSharp
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -3835,6 +3835,7 @@ GameObject:
   - component: {fileID: 992462597}
   - component: {fileID: 992462599}
   - component: {fileID: 992462598}
+  - component: {fileID: 992462600}
   m_Layer: 5
   m_Name: CarMenu
   m_TagString: Untagged
@@ -3905,6 +3906,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992462596}
   m_CullTransparentMesh: 1
+--- !u!114 &992462600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992462596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6d5494211a5aa4b80c37d3f56440b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedCar: {fileID: 0}
+  load: {fileID: 1616734414}
 --- !u!1 &994426694 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2445437245721363110, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
@@ -4242,7 +4257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1217581608}
   m_Layer: 5
-  m_Name: Population
+  m_Name: Load
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5788,7 +5803,7 @@ GameObject:
   - component: {fileID: 1616734415}
   - component: {fileID: 1616734414}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: LoadVal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

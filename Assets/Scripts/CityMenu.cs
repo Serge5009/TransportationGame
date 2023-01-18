@@ -23,7 +23,7 @@ public class CityMenu : MonoBehaviour
         {
             Debug.LogError("CityMenu couldn't find a selectedCity");
             cityName.text = "ERROR 404!";   //  City not found)
-            GameManager.gm.PopUp("ERROR! There's a city without a name");
+            GameManager.gm.PopUp("CityMenu couldn't find a selectedCity");
         }
 
         cityName.text = selectedCity.name;

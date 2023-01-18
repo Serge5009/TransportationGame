@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject cityMenuUI;
     [SerializeField] GameObject carMenuUI;
     List<City> cities;
-    List<Car> cars;
+    public List<Car> cars;
     [SerializeField] GameObject roadNodePrefab;
 
     //  Gameplay settings
@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
         moneyText.text = money.ToString();
 
         cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
+        carMenuUI.SetActive(selectedCar); //  If there's a selected car - activate UI menu
 
         if (gState >= GAME_STATE.NUM_GAME_STATE)
             Debug.LogError("FSM Error!");
