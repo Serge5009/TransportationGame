@@ -21,6 +21,7 @@ public class Car : MonoBehaviour
     public bool isSelected = false;
 
     [HideInInspector] public static List<RoadNode> newPath;
+    [HideInInspector] public static Car newPathAssociatedCar;
 
     void Start()
     {
@@ -112,14 +113,14 @@ public class Car : MonoBehaviour
         if (path[0].gameObject != homeCity)
         {
             Debug.LogWarning("Path should start with a home city");
-            GameManager.gm.PopUp("Path should start with a home city");
+            GameManager.gm.PopUp("Path should start with a home city"); //  TO DO:  Probably should get rid of it, cuz it's specific for each call
         }
 
         for (int i = 0; i < path.Count - 1; i++)
         {
             if(!path[i].connections.Contains(path[i + 1]))
             {
-                GameManager.gm.PopUp("This car has an invalid path!");
+                GameManager.gm.PopUp("This car has an invalid path!");  //  TO DO:  Probably should get rid of it, cuz it's specific for each call
                 Debug.LogWarning("This car has an invalid path!");
                 return false;
             }
@@ -134,14 +135,14 @@ public class Car : MonoBehaviour
         if (nodeList[0].gameObject != homeCity)
         {
             Debug.LogWarning("Path should start with a home city");
-            GameManager.gm.PopUp("Path should start with a home city");
+            GameManager.gm.PopUp("Path should start with a home city"); //  TO DO:  Probably should get rid of it, cuz it's specific for each call
         }
 
         for (int i = 0; i < nodeList.Count - 1; i++)
         {
             if (!nodeList[i].connections.Contains(nodeList[i + 1]))
             {
-                GameManager.gm.PopUp("This car has an invalid path!");
+                GameManager.gm.PopUp("This car has an invalid path!");  //  TO DO:  Probably should get rid of it, cuz it's specific for each call
                 Debug.LogWarning("This car has an invalid path!");
                 return false;
             }
@@ -154,7 +155,53 @@ public class Car : MonoBehaviour
     {
         GameManager.gm.DeselectCar();
         GameManager.gm.gState = GAME_STATE.PATH;
+        newPathAssociatedCar = this;
         newPath = new List<RoadNode>();
         newPath.Add(homeCity.GetComponent<RoadNode>());
+    }
+
+    public void AddPathNode(RoadNode nodeToAdd)
+    {
+        if (nodeToAdd == homeCity.GetComponent<RoadNode>() && newPath.Count <= 1)   //  We already have the home city as the first node
+            return;
+
+        if(nodeToAdd == newPath[newPath.Count - 1]) //  If clicked on the same node twice - finish the path
+        {
+            FinishPath();
+            return;
+        }
+
+        newPath.Add(nodeToAdd);
+
+        if(!CheckPath(newPath))
+        {
+            newPath.Remove(nodeToAdd);
+            //  TO DO: Add sound effect
+        }
+    }
+
+    public void FinishPath()
+    {
+        GameManager.gm.gState = GAME_STATE.PLAY;
+        //  TO DO:  maybe should open this car's menu?
+
+        if (!CheckPath(newPath)) //  If the path is invalid (Should be prevented on AddPathNode stage
+        {
+            newPath = null;
+            GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here!");
+            //  TO DO: Add sound effect
+            return;
+        }
+
+        path = newPath;
+        destination = path[path.Count - 1].gameObject;
+        newPath = null;
+        GameManager.gm.PopUp("New path created!");
+
+        if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
+        {
+            GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here 2!");
+            Debug.LogError("Oh no, you messed up the path!");
+        }
     }
 }

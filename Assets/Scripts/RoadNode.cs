@@ -87,6 +87,12 @@ public class RoadNode : MonoBehaviour
             }
             //TO DO: add sound effects
         }
+
+        //  Path Building
+        if (GameManager.gm.gState == GAME_STATE.PATH)
+        {
+            Car.newPathAssociatedCar.AddPathNode(this);
+        }
     }
 
     public void ConnectFromThis()   //  Starts connect mode and selects this node
