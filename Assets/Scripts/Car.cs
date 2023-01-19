@@ -196,6 +196,10 @@ public class Car : MonoBehaviour
         path = newPath;
         destination = path[path.Count - 1].gameObject;
         newPath = null;
+
+        nextNode = 0;                                       //  Reset path following order
+        transform.position = homeCity.transform.position;   //  Teleport home
+        load = 0;                                           //  Empty the trunk
         GameManager.gm.PopUp("New path created!");
 
         if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
