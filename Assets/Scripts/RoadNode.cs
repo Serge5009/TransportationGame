@@ -60,26 +60,33 @@ public class RoadNode : MonoBehaviour
     void Update()
     {
 
-        //  Connections:
-        if (Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.PLAY || Input.GetMouseButtonDown(0) && GameManager.gm.gState == GAME_STATE.CONNECT)    //  Click monitor   //  TO DO: move all controls to camera controller
+        if (Input.GetMouseButtonDown(0))    //  Click monitor   //  TO DO: move all controls to camera controller
         {
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
-            {
-                if (rNet.activeForConnection)    //  If first node for connection is selected
-                {
-                    ConnectToThis();
-                }
-                else                            //  If not in connection mode
-                {
-                    if (gameObject.GetComponent<City>() != null)    //  If this node is a city
-                        return;                                     //  Don't select
-                    ConnectFromThis();                              //  Else - start connecting
-                }
-                //TO DO: add sound effects
-            }
+                OnNodeClick();
+            
         }
 
+    }
+
+    void OnNodeClick()
+    {
+        //  Connections:
+        if (GameManager.gm.gState == GAME_STATE.PLAY || GameManager.gm.gState == GAME_STATE.CONNECT)    
+        {
+            if (rNet.activeForConnection)    //  If first node for connection is selected
+            {
+                ConnectToThis();
+            }
+            else                            //  If not in connection mode
+            {
+                if (gameObject.GetComponent<City>() != null)    //  If this node is a city
+                    return;                                     //  Don't select
+                ConnectFromThis();                              //  Else - start connecting
+            }
+            //TO DO: add sound effects
+        }
     }
 
     public void ConnectFromThis()   //  Starts connect mode and selects this node
