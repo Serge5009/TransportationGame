@@ -139,5 +139,6 @@ public class City : MonoBehaviour
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
         newCar.homeCity = this.gameObject;                                                      //  Set the home base
         assignedCars.Add(newCar);                                                               //  Add our new car to the list
+        GameManager.gm.cars.Add(newCar);                                                        //  Add it to GM cars list
     }
 }
