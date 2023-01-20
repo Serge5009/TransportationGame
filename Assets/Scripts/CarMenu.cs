@@ -5,7 +5,9 @@ public class CarMenu : MonoBehaviour
 {
     public Car selectedCar;
 
+    [SerializeField] TMP_Text title;
     [SerializeField] TMP_Text load;
+    [SerializeField] TMP_Text home;
 
     private void OnEnable()
     {
@@ -15,8 +17,9 @@ public class CarMenu : MonoBehaviour
             Debug.LogError("CarMenu couldn't find a selectedCar");
             GameManager.gm.PopUp("CarMenu couldn't find a selectedCar");
         }
-
-        //  ADD Load update here
+        title.text = "Car #" + selectedCar.carID.ToString();
+        load.text = selectedCar.load.ToString() + " / " + selectedCar.capacity.ToString();  //  Update load of the car
+        home.text = selectedCar.homeCity.GetComponent<City>().cityName;
     }
 
     public void Close()

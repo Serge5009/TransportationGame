@@ -6,7 +6,7 @@ using TMPro;
 
 public class City : MonoBehaviour
 {
-    public string name;
+    public string cityName;
 
     public int population = 0;
 
@@ -27,7 +27,7 @@ public class City : MonoBehaviour
     {
         if (!carPrefab)
             Debug.LogError("No carPrefab added");
-        if (!(name.Length > 3))
+        if (!(cityName.Length > 3))
             Debug.LogError("No name added to the city or the name is too short");
         if (population <= 0)
             Debug.LogWarning("There's a city with no people");

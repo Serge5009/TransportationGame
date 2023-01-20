@@ -6,6 +6,9 @@ using TMPro;
 
 public class Car : MonoBehaviour
 {
+    public int carID;
+    static int numCars = 0;
+
     public GameObject homeCity;
     public GameObject destination;
     public float speed = 20.0f;
@@ -27,6 +30,8 @@ public class Car : MonoBehaviour
     {
         CheckPath();
         nextNode = 0;
+        carID = numCars;
+        numCars++;
     }
 
     void Update()
