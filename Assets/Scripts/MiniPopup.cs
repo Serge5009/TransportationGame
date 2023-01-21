@@ -1,20 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+//  Attach this script to an object (particle, popup, effect) to make it move up with adjustable slow down and side movements
+//  Includes periodical moves like shake and smooth shake and allows randomization
+//  Designed by Serhii Marchenko    https://www.linkedin.com/in/serhiimarchenko/ for the https://github.com/Serge5009/TransportationGame/network
+//  There will be more changes later ;)
+
+//  Resources used:
+//  MathF Sin/Cos https://docs.unity3d.com/ScriptReference/Mathf.Sin.html
+//  Tidy random bool https://forum.unity.com/threads/random-randomboolean-function.83220/
+
 
 public class MiniPopup : MonoBehaviour
 {
+    //  Vertical start settings
     public float minSpeed = 0.5f;
     public float maxSpeed = 2.0f;
     public float slowDown = 0.1f;   //  Limit between 0 and 1
 
+    //  Horizontal start settings
     public float maxSideMove = 0.2f;
 
+    //  Shake periodic settings
     public float sideShakeIntens = 0;
+    public bool isSmoothShake = false;
     float shakeInterval;
     float shakeIntervalTimer;
     bool isShakingRight;
 
+    //  Lifetime settings
     public float minLifetime = 1.0f;
     public float maxLifetime = 2.0f;
     float lifetime;
@@ -63,10 +76,21 @@ public class MiniPopup : MonoBehaviour
         transform.position += velocity * Time.deltaTime;
 
         //  Shake
+        if (sideShakeIntens == 0.0f)    //  Ignore if there's no shake
+            return;
+
         float shakeMove = sideShakeIntens;
-        if (!isShakingRight)
+
+        if (isSmoothShake)  //  If the shake is smooth - multiply the speed by SIN of the interval
+        {
+            float smoothFactor = Mathf.Sin(shakeIntervalTimer / shakeInterval * Mathf.PI);  //  Get the multiplier depending on what part of the interval we're in, start - 0, middle - 1, end - 0
+            shakeMove *= smoothFactor;                                                      //  Apply smoothing multiplier
+        }
+
+        if (!isShakingRight)    //  Direction inversion
             shakeMove *= -1;
-        Vector3 shakeVec = new Vector3(shakeMove, 0, 0);
-        transform.position += shakeVec * Time.deltaTime;
+                
+        Vector3 shakeVec = new Vector3(shakeMove, 0, 0);    //  Calculate the new vector
+        transform.position += shakeVec * Time.deltaTime;    //  Apply the shake
     }
 }
