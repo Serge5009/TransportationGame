@@ -185,10 +185,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9ca98e6ef05d440a2ab220c550b9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 1
-  maxSpeed: 5
+  minSpeed: 0.5
+  maxSpeed: 1
   slowDown: 1
-  maxSideMove: 0
+  maxSideMove: 0.2
   sideShakeIntens: 0
-  lifetime: 1
+  minLifetime: 1
+  maxLifetime: 2
   isFading: 1
