@@ -189,7 +189,8 @@ MonoBehaviour:
   maxSpeed: 1
   slowDown: 1
   maxSideMove: 0.2
-  sideShakeIntens: 0
+  sideShakeIntens: 0.3
+  isSmoothShake: 1
   minLifetime: 1
   maxLifetime: 2
   isFading: 1

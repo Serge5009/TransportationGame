@@ -26,12 +26,18 @@ public class Car : MonoBehaviour
     [HideInInspector] public static List<RoadNode> newPath;
     [HideInInspector] public static Car newPathAssociatedCar;
 
+    [SerializeField] GameObject FlyingTextPrefab;
+
     void Start()
     {
         CheckPath();
         nextNode = 0;
         carID = numCars;
         numCars++;
+
+        if (!FlyingTextPrefab)
+            Debug.LogError("No FlyingTextPrefab found");
+
     }
 
     void Update()
@@ -40,7 +46,6 @@ public class Car : MonoBehaviour
 
         if (!homeCity)
             Debug.LogError("No homeCity found");
-
         if (!destination)
             Debug.LogError("No destination found");
 
@@ -92,6 +97,10 @@ public class Car : MonoBehaviour
 
     void UnloadTo(City toUnload)
     {
+        GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
+        newText.GetComponent<TextMeshPro>().text = load.ToString();
+        newText.GetComponent<TextMeshPro>().color = Color.yellow;
+
         GameManager.gm.money += load; //  TO DO: make money logic more ineresting
         load = 0;
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 //  Attach this script to an object (particle, popup, effect) to make it move up with adjustable slow down and side movements
 //  Includes periodical moves like shake and smooth shake and allows randomization
-//  Designed by Serhii Marchenko    https://www.linkedin.com/in/serhiimarchenko/ for the https://github.com/Serge5009/TransportationGame/network
+//  Created by Serhii Marchenko    https://www.linkedin.com/in/serhiimarchenko/ for the https://github.com/Serge5009/TransportationGame
 //  There will be more changes later ;)
 
 //  Resources used:
