@@ -26,7 +26,7 @@ public class CityMenu : MonoBehaviour
             GameManager.gm.PopUp("CityMenu couldn't find a selectedCity");
         }
 
-        cityName.text = selectedCity.name;
+        cityName.text = selectedCity.cityName;
         population.text = selectedCity.population.ToString();
 
         if (!selectedCity.isAccessed)

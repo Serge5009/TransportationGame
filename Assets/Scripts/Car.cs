@@ -6,55 +6,71 @@ using TMPro;
 
 public class Car : MonoBehaviour
 {
+    //  Track keeping
+    public int carID;
+    static int numCars = 0;
+
+    //  Stats
     public GameObject homeCity;
     public GameObject destination;
     public float speed = 20.0f;
     public int capacity = 10;
     public int load = 0;
+    float parkedTimer = 0.0f;
 
+    //  Settings
     [SerializeField] float interactDistance = 25.0f;
+    public bool isSelected = false;
 
+    //  Route
     public List<RoadNode> path;
     int nextNode;
     bool isMovingTo = true;
-
-    public bool isSelected = false;
-
+        //  Static
     [HideInInspector] public static List<RoadNode> newPath;
     [HideInInspector] public static Car newPathAssociatedCar;
+
+    //  Prefabs     //  TO DO: move to another object
+    [SerializeField] GameObject FlyingTextPrefab;
+
+    //  Components
+    SpriteRenderer thisSprite;
 
     void Start()
     {
         CheckPath();
         nextNode = 0;
+        carID = numCars;
+        numCars++;
+
+        if (!FlyingTextPrefab)
+            Debug.LogError("No FlyingTextPrefab found");
+
+        thisSprite = GetComponent<SpriteRenderer>();
+        if (!thisSprite)
+            Debug.LogError("No thisSprite found");
     }
 
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f); //  Keep the car on z=0
-
+            //  Error checks
         if (!homeCity)
             Debug.LogError("No homeCity found");
-
         if (!destination)
             Debug.LogError("No destination found");
 
-        transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
-
-
+            //  Interaction checks
         if (isNear(homeCity))     //  If within range with home city will try to load more
         {
             if (!isMovingTo)
                 UnloadTo(homeCity.GetComponent<City>());
-
             isMovingTo = true;
-            LoadFrom(homeCity.GetComponent<City>());
         }
         if (isNear(destination))     //  If within range with destination will try to unload
         {
+            if(isMovingTo)
+                UnloadTo(destination.GetComponent<City>());
             isMovingTo = false;
-            UnloadTo(destination.GetComponent<City>());
-            //LoadFrom(destination.GetComponent<City>());
         }
         if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
         {
@@ -64,12 +80,24 @@ public class Car : MonoBehaviour
             if (isMovingTo)
                 nextNode++;
             else
-                nextNode--;            
+                nextNode--;
         }
 
-        //  Making the car face it's direction
-        transform.LookAt(path[nextNode].transform.position);
+            //  Parking check
+        if (parkedTimer > 0.0f)    //  If the car is in porcess of interaction - skip the rest of the update and make the car invisible
+        {
+            thisSprite.color = new Color(1, 1, 1, 0);
+            parkedTimer -= Time.deltaTime;
+            return;
+        }
+        thisSprite.color = new Color(1, 1, 1, 1);
+        parkedTimer = 0.0f;
+        
+            //  Movement
+        transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
+        transform.LookAt(path[nextNode].transform.position);    //  Making the car face it's direction
         transform.Rotate(0.0f, 90.0f, 90.0f);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f); //  Keep the car on z=0
 
         //  Click registering
         //  https://www.youtube.com/watch?v=5KLV6QpSAdI
@@ -87,7 +115,16 @@ public class Car : MonoBehaviour
 
     void UnloadTo(City toUnload)
     {
-        GameManager.gm.money += load; //  TO DO: make money logic more ineresting
+        if (load == 0)
+            return;
+
+        GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
+        newText.GetComponent<TextMeshPro>().text = load.ToString();
+        newText.GetComponent<TextMeshPro>().color = Color.yellow;
+
+        parkedTimer += load / 10;       //  Take some time to unload
+
+        GameManager.gm.money += load;                                   //  TO DO: make money logic more ineresting
         load = 0;
     }
 
@@ -96,7 +133,18 @@ public class Car : MonoBehaviour
         while (load < capacity && toLoad.passengers > 0)
         {
             load++;
-            toLoad.passengers--; //  TO DO: this seems like it doesn't work
+            toLoad.passengers--;                                        //  TO DO: this seems like it doesn't work
+            parkedTimer += 0.1f;    //  Take some time to load
+
+            /*  //  Pop up text, looks bad  //  TO DO: make it nice!
+            GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
+            newText.GetComponent<TextMeshPro>().text = "1";
+            newText.GetComponent<TextMeshPro>().color = Color.green;
+            MiniPopup textScript = newText.GetComponent<MiniPopup>();
+            textScript.sideShakeIntens = 0.0f;
+            textScript.maxSpeed = 3.0f;
+            textScript.slowDown = 0.3f;
+            */
         }
     }
 
