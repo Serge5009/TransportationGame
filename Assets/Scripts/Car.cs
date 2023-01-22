@@ -6,26 +6,32 @@ using TMPro;
 
 public class Car : MonoBehaviour
 {
+    //  Track keeping
     public int carID;
     static int numCars = 0;
 
+    //  Stats
     public GameObject homeCity;
     public GameObject destination;
     public float speed = 20.0f;
     public int capacity = 10;
     public int load = 0;
+    bool isParked = false;
+    float parkedTimer = 0.0f;
 
+    //  Settings
     [SerializeField] float interactDistance = 25.0f;
+    public bool isSelected = false;
 
+    //  Route
     public List<RoadNode> path;
     int nextNode;
     bool isMovingTo = true;
-
-    public bool isSelected = false;
-
+        //  Static
     [HideInInspector] public static List<RoadNode> newPath;
     [HideInInspector] public static Car newPathAssociatedCar;
 
+    //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject FlyingTextPrefab;
 
     void Start()
@@ -49,8 +55,17 @@ public class Car : MonoBehaviour
         if (!destination)
             Debug.LogError("No destination found");
 
-        transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
 
+
+        if(isParked)    //  If the car is in porcess of interaction - skip the rest of the update and make the car invisible
+        {
+            parkedTimer -= Time.deltaTime;
+            if (parkedTimer <= 0)
+                isParked = false;
+            return;
+        }
+
+        transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
 
         if (isNear(homeCity))     //  If within range with home city will try to load more
         {
@@ -100,6 +115,9 @@ public class Car : MonoBehaviour
         GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
         newText.GetComponent<TextMeshPro>().text = load.ToString();
         newText.GetComponent<TextMeshPro>().color = Color.yellow;
+
+        parkedTimer += load / 10;   //  Take some time to unload
+        isParked = true;
 
         GameManager.gm.money += load; //  TO DO: make money logic more ineresting
         load = 0;

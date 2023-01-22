@@ -9,10 +9,8 @@ public class City : MonoBehaviour
     public string cityName;
 
     public int population = 0;
-
     public bool isOwned = false;      //  If true - player can buy vehicles and start routes in this city
     public bool isAccessed = false;   //  If true - player's routs passing thru this city will bring profit
-
     [HideInInspector] public float priceToOwn = 100000;
     [HideInInspector] public float priceToAccess = 100000;
     public int passengers = 0;
@@ -20,7 +18,7 @@ public class City : MonoBehaviour
 
     [SerializeField] GameObject carPrefab;
 
-    TextMeshProUGUI counter;
+    //TextMeshProUGUI counter;
     [HideInInspector] public bool isSelected = false;
 
     void Start()
