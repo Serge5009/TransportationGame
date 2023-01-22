@@ -33,6 +33,9 @@ public class Car : MonoBehaviour
     //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject FlyingTextPrefab;
 
+    //  Components
+    SpriteRenderer thisSprite;
+
     void Start()
     {
         CheckPath();
@@ -43,6 +46,9 @@ public class Car : MonoBehaviour
         if (!FlyingTextPrefab)
             Debug.LogError("No FlyingTextPrefab found");
 
+        thisSprite = GetComponent<SpriteRenderer>();
+        if (!thisSprite)
+            Debug.LogError("No thisSprite found");
     }
 
     void Update()
@@ -80,10 +86,11 @@ public class Car : MonoBehaviour
             //  Parking check
         if (parkedTimer > 0.0f)    //  If the car is in porcess of interaction - skip the rest of the update and make the car invisible
         {
-            //  To DO:  remove the skin
+            thisSprite.color = new Color(1, 1, 1, 0);
             parkedTimer -= Time.deltaTime;
             return;
         }
+        thisSprite.color = new Color(1, 1, 1, 1);
         parkedTimer = 0.0f;
         
             //  Movement

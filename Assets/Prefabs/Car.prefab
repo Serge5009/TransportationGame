@@ -104,6 +104,6 @@ MonoBehaviour:
   capacity: 10
   load: 0
   interactDistance: 0.1
-  path: []
   isSelected: 0
+  path: []
   FlyingTextPrefab: {fileID: 4960566284163191740, guid: 2bade388d3562544f98aac2a4e62eee8, type: 3}
