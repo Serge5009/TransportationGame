@@ -13,6 +13,8 @@ public class City : MonoBehaviour
     public bool isAccessed = false;   //  If true - player's routs passing thru this city will bring profit
     [HideInInspector] public float priceToOwn = 100000;
     [HideInInspector] public float priceToAccess = 100000;
+    public int maxCarCapacity = 10; //  TO DO: add some logic
+
     public int passengers = 0;
     public List<Car> assignedCars;
 
