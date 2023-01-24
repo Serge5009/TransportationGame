@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         moneyText.text = money.ToString();
 
-        cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
+        //cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
         carMenuUI.SetActive(selectedCar); //  If there's a selected car - activate UI menu
 
         if (gState >= GAME_STATE.NUM_GAME_STATE)
@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
     }
     public void DeselectCity()
     {
+        cityMenuUI.SetActive(false);
         selectedCity = null;
         foreach (City c in cities)
             c.isSelected = false;
