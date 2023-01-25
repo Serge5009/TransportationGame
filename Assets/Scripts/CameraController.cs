@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    //  Input tracking
     Vector3 touchStart;
     Vector3 touchStartLocal;
     Vector3 screenTouchPosition;
+
+    //  Zoom settings
     [SerializeField] float minZoom = 2.0f;
     [SerializeField] float maxZoom = 50.0f;
-
     [SerializeField] float zoomSens = 1.0f;
     [SerializeField] float mouseZoomSens = 1.0f;
 
+    //  How far can you move the finger before lifting it to still count it as a click, not swipe
     [SerializeField] float clickRadius = 10.0f;
+
     private void Start()
     {
         zoomSens *= 0.01f;  //  Some default ajustments

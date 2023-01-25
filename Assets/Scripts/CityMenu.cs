@@ -1,7 +1,4 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 //  This script is attached to ONE UI object that player uses to interact with any city
@@ -15,6 +12,7 @@ public class CityMenu : MonoBehaviour
     [SerializeField] TMP_Text population;
     [SerializeField] TMP_Text hubText;
     [SerializeField] TMP_Text hubButtonText;
+    [SerializeField] GameObject carListMenu;
 
     void OnEnable()
     {
@@ -58,7 +56,7 @@ public class CityMenu : MonoBehaviour
         }
         else
         {
-            GameManager.gm.PopUp("Not implemented!");
+            OpenCarList();
         }
         // TO DO: Add sound effects
     }
@@ -83,5 +81,12 @@ public class CityMenu : MonoBehaviour
     {
         RoadNode node = selectedCity.gameObject.GetComponent<RoadNode>();
         node.ConnectFromThis();
+    }
+
+    void OpenCarList()
+    {
+        carListMenu.SetActive(true);
+        gameObject.SetActive(false);
+
     }
 }

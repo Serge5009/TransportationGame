@@ -49,6 +49,9 @@ public class Car : MonoBehaviour
         thisSprite = GetComponent<SpriteRenderer>();
         if (!thisSprite)
             Debug.LogError("No thisSprite found");
+
+        if (!homeCity.GetComponent<City>().assignedCars.Contains(this)) //  Add the car to the list in its city if needed
+            homeCity.GetComponent<City>().assignedCars.Add(this);
     }
 
     void Update()
@@ -57,33 +60,40 @@ public class Car : MonoBehaviour
         if (!homeCity)
             Debug.LogError("No homeCity found");
         if (!destination)
-            Debug.LogError("No destination found");
+        {
+            ResetToHomeCity();
+            parkedTimer = 1.0f;
+        }
 
             //  Interaction checks
-        if (isNear(homeCity))     //  If within range with home city will try to load more
-        {
-            if (!isMovingTo)
-                UnloadTo(homeCity.GetComponent<City>());
-            isMovingTo = true;
-        }
-        if (isNear(destination))     //  If within range with destination will try to unload
-        {
-            if(isMovingTo)
-                UnloadTo(destination.GetComponent<City>());
-            isMovingTo = false;
-        }
-        if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
-        {
-            if (path[nextNode].GetComponent<City>())
-                LoadFrom(path[nextNode].GetComponent<City>());
 
-            if (isMovingTo)
-                nextNode++;
-            else
-                nextNode--;
+        if(destination) //  Run this code only if the car is running
+        {
+            if (isNear(homeCity))     //  If within range with home city will try to load more
+            {
+                if (!isMovingTo)
+                    UnloadTo(homeCity.GetComponent<City>());
+                isMovingTo = true;
+            }
+            if (isNear(destination))     //  If within range with destination will try to unload
+            {
+                if (isMovingTo)
+                    UnloadTo(destination.GetComponent<City>());
+                isMovingTo = false;
+            }
+            if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
+            {
+                if (path[nextNode].GetComponent<City>())
+                    LoadFrom(path[nextNode].GetComponent<City>());
+
+                if (isMovingTo)
+                    nextNode++;
+                else
+                    nextNode--;
+            }
         }
 
-            //  Parking check
+        //  Parking check
         if (parkedTimer > 0.0f)    //  If the car is in porcess of interaction - skip the rest of the update and make the car invisible
         {
             thisSprite.color = new Color(1, 1, 1, 0);
@@ -156,6 +166,10 @@ public class Car : MonoBehaviour
 
     bool CheckPath()
     {
+        if (path.Count == 0)
+            return false;
+        
+
         bool returnVal = true;
 
         if (path[0].gameObject != homeCity)
@@ -244,10 +258,7 @@ public class Car : MonoBehaviour
         path = newPath;
         destination = path[path.Count - 1].gameObject;
         newPath = null;
-
-        nextNode = 0;                                       //  Reset path following order
-        transform.position = homeCity.transform.position;   //  Teleport home
-        load = 0;                                           //  Empty the trunk
+        ResetToHomeCity();
         GameManager.gm.PopUp("New path created!");
 
         if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
@@ -255,5 +266,12 @@ public class Car : MonoBehaviour
             GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here 2!");
             Debug.LogError("Oh no, you messed up the path!");
         }
+    }
+
+    void ResetToHomeCity()  //  This function teleports the car to its hub and reset data
+    {
+        nextNode = 0;                                       //  Reset path following order
+        transform.position = homeCity.transform.position;   //  Teleport home
+        load = 0;                                           //  Empty the trunk
     }
 }

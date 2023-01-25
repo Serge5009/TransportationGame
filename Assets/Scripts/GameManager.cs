@@ -8,29 +8,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gm { get; private set; }
-
-    [SerializeField] TextMeshProUGUI moneyText;
-    [SerializeField] GameObject UIBuildEffect;
-    [SerializeField] GameObject UIConnectEffect;
-    [SerializeField] GameObject UIPathEffect;
-    [SerializeField] GameObject UIPopUp;
-    public City selectedCity;
-    public Car selectedCar;
-    [SerializeField] GameObject cityMenuUI;
-    [SerializeField] GameObject carMenuUI;
-    List<City> cities;
-    public List<Car> cars;
-    [SerializeField] GameObject roadNodePrefab;
-
-    //  Gameplay settings
-    public float roadNodeCost = 50.0f;
-
-
-    public float money = 1000.0f;
-
-    public GAME_STATE gState;   //  Sorta FSM for the game
-
+    public static GameManager gm { get; private set; }  //  Singleton for the Game Manager
     void Awake()
     {
         if (gm != null && gm != this)
@@ -39,14 +17,42 @@ public class GameManager : MonoBehaviour
             gm = this;
     }
 
+    //  UI references   //  TO DO: probably would be nice to create a manager for them
+    [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] GameObject UIBuildEffect;
+    [SerializeField] GameObject UIConnectEffect;
+    [SerializeField] GameObject UIPathEffect;
+    [SerializeField] GameObject UIPopUp;
+
+    //  Active object references
+    public City selectedCity;
+    public Car selectedCar;
+
+    //  Lists
+    List<City> cities;
+    public List<Car> cars;
+
+    //  Prefabs     //  TO DO: probably would be nice to create a manager for them as well
+    [SerializeField] GameObject roadNodePrefab;
+
+    //  Gameplay basic settings
+    public float roadNodeCost = 50.0f;
+
+    //  Resources
+    public float money = 1000.0f;
+
+    //  Terribly implemented FSM    :)
+    public GAME_STATE gState;
+
+
     void Start()
     {
+        //  Error checks
+        if (cities.Count <= 0)
+            Debug.LogWarning("GM couldn't find any cities!");
+
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
-        if (!cityMenuUI)
-            Debug.LogError("No cityMenuUI assigned to the GameManager");
-        if (!carMenuUI)
-            Debug.LogError("No carMenuUI assigned to the GameManager");
         if (!roadNodePrefab)
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
@@ -74,27 +80,23 @@ public class GameManager : MonoBehaviour
             cars.Add(o.GetComponent<Car>());
         Debug.Log("GameManager found " + cars.Count + " cars on the map.");
 
-        if (cities.Count <= 0)
-            Debug.LogWarning("GM couldn't find any cities!");
-
         gState = GAME_STATE.PLAY;
-
-        //PopUp("Hello world!");
     }
 
     void Update()
     {
-        moneyText.text = money.ToString();
-
-        cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
-        carMenuUI.SetActive(selectedCar); //  If there's a selected car - activate UI menu
-
+        //  Error checks
         if (gState >= GAME_STATE.NUM_GAME_STATE)
             Debug.LogError("FSM Error!");
 
-        UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);    //  If in build mode - will show UI effect
-        UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  If in connect mode - will show UI effect
-        UIPathEffect.SetActive(gState == GAME_STATE.PATH);    //  If in connect mode - will show UI effect
+        //  UI update
+        moneyText.text = money.ToString();
+
+        UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
+        UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  Connect mode
+        UIPathEffect.SetActive(gState == GAME_STATE.PATH);          //  Path mode
+
+        MenuManager.menuMgr.carMenu.SetActive(selectedCar);     //  If there's a selected car - activate UI menu
     }
 
     public void SelectCity(City newSelected)
@@ -108,13 +110,14 @@ public class GameManager : MonoBehaviour
                 c.isSelected = false;
         }
 
-        cityMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
-        cityMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.cityMenu.SetActive(false);    //  TO DO: must be a better way to implement this
+        MenuManager.menuMgr.cityMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
     }
     public void DeselectCity()
     {
+        MenuManager.menuMgr.cityMenu.SetActive(false);
         selectedCity = null;
         foreach (City c in cities)
             c.isSelected = false;
@@ -133,8 +136,8 @@ public class GameManager : MonoBehaviour
                 c.isSelected = false;
         }
 
-        carMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
-        carMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.carMenu.SetActive(false);    //  TO DO: must be a better way to implement this
+        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
     }
