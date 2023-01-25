@@ -18,7 +18,7 @@ public class City : MonoBehaviour
     public int passengers = 0;
     public List<Car> assignedCars;
 
-    [SerializeField] GameObject carPrefab;
+    [SerializeField] GameObject carPrefab;  //  TO DO: move to another script
 
     //TextMeshProUGUI counter;
     [HideInInspector] public bool isSelected = false;

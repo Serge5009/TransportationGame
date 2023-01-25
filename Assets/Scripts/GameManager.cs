@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject UIPopUp;
     public City selectedCity;
     public Car selectedCar;
-    [SerializeField] GameObject cityMenuUI;
-    [SerializeField] GameObject carMenuUI;
     List<City> cities;
     public List<Car> cars;
     [SerializeField] GameObject roadNodePrefab;
@@ -43,10 +41,6 @@ public class GameManager : MonoBehaviour
     {
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
-        if (!cityMenuUI)
-            Debug.LogError("No cityMenuUI assigned to the GameManager");
-        if (!carMenuUI)
-            Debug.LogError("No carMenuUI assigned to the GameManager");
         if (!roadNodePrefab)
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
@@ -87,7 +81,7 @@ public class GameManager : MonoBehaviour
         moneyText.text = money.ToString();
 
         //cityMenuUI.SetActive(selectedCity); //  If there's a selected city - activate UI menu
-        carMenuUI.SetActive(selectedCar); //  If there's a selected car - activate UI menu
+        MenuManager.menuMgr.carMenu.SetActive(selectedCar); //  If there's a selected car - activate UI menu
 
         if (gState >= GAME_STATE.NUM_GAME_STATE)
             Debug.LogError("FSM Error!");
@@ -108,14 +102,14 @@ public class GameManager : MonoBehaviour
                 c.isSelected = false;
         }
 
-        cityMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
-        cityMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.cityMenu.SetActive(false);    //  TO DO: must be a better way to implement this
+        MenuManager.menuMgr.cityMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
     }
     public void DeselectCity()
     {
-        cityMenuUI.SetActive(false);
+        MenuManager.menuMgr.cityMenu.SetActive(false);
         selectedCity = null;
         foreach (City c in cities)
             c.isSelected = false;
@@ -134,8 +128,8 @@ public class GameManager : MonoBehaviour
                 c.isSelected = false;
         }
 
-        carMenuUI.SetActive(false);    //  TO DO: must be a better way to implement this
-        carMenuUI.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.carMenu.SetActive(false);    //  TO DO: must be a better way to implement this
+        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
     }

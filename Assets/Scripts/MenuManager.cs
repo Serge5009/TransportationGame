@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//  This script is designed for easy reference to UI menus from any other script
+//  Also performs some menu logic managing (TO DO)
+
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager menuMgr { get; private set; } //  Singleton for this manager
@@ -29,6 +32,6 @@ public class MenuManager : MonoBehaviour
 
     void Update()
     {
-        
+        //  TO DO: move menu controls here
     }
 }
