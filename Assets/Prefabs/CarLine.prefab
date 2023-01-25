@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8545646089851479736}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6300877247079055369}
+        m_TargetAssemblyTypeName: CarLine, Assembly-CSharp
+        m_MethodName: OpenCarMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8545646090395495625
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,6 +415,7 @@ GameObject:
   - component: {fileID: 8545646091821524220}
   - component: {fileID: 8545646091821524222}
   - component: {fileID: 8545646091821524221}
+  - component: {fileID: 6300877247079055369}
   m_Layer: 5
   m_Name: CarLine
   m_TagString: Untagged
@@ -470,3 +483,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6300877247079055369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8545646091821524219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9753573f4e99548939b931609be31a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedCar: {fileID: 0}
+  CarID: {fileID: 8545646090582765633}

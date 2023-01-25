@@ -37,6 +37,7 @@ public class CarList : MonoBehaviour
         newLine.transform.SetParent(ListContainer.transform);   //  Setting the proper hierarchy 
         newLine.transform.localScale = new Vector3(1, 1, 1);    //  Rescaling to 1 (for some reason sets scale to 0.97 by default)
         spawnedLines.Add(newLine);                              //  Add to the list
+        newLine.GetComponent<CarLine>().assignedCar = car;
     }
 
     public void Close()
