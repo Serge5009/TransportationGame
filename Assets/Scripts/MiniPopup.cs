@@ -9,7 +9,6 @@ using UnityEngine;
 //  MathF Sin/Cos https://docs.unity3d.com/ScriptReference/Mathf.Sin.html
 //  Tidy random bool https://forum.unity.com/threads/random-randomboolean-function.83220/
 
-
 public class MiniPopup : MonoBehaviour
 {
     //  Vertical start settings

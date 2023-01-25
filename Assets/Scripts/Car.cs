@@ -49,6 +49,9 @@ public class Car : MonoBehaviour
         thisSprite = GetComponent<SpriteRenderer>();
         if (!thisSprite)
             Debug.LogError("No thisSprite found");
+
+        if (!homeCity.GetComponent<City>().assignedCars.Contains(this)) //  Add the car to the list in its city if needed
+            homeCity.GetComponent<City>().assignedCars.Add(this);
     }
 
     void Update()
