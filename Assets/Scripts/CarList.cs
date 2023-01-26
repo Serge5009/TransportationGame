@@ -6,6 +6,7 @@ public class CarList : MonoBehaviour
 {
     City selectedCity;
     [SerializeField] TMP_Text cityName;
+    [SerializeField] TMP_Text cityCapacity;
     [SerializeField] GameObject CarLinePrefab;
     [SerializeField] GameObject ListContainer;
 
@@ -15,6 +16,7 @@ public class CarList : MonoBehaviour
     {
         selectedCity = GameManager.gm.selectedCity;
         cityName.text = "Cars in " + selectedCity.cityName;
+        cityCapacity.text = selectedCity.assignedCars.Count.ToString() + "/" + selectedCity.maxCarCapacity.ToString();
 
         spawnedLines = new List<GameObject>();
 
