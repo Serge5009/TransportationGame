@@ -32,6 +32,7 @@ public class Car : MonoBehaviour
 
     //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject FlyingTextPrefab;
+    [SerializeField] GameObject AddedTextPrefab;
 
     //  Components
     SpriteRenderer thisSprite;
@@ -235,10 +236,14 @@ public class Car : MonoBehaviour
 
         newPath.Add(nodeToAdd);
 
-        if(!CheckPath(newPath))
+        if(!CheckPath(newPath))             //  If sequence is incorrect
         {
-            newPath.Remove(nodeToAdd);
+            newPath.Remove(nodeToAdd);      //  Remove the new node
             //  TO DO: Add sound effect
+        }
+        else                                //  If the route is fine 
+        {
+            GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
         }
     }
 

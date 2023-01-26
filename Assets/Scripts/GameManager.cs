@@ -48,9 +48,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //  Error checks
-        if (cities.Count <= 0)
-            Debug.LogWarning("GM couldn't find any cities!");
-
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
         if (!roadNodePrefab)
@@ -71,6 +68,10 @@ public class GameManager : MonoBehaviour
         foreach (GameObject o in CityObjs)
             cities.Add(o.GetComponent<City>());
         Debug.Log("GameManager found " + cities.Count + " cities on the map.");
+
+        //  Error check 2
+        if (cities.Count <= 0)
+            Debug.LogWarning("GM couldn't find any cities!");
 
         //  Add all existing cars to the list
         cars = new List<Car>();
