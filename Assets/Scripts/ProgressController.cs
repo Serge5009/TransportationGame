@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//  This script is responsible for tutorials and other progress related stages
+
+
 public class ProgressController : MonoBehaviour
 {
     public static ProgressController pControll { get; private set; }  //  Singleton for the Progress Controller
@@ -36,5 +39,15 @@ public class ProgressController : MonoBehaviour
 
         if (tutorialStage >= tutorialObj.Count || tutorialStage < 0)
             isTutorialActive = false;
+    }
+
+    public void StartTutorial()
+    {
+        tutorialStage = 1;
+        isTutorialActive = true;
+    }
+    public void StopTutorial()
+    {
+        isTutorialActive = false;
     }
 }
