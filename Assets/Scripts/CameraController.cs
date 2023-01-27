@@ -22,6 +22,9 @@ public class CameraController : MonoBehaviour
         mouseZoomSens *= 5; //  TO DO: new zoom multiplier logic would be nice
     }
 
+    //  Tutorial
+    float totalMove = 0.0f;
+
     private void Update()
     {
         if (GameManager.gm.gState == GAME_STATE.INMENU) //  If there's a menu open - will ignore camera controlls
@@ -56,6 +59,10 @@ public class CameraController : MonoBehaviour
         {
             Vector3 camMoveDirection = touchStart - screenTouchPosition;
             Camera.main.transform.position += camMoveDirection;
+
+            //  Tutorial
+            if(totalMove >= 500.0f)
+                ProgressController.pControll.OnCameraMove();
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -64,6 +71,8 @@ public class CameraController : MonoBehaviour
 
             if (Vector3.Distance(touchStartLocal, touchEndLocal) <= clickRadius)
                 Click();
+
+            totalMove += Vector2.Distance(touchStartLocal, touchEndLocal);
         }
 
         //  TO DO: Add keyboard input
@@ -84,9 +93,17 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    float totalZoom = 0.0f;
     void Zoom(float amount)
     {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - amount, minZoom, maxZoom);
+
+        //  Tutorial
+        if (amount < 0) //  TO DO: should move zoom and move tracking to a ProgressController
+            amount *= -1;
+        totalZoom += amount;
+        if(totalZoom >= 10.0f)
+            ProgressController.pControll.OnCameraZoom();
     }
 
 

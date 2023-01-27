@@ -28,14 +28,10 @@ public class ProgressController : MonoBehaviour
 
     void Update()
     {
-        if(isTutorialActive)
-        {
-            foreach (GameObject i in tutorialObj)
-            {
-                i.SetActive(false);
-            }
+        foreach (GameObject i in tutorialObj)           //  Turn off all tutorial pop-ups
+            i.SetActive(false);
+        if (isTutorialActive)                           //  Turn on the active one 
             tutorialObj[tutorialStage].SetActive(true);
-        }
 
         if (tutorialStage >= tutorialObj.Count || tutorialStage < 0)
             isTutorialActive = false;
@@ -50,4 +46,15 @@ public class ProgressController : MonoBehaviour
     {
         isTutorialActive = false;
     }
+    public void OnCameraMove()
+    {
+        if (tutorialStage == 1)
+            tutorialStage = 2;
+    }
+    public void OnCameraZoom()
+    {
+        if (tutorialStage == 2)
+            tutorialStage = 3;
+    }
+
 }
