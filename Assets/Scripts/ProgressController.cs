@@ -49,12 +49,30 @@ public class ProgressController : MonoBehaviour
     public void OnCameraMove()
     {
         if (tutorialStage == 1)
-            tutorialStage = 2;
+            tutorialStage++;
     }
     public void OnCameraZoom()
     {
         if (tutorialStage == 2)
-            tutorialStage = 3;
+            tutorialStage++;
     }
-
+    public void OnCameraClick()
+    {
+        if (tutorialStage == 3)
+            tutorialStage++;
+        else if (tutorialStage == 5)
+            tutorialStage++;
+        else if (tutorialStage == 6)
+            tutorialStage++;
+    }
+    public void OnCitySelect(City selected)
+    {
+        if (tutorialStage == 4)
+            tutorialStage++;
+    }
+    public void OnCityDeSelect()
+    {
+        if (tutorialStage == 5 || tutorialStage == 6 || tutorialStage == 7)
+            tutorialStage = 4;
+    }
 }

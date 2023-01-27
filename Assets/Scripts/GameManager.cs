@@ -115,6 +115,9 @@ public class GameManager : MonoBehaviour
         MenuManager.menuMgr.cityMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
+
+        //  Tutorial
+        ProgressController.pControll.OnCitySelect(newSelected);
     }
     public void DeselectCity()
     {
@@ -124,6 +127,9 @@ public class GameManager : MonoBehaviour
             c.isSelected = false;
 
         gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnCityDeSelect();
     }
 
     public void SelectCar(Car newSelected)

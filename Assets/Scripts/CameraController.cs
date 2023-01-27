@@ -91,6 +91,9 @@ public class CameraController : MonoBehaviour
         {
             GameManager.gm.AddRoadNode(screenTouchPosition);
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnCameraClick();
     }
 
     float totalZoom = 0.0f;
