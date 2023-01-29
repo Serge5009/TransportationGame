@@ -64,6 +64,10 @@ public class ProgressController : MonoBehaviour
             tutorialStage++;
         else if (tutorialStage == 6)
             tutorialStage++;
+        else if (tutorialStage == 8)
+            tutorialStage++;
+        else if (tutorialStage == 10)
+            tutorialStage++;
     }
     public void OnCitySelect(City selected)
     {
@@ -74,5 +78,15 @@ public class ProgressController : MonoBehaviour
     {
         if (tutorialStage == 5 || tutorialStage == 6 || tutorialStage == 7)
             tutorialStage = 4;
+    }
+    public void OnCityAccess(City accessed)
+    {
+        if (tutorialStage == 7)
+            tutorialStage++;
+    }
+    public void OnCityHubPurchase(City hubCity)
+    {
+        if (tutorialStage == 9)
+            tutorialStage++;
     }
 }

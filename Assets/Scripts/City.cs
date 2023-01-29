@@ -110,7 +110,9 @@ public class City : MonoBehaviour
             GameManager.gm.money -= priceToOwn;
             isOwned = true;
             isAccessed = true;
-            GameManager.gm.DeselectCity();  
+
+            //  Tutorial
+            ProgressController.pControll.OnCityHubPurchase(this);
         }
         else if (isOwned)
             GameManager.gm.PopUp("This city is already accessed");
@@ -123,7 +125,9 @@ public class City : MonoBehaviour
         {
             GameManager.gm.money -= priceToAccess;
             isAccessed = true;
-            GameManager.gm.DeselectCity();
+
+            //  Tutorial
+            ProgressController.pControll.OnCityAccess(this);    
         }
         else if (isAccessed)
             GameManager.gm.PopUp("This city is already owned");
