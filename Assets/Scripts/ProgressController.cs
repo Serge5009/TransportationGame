@@ -21,6 +21,9 @@ public class ProgressController : MonoBehaviour
 
     [SerializeField] List<GameObject> tutorialObj;
 
+    //  Stats
+    int roadsBuilt = 0;
+
     void Start()
     {
         
@@ -35,6 +38,9 @@ public class ProgressController : MonoBehaviour
 
         if (tutorialStage >= tutorialObj.Count || tutorialStage < 0)
             isTutorialActive = false;
+
+        if (tutorialStage < 19 && roadsBuilt >= 2)
+            tutorialStage = 19;
     }
 
     public void StartTutorial()
@@ -75,11 +81,16 @@ public class ProgressController : MonoBehaviour
     {
         if (tutorialStage == 4)
             tutorialStage++;
+        else if (tutorialStage == 14)
+            tutorialStage++;
     }
     public void OnCityDeSelect()
     {
         if (tutorialStage == 5 || tutorialStage == 6 || tutorialStage == 7)
             tutorialStage = 4;
+
+        if (tutorialStage == 15)
+            tutorialStage = 14;
     }
     public void OnCityAccess(City accessed)
     {
@@ -96,9 +107,26 @@ public class ProgressController : MonoBehaviour
         if (tutorialStage == 12)
             tutorialStage++;
     }
+    public void OnConnectModeEnter()
+    {
+        if (tutorialStage == 15)
+            tutorialStage++;
+    }
     public void OnNodeBuilt()
     {
         if (tutorialStage == 13)
             tutorialStage++;
+    }
+    public void OnNodeConnectFail()
+    {
+        if (tutorialStage == 16)
+            tutorialStage = 17;
+    }
+    public void OnNodeConnectSuccess()
+    {
+        if (tutorialStage == 16)
+            tutorialStage = 18;
+
+        roadsBuilt++;
     }
 }
