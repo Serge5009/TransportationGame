@@ -160,6 +160,9 @@ public class GameManager : MonoBehaviour
     public void BuildingMode()
     {
         gState = GAME_STATE.BUILD;
+
+        //  Tutorial
+        ProgressController.pControll.OnBuildModeEnter();
     }
 
     public void AddRoadNode(Vector2 placement)
@@ -169,9 +172,14 @@ public class GameManager : MonoBehaviour
             //  TO DO: Show an error message
             return;
         }
+
         money -= roadNodeCost;
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnNodeBuilt();
+
     }
 
     public void PopUp(string content)
