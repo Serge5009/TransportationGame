@@ -224,6 +224,9 @@ public class Car : MonoBehaviour
         newPathAssociatedCar = this;
         newPath = new List<RoadNode>();
         newPath.Add(homeCity.GetComponent<RoadNode>());
+
+        //  Tutorial
+        ProgressController.pControll.OnPathModeEnter();
     }
 
     public void AddPathNode(RoadNode nodeToAdd)
@@ -248,6 +251,9 @@ public class Car : MonoBehaviour
         {
             GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathNodeAdded();
     }
 
     public void FinishPath()
@@ -274,6 +280,9 @@ public class Car : MonoBehaviour
             GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here 2!");
             Debug.LogError("Oh no, you messed up the path!");
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathFinish();
     }
 
     void ResetToHomeCity()  //  This function teleports the car to its hub and reset data

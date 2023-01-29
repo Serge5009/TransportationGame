@@ -41,6 +41,10 @@ public class ProgressController : MonoBehaviour
 
         if (tutorialStage < 19 && roadsBuilt >= 2)
             tutorialStage = 19;
+        
+        if (GameManager.gm.selectedCity)
+            if (GameManager.gm.selectedCity.assignedCars.Count > 0)
+                tutorialStage = 21;
     }
 
     public void StartTutorial()
@@ -76,6 +80,12 @@ public class ProgressController : MonoBehaviour
             tutorialStage++;
         else if (tutorialStage == 11)
             tutorialStage++;
+        else if (tutorialStage == 22)
+            tutorialStage++;
+        else if (tutorialStage == 26)
+            tutorialStage++;
+        else if (tutorialStage == 27)
+            tutorialStage++;
     }
     public void OnCitySelect(City selected)
     {
@@ -92,7 +102,7 @@ public class ProgressController : MonoBehaviour
             tutorialStage = 4;
         else if (tutorialStage == 15)
             tutorialStage = 14;
-        else if (tutorialStage == 20)
+        else if (tutorialStage == 20 || tutorialStage == 21)
             tutorialStage = 19;
     }
     public void OnCityAccess(City accessed)
@@ -115,6 +125,11 @@ public class ProgressController : MonoBehaviour
         if (tutorialStage == 15)
             tutorialStage++;
     }
+    public void OnPathModeEnter()
+    {
+        if (tutorialStage == 23)
+            tutorialStage++;
+    }
     public void OnNodeBuilt()
     {
         if (tutorialStage == 13)
@@ -131,5 +146,25 @@ public class ProgressController : MonoBehaviour
             tutorialStage = 18;
 
         roadsBuilt++;
+    }
+    public void OnCarSelect(Car selected)
+    {
+        if (tutorialStage == 21)
+            tutorialStage++;
+    }
+    public void OnCarDeSelect()
+    {
+        if (tutorialStage == 22)
+            tutorialStage = 19;
+    }
+    public void OnPathNodeAdded()
+    {
+        if (tutorialStage == 24)
+            tutorialStage++;
+    }
+    public void OnPathFinish()
+    {
+        if (tutorialStage == 25)
+            tutorialStage++;
     }
 }
