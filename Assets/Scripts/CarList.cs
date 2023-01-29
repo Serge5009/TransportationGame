@@ -15,13 +15,17 @@ public class CarList : MonoBehaviour
     private void OnEnable()
     {
         selectedCity = GameManager.gm.selectedCity;
-        cityName.text = "Cars in " + selectedCity.cityName;
-        cityCapacity.text = selectedCity.assignedCars.Count.ToString() + "/" + selectedCity.maxCarCapacity.ToString();
 
         spawnedLines = new List<GameObject>();
 
         PopulateList();
-        
+
+    }
+
+    void Update()
+    {
+        cityName.text = "Cars in " + selectedCity.cityName;
+        cityCapacity.text = selectedCity.assignedCars.Count.ToString() + "/" + selectedCity.maxCarCapacity.ToString();
 
     }
 
@@ -42,11 +46,15 @@ public class CarList : MonoBehaviour
         newLine.GetComponent<CarLine>().assignedCar = car;
     }
 
-    public void Close()
+    void RemoveLines()
     {
         foreach (GameObject i in spawnedLines)              //  Clear the old lines
             Destroy(i);
+    }
 
+    public void Close()
+    {
+        RemoveLines();
         GameManager.gm.DeselectCity();
         gameObject.SetActive(false);    //  TO DO: needs a new logic and a menu manager
         // TO DO: Add sound effects

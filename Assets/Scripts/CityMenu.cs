@@ -12,6 +12,7 @@ public class CityMenu : MonoBehaviour
     [SerializeField] TMP_Text population;
     [SerializeField] TMP_Text hubText;
     [SerializeField] TMP_Text hubButtonText;
+    [SerializeField] TMP_Text carNumText;
     [SerializeField] GameObject carListMenu;
 
     void OnEnable()
@@ -23,18 +24,22 @@ public class CityMenu : MonoBehaviour
             cityName.text = "ERROR 404!";   //  City not found)
             GameManager.gm.PopUp("CityMenu couldn't find a selectedCity");
         }
+    }
 
+    void Update()
+    {
         cityName.text = selectedCity.cityName;
         population.text = selectedCity.population.ToString();
+        carNumText.text = selectedCity.assignedCars.Count.ToString();
 
         if (!selectedCity.isAccessed)
         {
             hubText.text = "You don't have access to this city, \nbuy access for: " + selectedCity.priceToAccess;
             hubButtonText.text = "Buy";
         }
-        else if(!selectedCity.isOwned)
+        else if (!selectedCity.isOwned)
         {
-            hubText.text = "You can sell here, but can't buy vehicles, \nbuy a hub for: " + selectedCity.priceToOwn;
+            hubText.text = "You can load here,\nbuy a hub for: " + selectedCity.priceToOwn;
             hubButtonText.text = "Buy";
         }
         else
@@ -87,6 +92,5 @@ public class CityMenu : MonoBehaviour
     {
         carListMenu.SetActive(true);
         gameObject.SetActive(false);
-
     }
 }

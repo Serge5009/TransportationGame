@@ -83,14 +83,17 @@ public class ProgressController : MonoBehaviour
             tutorialStage++;
         else if (tutorialStage == 14)
             tutorialStage++;
+        else if (tutorialStage == 19 && selected.isOwned)
+            tutorialStage++;
     }
     public void OnCityDeSelect()
     {
         if (tutorialStage == 5 || tutorialStage == 6 || tutorialStage == 7)
             tutorialStage = 4;
-
-        if (tutorialStage == 15)
+        else if (tutorialStage == 15)
             tutorialStage = 14;
+        else if (tutorialStage == 20)
+            tutorialStage = 19;
     }
     public void OnCityAccess(City accessed)
     {

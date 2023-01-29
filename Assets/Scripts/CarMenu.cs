@@ -17,6 +17,10 @@ public class CarMenu : MonoBehaviour
             Debug.LogError("CarMenu couldn't find a selectedCar");
             GameManager.gm.PopUp("CarMenu couldn't find a selectedCar");
         }
+    }
+
+    void Update()
+    {
         title.text = "Car #" + selectedCar.carID.ToString();
         load.text = selectedCar.load.ToString() + " / " + selectedCar.capacity.ToString();  //  Update load of the car
         home.text = selectedCar.homeCity.GetComponent<City>().cityName;

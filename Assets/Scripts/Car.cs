@@ -164,6 +164,9 @@ public class Car : MonoBehaviour
         float distance = Vector2.Distance(transform.position, place.transform.position);
         return (distance <= interactDistance);
     }
+    
+    //  TO DO:
+    //  Known BUG:  when home city == destination -> error
 
     bool CheckPath()
     {
