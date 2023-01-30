@@ -32,6 +32,8 @@ public class Car : MonoBehaviour
 
     //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject FlyingTextPrefab;
+    [SerializeField] GameObject AddedTextPrefab;
+    [SerializeField] GameObject PathCreatedTextPrefab;
 
     //  Components
     SpriteRenderer thisSprite;
@@ -45,6 +47,10 @@ public class Car : MonoBehaviour
 
         if (!FlyingTextPrefab)
             Debug.LogError("No FlyingTextPrefab found");
+        if (!AddedTextPrefab)
+            Debug.LogError("No AddedTextPrefab found");
+        if (!PathCreatedTextPrefab)
+            Debug.LogError("No PathCreatedTextPrefab found");
 
         thisSprite = GetComponent<SpriteRenderer>();
         if (!thisSprite)
@@ -163,6 +169,9 @@ public class Car : MonoBehaviour
         float distance = Vector2.Distance(transform.position, place.transform.position);
         return (distance <= interactDistance);
     }
+    
+    //  TO DO:
+    //  Known BUG:  when home city == destination -> error
 
     bool CheckPath()
     {
@@ -220,6 +229,9 @@ public class Car : MonoBehaviour
         newPathAssociatedCar = this;
         newPath = new List<RoadNode>();
         newPath.Add(homeCity.GetComponent<RoadNode>());
+
+        //  Tutorial
+        ProgressController.pControll.OnPathModeEnter();
     }
 
     public void AddPathNode(RoadNode nodeToAdd)
@@ -235,11 +247,18 @@ public class Car : MonoBehaviour
 
         newPath.Add(nodeToAdd);
 
-        if(!CheckPath(newPath))
+        if(!CheckPath(newPath))             //  If sequence is incorrect
         {
-            newPath.Remove(nodeToAdd);
+            newPath.Remove(nodeToAdd);      //  Remove the new node
             //  TO DO: Add sound effect
         }
+        else                                //  If the route is fine 
+        {
+            GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
+        }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathNodeAdded();
     }
 
     public void FinishPath()
@@ -259,13 +278,17 @@ public class Car : MonoBehaviour
         destination = path[path.Count - 1].gameObject;
         newPath = null;
         ResetToHomeCity();
-        GameManager.gm.PopUp("New path created!");
+        GameObject newpopupobject = Instantiate(PathCreatedTextPrefab, destination.transform.position, Quaternion.identity);
+        newpopupobject.transform.localScale = new Vector3(3, 3, 1);
 
         if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
         {
             GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here 2!");
             Debug.LogError("Oh no, you messed up the path!");
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathFinish();
     }
 
     void ResetToHomeCity()  //  This function teleports the car to its hub and reset data

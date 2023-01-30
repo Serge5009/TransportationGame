@@ -38,8 +38,11 @@ public class GameManager : MonoBehaviour
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
 
-    //  Resources
-    public float money = 1000.0f;
+    //  Defaults
+    [SerializeField] float defaultMoney = 5000;
+
+    //  Resources variables
+    public float money;
 
     //  Terribly implemented FSM    :)
     public GAME_STATE gState;
@@ -48,9 +51,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         //  Error checks
-        if (cities.Count <= 0)
-            Debug.LogWarning("GM couldn't find any cities!");
-
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
         if (!roadNodePrefab)
@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour
         foreach (GameObject o in CityObjs)
             cities.Add(o.GetComponent<City>());
         Debug.Log("GameManager found " + cities.Count + " cities on the map.");
+
+        //  Error check 2
+        if (cities.Count <= 0)
+            Debug.LogWarning("GM couldn't find any cities!");
 
         //  Add all existing cars to the list
         cars = new List<Car>();
@@ -99,6 +103,30 @@ public class GameManager : MonoBehaviour
         MenuManager.menuMgr.carMenu.SetActive(selectedCar);     //  If there's a selected car - activate UI menu
     }
 
+    public void StartNewGame()
+    {
+        Debug.Log("Starting game in normal mode");
+
+        //  Resources
+        money = defaultMoney;
+
+        //  Cities and cars
+        foreach(City c in cities)
+        {
+            c.ResetCity(true);  //  Reset all cities including assigned cars
+        }
+
+        //  Roads
+        RoadNetwork.rn.DeleteWholeNetwork();
+
+        //  Game Settings
+        gState = GAME_STATE.PLAY;
+        DeselectCar();
+        DeselectCity();
+
+        //  Camera settings     //  TO DO:  work on it
+    }
+
     public void SelectCity(City newSelected)
     {
         selectedCity = newSelected;
@@ -114,6 +142,9 @@ public class GameManager : MonoBehaviour
         MenuManager.menuMgr.cityMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
 
         gState = GAME_STATE.INMENU;
+
+        //  Tutorial
+        ProgressController.pControll.OnCitySelect(newSelected);
     }
     public void DeselectCity()
     {
@@ -123,6 +154,9 @@ public class GameManager : MonoBehaviour
             c.isSelected = false;
 
         gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnCityDeSelect();
     }
 
     public void SelectCar(Car newSelected)
@@ -137,9 +171,12 @@ public class GameManager : MonoBehaviour
         }
 
         MenuManager.menuMgr.carMenu.SetActive(false);    //  TO DO: must be a better way to implement this
-        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected car
 
         gState = GAME_STATE.INMENU;
+
+        //  Tutorial
+        ProgressController.pControll.OnCarSelect(newSelected);
     }
     public void DeselectCar()
     {
@@ -148,11 +185,17 @@ public class GameManager : MonoBehaviour
             c.isSelected = false;
 
         gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnCarDeSelect();
     }
 
     public void BuildingMode()
     {
         gState = GAME_STATE.BUILD;
+
+        //  Tutorial
+        ProgressController.pControll.OnBuildModeEnter();
     }
 
     public void AddRoadNode(Vector2 placement)
@@ -162,9 +205,14 @@ public class GameManager : MonoBehaviour
             //  TO DO: Show an error message
             return;
         }
+
         money -= roadNodeCost;
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnNodeBuilt();
+
     }
 
     public void PopUp(string content)

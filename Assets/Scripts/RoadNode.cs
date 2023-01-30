@@ -65,9 +65,14 @@ public class RoadNode : MonoBehaviour
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
                 OnNodeClick();
-            
         }
+    }
 
+    public void ResetConnections()
+    {
+        connections.Clear();   
+
+        //  TO DO:  Make it delete roads
     }
 
     void OnNodeClick()
@@ -97,9 +102,13 @@ public class RoadNode : MonoBehaviour
 
     public void ConnectFromThis()   //  Starts connect mode and selects this node
     {                                   
-        rNet.activeForConnection = this;                
+        rNet.activeForConnection = this;
+
+        //  Tutorial
+        ProgressController.pControll.OnConnectModeEnter();
+
         GameManager.gm.DeselectCity();  //  Remove city selection
-        GameManager.gm.gState = GAME_STATE.CONNECT;
+        GameManager.gm.gState = GAME_STATE.CONNECT;         //  TO DO:  should be moved to a GameManager
 
     }
 
@@ -108,10 +117,16 @@ public class RoadNode : MonoBehaviour
         if(Vector2.Distance(transform.position, rNet.activeForConnection.transform.position) <= rNet.maxRoadLenght) //  If distance is fine
         {
             AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+
+            //  Tutorial
+            ProgressController.pControll.OnNodeConnectSuccess();
         }
         else
         {
-            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");
+            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");    //  TO DO: maybe replace with a small floating text?
+
+            //  Tutorial
+            ProgressController.pControll.OnNodeConnectFail();
         }
 
         //  TO DO: add cost
