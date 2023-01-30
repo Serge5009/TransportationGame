@@ -8,7 +8,8 @@ public class City : MonoBehaviour
 {
     public string cityName;
 
-    public int population = 0;
+    [SerializeField] int defaultPopulation = 0;
+    public int population;
     public bool isOwned = false;      //  If true - player can buy vehicles and start routes in this city
     public bool isAccessed = false;   //  If true - player's routs passing thru this city will bring profit
     [HideInInspector] public float priceToOwn = 100000;
@@ -20,7 +21,6 @@ public class City : MonoBehaviour
 
     [SerializeField] GameObject carPrefab;  //  TO DO: move to another script
 
-    //TextMeshProUGUI counter;
     [HideInInspector] public bool isSelected = false;
 
     void Start()
@@ -33,7 +33,7 @@ public class City : MonoBehaviour
             Debug.LogWarning("There's a city with no people");
 
         assignedCars = new List<Car>();
-        //counter = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        ResetCity();
     }
 
     float timer = 0.01f;
@@ -101,6 +101,19 @@ public class City : MonoBehaviour
         }
 
         population += Random.Range(-population / 20000, population / 10000);  //  For dynamic population  //  TO DO: needs more factors
+    }
+
+    public void ResetCity(bool deleteCars = false)
+    {
+        population = defaultPopulation;
+        isAccessed = false;
+        isOwned = false;
+
+        if(deleteCars)
+            foreach(Car c in assignedCars)
+            {
+                Destroy(c.gameObject);
+            }    
     }
 
     public void BuyCityHub()

@@ -18,9 +18,9 @@ public class ProgressController : MonoBehaviour
     }
 
     public int tutorialStage = 0;
-    public bool isTutorialActive = true;
+    public bool isTutorialActive = false;
 
-    public bool isSandboxMode = true;
+    public bool isSandboxMode = false;
 
     [SerializeField] List<GameObject> tutorialObj;
 
@@ -57,10 +57,14 @@ public class ProgressController : MonoBehaviour
     {
         tutorialStage = 1;
         isTutorialActive = true;
+        isSandboxMode = true;
     }
     public void StopTutorial()
     {
         isTutorialActive = false;
+        isSandboxMode = false;
+
+        StartNewGame();
     }
     public void OnCameraMove()
     {
@@ -183,13 +187,11 @@ public class ProgressController : MonoBehaviour
     }
     public void StartNewGame()
     {
-        //  TO DO:  gm.start new game ...
-        ExitToMenu();   //  Using this for now
-
         tutorialStage = 0;
         isTutorialActive = false;
         isSandboxMode = false;
 
+        GameManager.gm.StartNewGame();
     }
     public void ExitToMenu()
     {

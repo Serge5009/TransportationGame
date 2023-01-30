@@ -5792,7 +5792,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: population
-      value: 100000
+      value: 31000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
+      value: 31000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
@@ -11257,6 +11261,10 @@ PrefabInstance:
       propertyPath: population
       value: 6700000
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
+      value: 6700000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -11608,6 +11616,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: population
+      value: 51000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
       value: 51000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
@@ -12595,6 +12607,10 @@ PrefabInstance:
       propertyPath: population
       value: 82000
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
+      value: 82000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -13465,6 +13481,10 @@ PrefabInstance:
       propertyPath: population
       value: 125000
       objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
+      value: 125000
+      objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -13565,6 +13585,7 @@ MonoBehaviour:
   cars: []
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   roadNodeCost: 50
+  defaultMoney: 5000
   money: 5000
   gState: 0
 --- !u!1 &1616734412
@@ -17972,6 +17993,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
       propertyPath: population
+      value: 83000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847005952087269777, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}
+      propertyPath: defaultPopulation
       value: 83000
       objectReference: {fileID: 0}
     - target: {fileID: 6047126856287913660, guid: df0dfbfab6e774a49b00548f22a7f852, type: 3}

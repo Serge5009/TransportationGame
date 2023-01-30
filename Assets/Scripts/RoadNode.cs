@@ -65,9 +65,14 @@ public class RoadNode : MonoBehaviour
             Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             if (Vector2.Distance(transform.position, clickPos) <= 1)     //  TO DO: new selection logic might be needed later
                 OnNodeClick();
-            
         }
+    }
 
+    public void ResetConnections()
+    {
+        connections.Clear();   
+
+        //  TO DO:  Make it delete roads
     }
 
     void OnNodeClick()

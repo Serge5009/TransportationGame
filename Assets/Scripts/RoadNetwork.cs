@@ -23,14 +23,22 @@ public class RoadNetwork : MonoBehaviour
             rn = this;
     }
 
-    void Start()
+    public void DeleteWholeNetwork()
     {
-        
-    }
+        foreach (RoadLine r in roads)
+            Destroy(r.gameObject);                  //  Destroy all roads
 
-    void Update()
-    {
-        
+        foreach (RoadNode n in nodes)
+        {
+            n.ResetConnections();                   //  Remove all connections in nodes (doesn't affect roads)
+        }
+        foreach (RoadNode n in nodes)
+        {
+            if (!n.gameObject.GetComponent<City>())  //  Unless it's a city
+            {
+                Destroy(n.gameObject);              //  Delete the node
+            }
+        }    
     }
 
     public void RoadDuplicateCheck(RoadLine toCheck)    //  Called by each segment when spawned, deletes duplicate segments

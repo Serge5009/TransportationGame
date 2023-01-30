@@ -38,8 +38,11 @@ public class GameManager : MonoBehaviour
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
 
-    //  Resources
-    public float money = 1000.0f;
+    //  Defaults
+    [SerializeField] float defaultMoney = 5000;
+
+    //  Resources variables
+    public float money;
 
     //  Terribly implemented FSM    :)
     public GAME_STATE gState;
@@ -98,6 +101,30 @@ public class GameManager : MonoBehaviour
         UIPathEffect.SetActive(gState == GAME_STATE.PATH);          //  Path mode
 
         MenuManager.menuMgr.carMenu.SetActive(selectedCar);     //  If there's a selected car - activate UI menu
+    }
+
+    public void StartNewGame()
+    {
+        Debug.Log("Starting game in normal mode");
+
+        //  Resources
+        money = defaultMoney;
+
+        //  Cities and cars
+        foreach(City c in cities)
+        {
+            c.ResetCity(true);  //  Reset all cities including assigned cars
+        }
+
+        //  Roads
+        RoadNetwork.rn.DeleteWholeNetwork();
+
+        //  Game Settings
+        gState = GAME_STATE.PLAY;
+        DeselectCar();
+        DeselectCity();
+
+        //  Camera settings     //  TO DO:  work on it
     }
 
     public void SelectCity(City newSelected)
