@@ -22,8 +22,8 @@ public class CarLine : MonoBehaviour
 
     public void OpenCarMenu()
     {
-        GameManager.gm.SelectCar(assignedCar);
         GameManager.gm.DeselectCity();
         MenuManager.menuMgr.carList.GetComponent<CarList>().Close();
+        GameManager.gm.SelectCar(assignedCar);
     }
 }

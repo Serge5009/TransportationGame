@@ -33,6 +33,7 @@ public class Car : MonoBehaviour
     //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject FlyingTextPrefab;
     [SerializeField] GameObject AddedTextPrefab;
+    [SerializeField] GameObject PathCreatedTextPrefab;
 
     //  Components
     SpriteRenderer thisSprite;
@@ -46,6 +47,10 @@ public class Car : MonoBehaviour
 
         if (!FlyingTextPrefab)
             Debug.LogError("No FlyingTextPrefab found");
+        if (!AddedTextPrefab)
+            Debug.LogError("No AddedTextPrefab found");
+        if (!PathCreatedTextPrefab)
+            Debug.LogError("No PathCreatedTextPrefab found");
 
         thisSprite = GetComponent<SpriteRenderer>();
         if (!thisSprite)
@@ -273,7 +278,8 @@ public class Car : MonoBehaviour
         destination = path[path.Count - 1].gameObject;
         newPath = null;
         ResetToHomeCity();
-        GameManager.gm.PopUp("New path created!");
+        GameObject newpopupobject = Instantiate(PathCreatedTextPrefab, destination.transform.position, Quaternion.identity);
+        newpopupobject.transform.localScale = new Vector3(3, 3, 1);
 
         if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
         {

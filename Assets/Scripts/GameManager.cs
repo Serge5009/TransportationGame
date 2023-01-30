@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
         }
 
         MenuManager.menuMgr.carMenu.SetActive(false);    //  TO DO: must be a better way to implement this
-        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected city
+        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected car
 
         gState = GAME_STATE.INMENU;
 
