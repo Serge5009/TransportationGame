@@ -112,7 +112,7 @@ public class ProgressController : MonoBehaviour
             tutorialStage = 4;
         else if (tutorialStage == 15)
             tutorialStage = 14;
-        else if (tutorialStage == 20 || tutorialStage == 21)
+        else if (tutorialStage == 20)
             tutorialStage = 19;
     }
     public void OnCityAccess(City accessed)
