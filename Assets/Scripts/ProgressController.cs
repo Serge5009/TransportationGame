@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //  This script is responsible for tutorials and other progress related stages
 
@@ -18,6 +19,8 @@ public class ProgressController : MonoBehaviour
 
     public int tutorialStage = 0;
     public bool isTutorialActive = true;
+
+    public bool isSandboxMode = true;
 
     [SerializeField] List<GameObject> tutorialObj;
 
@@ -45,6 +48,9 @@ public class ProgressController : MonoBehaviour
         if (GameManager.gm.selectedCity)
             if (GameManager.gm.selectedCity.assignedCars.Count > 0)
                 tutorialStage = 21;
+
+        if (isSandboxMode)
+            GameManager.gm.money = 1000000;
     }
 
     public void StartTutorial()
@@ -166,5 +172,27 @@ public class ProgressController : MonoBehaviour
     {
         if (tutorialStage == 25)
             tutorialStage++;
+    }
+
+    //  Last choice functions
+    public void StartSandboxMode()
+    {
+        tutorialStage = 0;
+        isTutorialActive = false;
+        isSandboxMode = true;
+    }
+    public void StartNewGame()
+    {
+        //  TO DO:  gm.start new game ...
+        ExitToMenu();   //  Using this for now
+
+        tutorialStage = 0;
+        isTutorialActive = false;
+        isSandboxMode = false;
+
+    }
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
