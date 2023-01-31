@@ -395,7 +395,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Great!
 
-    Lets start with basics.
+    Let''s start with basics.
 
     Look around by dragging your
     finger over the map.'
@@ -5547,7 +5547,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Next is your "HUB" status. There are 3 levels.
 
-    By default you don''t
+    By default, you don''t
     have any access to the city.
 
     For a price that depends on a population you
@@ -8501,7 +8501,7 @@ MonoBehaviour:
     There''s one more way to enter the Connect Mode...
 
     Click
-    on the exsisting node and build one more road!'
+    on the existing node and build one more road!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9769,7 +9769,7 @@ MonoBehaviour:
     as you add new nodes, endlessly.
 
     At
-    the last node, they turn around and mirror the path'
+    the last node, they turn around and mirror the path.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14601,7 +14601,7 @@ MonoBehaviour:
     It will allow your cars to pick-up and
     drop
 
-    passebgers and goods at this location.'
+    passengers and goods at this location.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15414,7 +15414,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Welcome to the Transportation Game!\nThis game revolves around managing
-    your vechicles,\nroutes and infrastructure in order to expand \nyour company!\nBuild
+    your vehicles,\nroutes and infrastructure in order to expand \nyour company!\nBuild
     roads, get access to real world cities, buy cars,\n(planes and ships are in plans)
     and grow\nyour transportation Empire!\n\nWould you like to start with a tutorial?"
   m_isRightToLeft: 0
@@ -16076,7 +16076,7 @@ MonoBehaviour:
     into your first HUB!
 
     Click the same
-    button again'
+    button again.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16769,7 +16769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This game is ment to be a sandbox
+  m_text: 'This game is meant to be a sandbox
 
     and there''s no "right" way to
     play it.
@@ -18515,7 +18515,7 @@ MonoBehaviour:
   m_text: 'Nice! You entered the Connect Mode
 
     Click on you new node or another
-    city'
+    city.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
