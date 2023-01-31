@@ -129,6 +129,11 @@ public class Car : MonoBehaviour
         }
     }
 
+    public static void ResetCars()
+    {
+        numCars = 0;
+    }
+
     void UnloadTo(City toUnload)
     {
         if (load == 0)

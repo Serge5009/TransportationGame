@@ -113,7 +113,9 @@ public class City : MonoBehaviour
             foreach(Car c in assignedCars)
             {
                 Destroy(c.gameObject);
-            }    
+            }
+
+        assignedCars.Clear();
     }
 
     public void BuyCityHub()

@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
         {
             c.ResetCity(true);  //  Reset all cities including assigned cars
         }
+        Car.ResetCars();
 
         //  Roads
         RoadNetwork.rn.DeleteWholeNetwork();
