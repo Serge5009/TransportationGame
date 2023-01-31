@@ -12,7 +12,8 @@ public class CityMenu : MonoBehaviour
     [SerializeField] TMP_Text population;
     [SerializeField] TMP_Text hubText;
     [SerializeField] TMP_Text hubButtonText;
-    [SerializeField] TMP_Text carNumText;
+    [SerializeField] TMP_Text hubUnderBuyText;
+    [SerializeField] TMP_Text passengersText;
     [SerializeField] GameObject carListMenu;
 
     void OnEnable()
@@ -30,22 +31,25 @@ public class CityMenu : MonoBehaviour
     {
         cityName.text = selectedCity.cityName;
         population.text = selectedCity.population.ToString();
-        carNumText.text = selectedCity.assignedCars.Count.ToString();
+        passengersText.text = selectedCity.passengers.ToString();
 
         if (!selectedCity.isAccessed)
         {
-            hubText.text = "You don't have access to this city, \nbuy access for: " + selectedCity.priceToAccess;
-            hubButtonText.text = "Buy";
+            hubText.text = "You don't have access to this city, \nVehicles won't interact when passing by";
+            hubButtonText.text = "Get access";
+            hubUnderBuyText.text = "$" + selectedCity.priceToAccess;
         }
         else if (!selectedCity.isOwned)
         {
-            hubText.text = "You can load here,\nbuy a hub for: " + selectedCity.priceToOwn;
-            hubButtonText.text = "Buy";
+            hubText.text = "Your cars load here,\nCan't buy new vehicles here";
+            hubButtonText.text = "Buy a HUB";
+            hubUnderBuyText.text = "$" + selectedCity.priceToOwn;
         }
         else
         {
-            hubText.text = "You can start routs here, \naccess your hub: ";
-            hubButtonText.text = "Hub";
+            hubText.text = "You have a HUB here, \nYou can buy and manage vehicles";
+            hubButtonText.text = "Vehicles";
+            hubUnderBuyText.text = selectedCity.assignedCars.Count.ToString();
         }
     }
 
