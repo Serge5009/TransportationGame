@@ -19,7 +19,6 @@ public class CarList : MonoBehaviour
         spawnedLines = new List<GameObject>();
 
         PopulateList();
-
     }
 
     void Update()
@@ -37,9 +36,7 @@ public class CarList : MonoBehaviour
     void PopulateList()
     {
         foreach(Car c in selectedCity.assignedCars)
-        {
             AddCarLine(c);
-        }
     }
 
     void AddCarLine(Car car)
@@ -48,13 +45,14 @@ public class CarList : MonoBehaviour
         newLine.transform.SetParent(ListContainer.transform);   //  Setting the proper hierarchy 
         newLine.transform.localScale = new Vector3(1, 1, 1);    //  Rescaling to 1 (for some reason sets scale to 0.97 by default)
         spawnedLines.Add(newLine);                              //  Add to the list
-        newLine.GetComponent<CarLine>().assignedCar = car;
+        newLine.GetComponent<CarLine>().assignedCar = car;      //  Assign a car to the new line
     }
 
     void RemoveLines()
     {
-        foreach (GameObject i in spawnedLines)              //  Clear the old lines
+        foreach (GameObject i in spawnedLines)              //  Remove the old lines
             Destroy(i);
+        spawnedLines.Clear();                               //  Clear the list
     }
 
     public void Close()
