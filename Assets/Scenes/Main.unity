@@ -10931,9 +10931,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CarMenu, Assembly-CSharp
-        m_MethodName: NewRoute
+      - m_Target: {fileID: 2094406657}
+        m_TargetAssemblyTypeName: CityMenu, Assembly-CSharp
+        m_MethodName: BuyCar
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

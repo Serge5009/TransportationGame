@@ -27,6 +27,11 @@ public class CarList : MonoBehaviour
         cityName.text = "Cars in " + selectedCity.cityName;
         cityCapacity.text = selectedCity.assignedCars.Count.ToString() + "/" + selectedCity.maxCarCapacity.ToString();
 
+        if(spawnedLines.Count != selectedCity.assignedCars.Count)   //  If there's a change with cars in this city - refresh
+        {
+            RemoveLines();
+            PopulateList();
+        }
     }
 
     void PopulateList()
