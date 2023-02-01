@@ -152,8 +152,14 @@ public class City : MonoBehaviour
 
     public void BuyNewCar()
     {
-        //  TO DO: Add incremental price
+        float price = GameManager.gm.defaultCarCost * (assignedCars.Count + 1);                 //  Calculate the price
 
+        if(GameManager.gm.money < price)                                                        //  If not enough money - return
+        {
+            GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
+            return;
+        }
+        GameManager.gm.money -= price;                                                          //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
         newCar.homeCity = this.gameObject;                                                      //  Set the home base

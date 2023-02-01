@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
+    public float defaultCarCost = 100.0f;
 
     //  Defaults
     [SerializeField] float defaultMoney = 5000;

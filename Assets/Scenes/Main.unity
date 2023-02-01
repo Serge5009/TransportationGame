@@ -1710,7 +1710,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -10, y: 10}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &159036843
 MonoBehaviour:
@@ -4027,8 +4027,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 42
+  m_fontSizeBase: 42
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13900,6 +13900,7 @@ MonoBehaviour:
   cars: []
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   roadNodeCost: 50
+  defaultCarCost: 100
   defaultMoney: 5000
   money: 5000
   gState: 0
