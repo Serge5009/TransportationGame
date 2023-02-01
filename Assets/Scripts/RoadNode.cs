@@ -32,11 +32,8 @@ public class RoadNode : MonoBehaviour
 
     public void AddConnection(RoadNode other)
     {
-        if(other == this)
-        {
-            GameManager.gm.PopUp("You can't connect this node to itself!");
+        if(other == this)                   //  Can't connect to itself
             return;
-        }
 
         if (!connections.Contains(other))    //  If this node doesn't list other in connections - add
         {
@@ -119,9 +116,27 @@ public class RoadNode : MonoBehaviour
         float connectionDistance = Vector2.Distance(transform.position, rNet.activeForConnection.transform.position);
         float price = GameManager.gm.baseRoadPrice * connectionDistance;
 
+        if(rNet.activeForConnection == this)                                    //  If trying to connect to itself
+        {
+            //  TO DO: add popup
+
+            StopConnection();
+            return;
+        }
+
+        if(RoadNetwork.DoesRoadExistBetween(this, rNet.activeForConnection))    //  If there's already a road
+        {
+            //  TO DO: add popup
+
+            StopConnection();
+            return;
+        }
+
         if (GameManager.gm.money < price)                                                        //  If not enough money - return
         {
             GameManager.gm.PopUp("You need at least $" + price + "\nto build this connection!");
+
+            StopConnection();
             return;
         }
 
@@ -142,6 +157,11 @@ public class RoadNode : MonoBehaviour
             ProgressController.pControll.OnNodeConnectFail();
         }
 
+        StopConnection();
+    }
+
+    void StopConnection()
+    {
         rNet.activeForConnection = null;
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.PLAY;
