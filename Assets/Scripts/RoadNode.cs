@@ -153,6 +153,8 @@ public class RoadNode : MonoBehaviour
             GameObject tooLongPopup = Instantiate(connectedPrefab, transform.position, Quaternion.identity);
             tooLongPopup.transform.localScale = new Vector3(2, 2, 1);
 
+            rNet.activeForConnection = this;
+
             //  Tutorial
             ProgressController.pControll.OnNodeConnectSuccess();
         }
@@ -161,11 +163,12 @@ public class RoadNode : MonoBehaviour
             GameObject tooLongPopup = Instantiate(tooLongPopupPrefab, transform.position, Quaternion.identity);
             tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
 
+            StopConnection();
+
             //  Tutorial
             ProgressController.pControll.OnNodeConnectFail();
         }
 
-        StopConnection();
     }
 
     void StopConnection()
