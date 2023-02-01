@@ -125,3 +125,6 @@ MonoBehaviour:
   connections: []
   roadPrefab: {fileID: 9215297759862754675, guid: 3032a0f875d6dba44879016b0655cf90, type: 3}
   tooLongPopupPrefab: {fileID: 4960566284163191740, guid: ae7818f6c9407f74e81bc5c18283bfef, type: 3}
+  cantConnectToItselfPrefab: {fileID: 4960566284163191740, guid: 4b7f0b49c9584284f9abec56cca82349, type: 3}
+  theresARoadPrefab: {fileID: 4960566284163191740, guid: d34797f6f2e4bee408ed3050ebedbe1d, type: 3}
+  connectedPrefab: {fileID: 4960566284163191740, guid: eafdb0006c1bb9b498e74c7107a9d293, type: 3}

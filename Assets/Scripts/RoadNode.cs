@@ -12,6 +12,9 @@ public class RoadNode : MonoBehaviour
     //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject roadPrefab;
     [SerializeField] GameObject tooLongPopupPrefab;
+    [SerializeField] GameObject cantConnectToItselfPrefab;
+    [SerializeField] GameObject theresARoadPrefab;
+    [SerializeField] GameObject connectedPrefab;
 
     void Start()
     {
@@ -118,7 +121,8 @@ public class RoadNode : MonoBehaviour
 
         if(rNet.activeForConnection == this)                                    //  If trying to connect to itself
         {
-            //  TO DO: add popup
+            GameObject tooLongPopup = Instantiate(cantConnectToItselfPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
 
             StopConnection();
             return;
@@ -126,7 +130,8 @@ public class RoadNode : MonoBehaviour
 
         if(RoadNetwork.DoesRoadExistBetween(this, rNet.activeForConnection))    //  If there's already a road
         {
-            //  TO DO: add popup
+            GameObject tooLongPopup = Instantiate(theresARoadPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
 
             StopConnection();
             return;
@@ -144,6 +149,9 @@ public class RoadNode : MonoBehaviour
         {
             AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
             GameManager.gm.TakeMoney(price);            //  Take the price
+
+            GameObject tooLongPopup = Instantiate(connectedPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(2, 2, 1);
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectSuccess();
