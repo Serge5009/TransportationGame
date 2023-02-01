@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     //  UI references   //  TO DO: probably would be nice to create a manager for them
     [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] TextMeshProUGUI fpsText;
     [SerializeField] GameObject UIBuildEffect;
     [SerializeField] GameObject UIConnectEffect;
     [SerializeField] GameObject UIPathEffect;
@@ -53,6 +54,8 @@ public class GameManager : MonoBehaviour
         //  Error checks
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
+        if (!fpsText)
+            Debug.LogError("No fpsText assigned to the GameManager");
         if (!roadNodePrefab)
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
@@ -95,6 +98,8 @@ public class GameManager : MonoBehaviour
 
         //  UI update
         moneyText.text = money.ToString();
+        int fps = (int)(1 / Time.deltaTime);
+        fpsText.text = fps.ToString() + "fps";
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
         UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  Connect mode
