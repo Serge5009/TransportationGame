@@ -145,7 +145,7 @@ public class Car : MonoBehaviour
 
         parkedTimer += load / 10;       //  Take some time to unload
 
-        GameManager.gm.money += load;                                   //  TO DO: make money logic more ineresting
+        GameManager.gm.TakeMoney(-load, false);         //  TO DO: make money logic more ineresting ;   TO DO: take -load is not really readable)))
         load = 0;
     }
 

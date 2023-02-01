@@ -122,7 +122,7 @@ public class City : MonoBehaviour
     {
         if (GameManager.gm.money >= priceToOwn)
         {
-            GameManager.gm.money -= priceToOwn;
+            GameManager.gm.TakeMoney(priceToOwn);
             isOwned = true;
             isAccessed = true;
 
@@ -138,7 +138,7 @@ public class City : MonoBehaviour
     {
         if (GameManager.gm.money >= priceToAccess)
         {
-            GameManager.gm.money -= priceToAccess;
+            GameManager.gm.TakeMoney(priceToAccess);
             isAccessed = true;
 
             //  Tutorial
@@ -159,7 +159,7 @@ public class City : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
             return;
         }
-        GameManager.gm.money -= price;                                                          //  Take money
+        GameManager.gm.TakeMoney(price);                                                          //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
         newCar.homeCity = this.gameObject;                                                      //  Set the home base

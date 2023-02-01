@@ -122,7 +122,7 @@ public class RoadNode : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto build this connection!");
             return;
         }
-        GameManager.gm.money -= price;
+        GameManager.gm.TakeMoney(price);
 
         if (connectionDistance <= rNet.maxRoadLenght) //  If distance is fine
         {

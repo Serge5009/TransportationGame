@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float defaultMoney = 5000;
 
     //  Resources variables
-    public float money;
+    public float money { get; private set; }
 
     //  Terribly implemented FSM    :)
     public GAME_STATE gState;
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        money -= roadNodeCost;
+        TakeMoney(roadNodeCost);
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
 
@@ -226,6 +226,27 @@ public class GameManager : MonoBehaviour
         UIPopUp.SetActive(true);
         TextMeshProUGUI popupText = UIPopUp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         popupText.text = content;
+    }
+
+    public bool TakeMoney(float amount, bool isShowingAnimation = true)
+    {
+        bool isEnoughMoney = true;
+
+        if (amount > money)
+        {
+            Debug.LogError("Tried to take more money than owned");
+            isEnoughMoney = false;
+        }
+
+        money -= amount;
+        //  TO DO: add animation
+
+        return isEnoughMoney;
+    }
+
+    public void SetMoney(float amount)  //  Avoid using
+    {
+        money = amount;
     }
 
     float fpsTimer = 0.0f;
