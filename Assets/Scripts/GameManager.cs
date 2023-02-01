@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     //  Prefabs     //  TO DO: probably would be nice to create a manager for them as well
     [SerializeField] GameObject roadNodePrefab;
+    [SerializeField] GameObject moneyChangePrefab;
 
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
@@ -239,7 +240,12 @@ public class GameManager : MonoBehaviour
         }
 
         money -= amount;
-        //  TO DO: add animation
+        if(isShowingAnimation)
+        {
+            GameObject changeObj = Instantiate(moneyChangePrefab, moneyText.transform.position, Quaternion.identity);
+            changeObj.transform.SetParent(moneyText.transform.parent);
+            changeObj.GetComponent<TextMeshProUGUI>().text = "-$" + amount.ToString("F0");
+        }
 
         return isEnoughMoney;
     }
