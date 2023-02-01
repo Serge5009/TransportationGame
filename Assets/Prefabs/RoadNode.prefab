@@ -99,3 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connections: []
   roadPrefab: {fileID: 9215297759862754675, guid: 3032a0f875d6dba44879016b0655cf90, type: 3}
+  tooLongPopupPrefab: {fileID: 4960566284163191740, guid: ae7818f6c9407f74e81bc5c18283bfef, type: 3}

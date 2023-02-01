@@ -9,7 +9,9 @@ public class RoadNode : MonoBehaviour
 
     RoadNetwork rNet;
 
+    //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject roadPrefab;
+    [SerializeField] GameObject tooLongPopupPrefab;
 
     void Start()
     {
@@ -133,7 +135,8 @@ public class RoadNode : MonoBehaviour
         }
         else
         {
-            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");    //  TO DO: maybe replace with a small floating text?
+            GameObject tooLongPopup = Instantiate(tooLongPopupPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectFail();
