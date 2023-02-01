@@ -9,7 +9,12 @@ public class RoadNode : MonoBehaviour
 
     RoadNetwork rNet;
 
+    //  Prefabs     //  TO DO: move to another object
     [SerializeField] GameObject roadPrefab;
+    [SerializeField] GameObject tooLongPopupPrefab;
+    [SerializeField] GameObject cantConnectToItselfPrefab;
+    [SerializeField] GameObject theresARoadPrefab;
+    [SerializeField] GameObject connectedPrefab;
 
     void Start()
     {
@@ -30,11 +35,8 @@ public class RoadNode : MonoBehaviour
 
     public void AddConnection(RoadNode other)
     {
-        if(other == this)
-        {
-            GameManager.gm.PopUp("You can't connect this node to itself!");
+        if(other == this)                   //  Can't connect to itself
             return;
-        }
 
         if (!connections.Contains(other))    //  If this node doesn't list other in connections - add
         {
@@ -114,22 +116,63 @@ public class RoadNode : MonoBehaviour
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
-        if(Vector2.Distance(transform.position, rNet.activeForConnection.transform.position) <= rNet.maxRoadLenght) //  If distance is fine
+        float connectionDistance = Vector2.Distance(transform.position, rNet.activeForConnection.transform.position);
+        float price = GameManager.gm.baseRoadPrice * connectionDistance;
+
+        if(rNet.activeForConnection == this)                                    //  If trying to connect to itself
+        {
+            GameObject tooLongPopup = Instantiate(cantConnectToItselfPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
+
+            StopConnection();
+            return;
+        }
+
+        if(RoadNetwork.DoesRoadExistBetween(this, rNet.activeForConnection))    //  If there's already a road
+        {
+            GameObject tooLongPopup = Instantiate(theresARoadPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
+
+            StopConnection();
+            return;
+        }
+
+        if (GameManager.gm.money < price)                                                        //  If not enough money - return
+        {
+            GameManager.gm.PopUp("You need at least $" + price + "\nto build this connection!");
+
+            StopConnection();
+            return;
+        }
+
+        if (connectionDistance <= rNet.maxRoadLenght) //  If distance is fine
         {
             AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+            GameManager.gm.TakeMoney(price);            //  Take the price
+
+            GameObject tooLongPopup = Instantiate(connectedPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(2, 2, 1);
+
+            rNet.activeForConnection = this;
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectSuccess();
         }
         else
         {
-            GameManager.gm.PopUp("This road is too long, \ntry adding more nodes!");    //  TO DO: maybe replace with a small floating text?
+            GameObject tooLongPopup = Instantiate(tooLongPopupPrefab, transform.position, Quaternion.identity);
+            tooLongPopup.transform.localScale = new Vector3(3, 3, 1);
+
+            StopConnection();
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectFail();
         }
 
-        //  TO DO: add cost
+    }
+
+    void StopConnection()
+    {
         rNet.activeForConnection = null;
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.PLAY;

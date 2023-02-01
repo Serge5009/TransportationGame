@@ -19,7 +19,7 @@ public class Car : MonoBehaviour
     float parkedTimer = 0.0f;
 
     //  Settings
-    [SerializeField] float interactDistance = 25.0f;
+    public float interactDistance = 25.0f;
     public bool isSelected = false;
 
     //  Route
@@ -129,6 +129,11 @@ public class Car : MonoBehaviour
         }
     }
 
+    public static void ResetCars()
+    {
+        numCars = 0;
+    }
+
     void UnloadTo(City toUnload)
     {
         if (load == 0)
@@ -140,7 +145,7 @@ public class Car : MonoBehaviour
 
         parkedTimer += load / 10;       //  Take some time to unload
 
-        GameManager.gm.money += load;                                   //  TO DO: make money logic more ineresting
+        GameManager.gm.TakeMoney(-load, false);         //  TO DO: make money logic more ineresting ;   TO DO: take -load is not really readable)))
         load = 0;
     }
 
@@ -296,5 +301,32 @@ public class Car : MonoBehaviour
         nextNode = 0;                                       //  Reset path following order
         transform.position = homeCity.transform.position;   //  Teleport home
         load = 0;                                           //  Empty the trunk
+    }
+
+    public float GetDistanceFrom(Vector3 fromWhere)
+    {
+        return Vector3.Distance(transform.position, fromWhere);
+    }
+    public float GetDistanceFromHome()
+    {
+        return Vector3.Distance(transform.position, homeCity.transform.position);
+    }
+
+    public City GetClosestCity()
+    {
+        City closest = homeCity.GetComponent<City>();   //  By default home is the closest
+        float dist = GetDistanceFromHome();             //  Find distance
+            
+        foreach (City c in GameManager.gm.cities)       //  Loop thru all cities
+        {
+            float newDist = GetDistanceFrom(c.transform.position);  //  Remeber distance
+            if (newDist < dist)                                     //  Compare
+            {
+                closest = c;                                        //  Update with the new closest
+                dist = newDist;
+            }
+        }
+            
+        return closest;
     }
 }

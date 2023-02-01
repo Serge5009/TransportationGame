@@ -113,14 +113,16 @@ public class City : MonoBehaviour
             foreach(Car c in assignedCars)
             {
                 Destroy(c.gameObject);
-            }    
+            }
+
+        assignedCars.Clear();
     }
 
     public void BuyCityHub()
     {
         if (GameManager.gm.money >= priceToOwn)
         {
-            GameManager.gm.money -= priceToOwn;
+            GameManager.gm.TakeMoney(priceToOwn);
             isOwned = true;
             isAccessed = true;
 
@@ -136,7 +138,7 @@ public class City : MonoBehaviour
     {
         if (GameManager.gm.money >= priceToAccess)
         {
-            GameManager.gm.money -= priceToAccess;
+            GameManager.gm.TakeMoney(priceToAccess);
             isAccessed = true;
 
             //  Tutorial
@@ -150,8 +152,14 @@ public class City : MonoBehaviour
 
     public void BuyNewCar()
     {
-        //  TO DO: Add incremental price
+        float price = GameManager.gm.defaultCarCost * (assignedCars.Count + 1);                 //  Calculate the price
 
+        if(GameManager.gm.money < price)                                                        //  If not enough money - return
+        {
+            GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
+            return;
+        }
+        GameManager.gm.TakeMoney(price);                                                          //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
         newCar.homeCity = this.gameObject;                                                      //  Set the home base

@@ -50,7 +50,7 @@ public class ProgressController : MonoBehaviour
                 tutorialStage = 21;
 
         if (isSandboxMode)
-            GameManager.gm.money = 1000000;
+            GameManager.gm.SetMoney(1000000);
     }
 
     public void StartTutorial()

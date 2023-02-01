@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 //  ! SINGLETON !
@@ -19,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     //  UI references   //  TO DO: probably would be nice to create a manager for them
     [SerializeField] TextMeshProUGUI moneyText;
+    [SerializeField] TextMeshProUGUI fpsText;
     [SerializeField] GameObject UIBuildEffect;
     [SerializeField] GameObject UIConnectEffect;
     [SerializeField] GameObject UIPathEffect;
@@ -29,20 +28,23 @@ public class GameManager : MonoBehaviour
     public Car selectedCar;
 
     //  Lists
-    List<City> cities;
+    public List<City> cities;
     public List<Car> cars;
 
     //  Prefabs     //  TO DO: probably would be nice to create a manager for them as well
     [SerializeField] GameObject roadNodePrefab;
+    [SerializeField] GameObject moneyChangePrefab;
 
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
+    public float defaultCarCost = 100.0f;
+    public float baseRoadPrice = 10.0f;
 
     //  Defaults
     [SerializeField] float defaultMoney = 5000;
 
     //  Resources variables
-    public float money;
+    public float money { get; private set; }
 
     //  Terribly implemented FSM    :)
     public GAME_STATE gState;
@@ -53,6 +55,8 @@ public class GameManager : MonoBehaviour
         //  Error checks
         if (!moneyText)
             Debug.LogError("No moneyText assigned to the GameManager");
+        if (!fpsText)
+            Debug.LogError("No fpsText assigned to the GameManager");
         if (!roadNodePrefab)
             Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
@@ -94,7 +98,8 @@ public class GameManager : MonoBehaviour
             Debug.LogError("FSM Error!");
 
         //  UI update
-        moneyText.text = money.ToString();
+        moneyText.text = "$" + money.ToString("F0");
+        UpdateFPS();
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
         UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  Connect mode
@@ -115,6 +120,7 @@ public class GameManager : MonoBehaviour
         {
             c.ResetCity(true);  //  Reset all cities including assigned cars
         }
+        Car.ResetCars();
 
         //  Roads
         RoadNetwork.rn.DeleteWholeNetwork();
@@ -206,7 +212,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        money -= roadNodeCost;
+        TakeMoney(roadNodeCost);
         GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
         gState = GAME_STATE.PLAY;
 
@@ -221,6 +227,50 @@ public class GameManager : MonoBehaviour
         UIPopUp.SetActive(true);
         TextMeshProUGUI popupText = UIPopUp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         popupText.text = content;
+    }
+
+    public bool TakeMoney(float amount, bool isShowingAnimation = true)
+    {
+        bool isEnoughMoney = true;
+
+        if (amount > money)
+        {
+            Debug.LogError("Tried to take more money than owned");
+            isEnoughMoney = false;
+        }
+
+        money -= amount;
+        if(isShowingAnimation)
+        {
+            GameObject changeObj = Instantiate(moneyChangePrefab, moneyText.transform.position, Quaternion.identity);
+            changeObj.transform.SetParent(moneyText.transform.parent);
+            changeObj.GetComponent<TextMeshProUGUI>().text = "-$" + amount.ToString("F0");
+        }
+
+        return isEnoughMoney;
+    }
+
+    public void SetMoney(float amount)  //  Avoid using
+    {
+        money = amount;
+    }
+
+    float fpsTimer = 0.0f;
+    int fpsCounter = 0;
+    void UpdateFPS()    //  This littrally counts number of frames every second
+    {
+                                        //  Every update
+        fpsTimer += Time.deltaTime;     //  Timer
+        fpsCounter++;                   //  +1 frame
+
+        if(fpsTimer >= 1.0f)            //  Every second
+        {
+            fpsText.text = fpsCounter.ToString() + "fps";   //  Output
+
+            fpsTimer -= 1.0f;                               //  Remove a second from the timer
+            fpsCounter = 0;                                 //  Reset counter
+        }
+
     }
 }
 

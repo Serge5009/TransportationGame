@@ -72,4 +72,13 @@ public class RoadNetwork : MonoBehaviour
                 Debug.LogError("What the...?");
         }
     }
+
+    public static bool DoesRoadExistBetween(RoadNode n0, RoadNode n1)
+    {
+        foreach (RoadLine line in RoadNetwork.rn.roads)                            //  Loop thru all roads
+            if(line.ends.Contains(n0) && line.ends.Contains(n1))    //  If road had both nodes among its ends
+                return true;                                        //  Return true
+
+        return false;                                              //  Else - return false
+    }
 }
