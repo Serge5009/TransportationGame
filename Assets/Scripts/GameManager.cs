@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("FSM Error!");
 
         //  UI update
-        moneyText.text = money.ToString();
+        moneyText.text = "$" + money.ToString();
         UpdateFPS();
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
