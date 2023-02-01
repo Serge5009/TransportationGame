@@ -13889,6 +13889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyText: {fileID: 800928499}
+  fpsText: {fileID: 218635956}
   UIBuildEffect: {fileID: 1415096134}
   UIConnectEffect: {fileID: 613820529}
   UIPathEffect: {fileID: 668067354}

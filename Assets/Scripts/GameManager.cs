@@ -98,8 +98,7 @@ public class GameManager : MonoBehaviour
 
         //  UI update
         moneyText.text = money.ToString();
-        int fps = (int)(1 / Time.deltaTime);
-        fpsText.text = fps.ToString() + "fps";
+        UpdateFPS();
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
         UIConnectEffect.SetActive(gState == GAME_STATE.CONNECT);    //  Connect mode
@@ -227,6 +226,24 @@ public class GameManager : MonoBehaviour
         UIPopUp.SetActive(true);
         TextMeshProUGUI popupText = UIPopUp.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         popupText.text = content;
+    }
+
+    float fpsTimer = 0.0f;
+    int fpsCounter = 0;
+    void UpdateFPS()    //  This littrally counts number of frames every second
+    {
+                                        //  Every update
+        fpsTimer += Time.deltaTime;     //  Timer
+        fpsCounter++;                   //  +1 frame
+
+        if(fpsTimer >= 1.0f)            //  Every second
+        {
+            fpsText.text = fpsCounter.ToString() + "fps";   //  Output
+
+            fpsTimer -= 1.0f;                               //  Remove a second from the timer
+            fpsCounter = 0;                                 //  Reset counter
+        }
+
     }
 }
 
