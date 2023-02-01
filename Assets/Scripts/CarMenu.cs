@@ -8,6 +8,7 @@ public class CarMenu : MonoBehaviour
     [SerializeField] TMP_Text title;
     [SerializeField] TMP_Text load;
     [SerializeField] TMP_Text home;
+    [SerializeField] TMP_Text distance;
 
     private void OnEnable()
     {
@@ -24,6 +25,7 @@ public class CarMenu : MonoBehaviour
         title.text = "Car #" + selectedCar.carID.ToString();
         load.text = selectedCar.load.ToString() + " / " + selectedCar.capacity.ToString();  //  Update load of the car
         home.text = selectedCar.homeCity.GetComponent<City>().cityName;
+        distance.text = selectedCar.GetDistanceFromHome().ToString("F2") + "km";
     }
 
     public void Close()

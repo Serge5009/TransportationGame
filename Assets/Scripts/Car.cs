@@ -302,4 +302,18 @@ public class Car : MonoBehaviour
         transform.position = homeCity.transform.position;   //  Teleport home
         load = 0;                                           //  Empty the trunk
     }
+
+    public float GetDistanceFrom(Vector3 fromWhere)
+    {
+        return Vector3.Distance(transform.position, fromWhere);
+    }
+    public float GetDistanceFromHome()
+    {
+        return Vector3.Distance(transform.position, homeCity.transform.position);
+    }
+
+    //public City GetClosestCity()
+    //{
+    //    return
+    //}
 }
