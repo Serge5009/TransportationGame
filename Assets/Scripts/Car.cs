@@ -19,7 +19,7 @@ public class Car : MonoBehaviour
     float parkedTimer = 0.0f;
 
     //  Settings
-    [SerializeField] float interactDistance = 25.0f;
+    public float interactDistance = 25.0f;
     public bool isSelected = false;
 
     //  Route
@@ -312,8 +312,21 @@ public class Car : MonoBehaviour
         return Vector3.Distance(transform.position, homeCity.transform.position);
     }
 
-    //public City GetClosestCity()
-    //{
-    //    return
-    //}
+    public City GetClosestCity()
+    {
+        City closest = homeCity.GetComponent<City>();   //  By default home is the closest
+        float dist = GetDistanceFromHome();             //  Find distance
+            
+        foreach (City c in GameManager.gm.cities)       //  Loop thru all cities
+        {
+            float newDist = GetDistanceFrom(c.transform.position);  //  Remeber distance
+            if (newDist < dist)                                     //  Compare
+            {
+                closest = c;                                        //  Update with the new closest
+                dist = newDist;
+            }
+        }
+            
+        return closest;
+    }
 }

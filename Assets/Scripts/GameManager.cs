@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Car selectedCar;
 
     //  Lists
-    List<City> cities;
+    public List<City> cities;
     public List<Car> cars;
 
     //  Prefabs     //  TO DO: probably would be nice to create a manager for them as well
