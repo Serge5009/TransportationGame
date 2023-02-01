@@ -122,11 +122,11 @@ public class RoadNode : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto build this connection!");
             return;
         }
-        GameManager.gm.TakeMoney(price);
 
         if (connectionDistance <= rNet.maxRoadLenght) //  If distance is fine
         {
             AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
+            GameManager.gm.TakeMoney(price);            //  Take the price
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectSuccess();
@@ -139,7 +139,6 @@ public class RoadNode : MonoBehaviour
             ProgressController.pControll.OnNodeConnectFail();
         }
 
-        //  TO DO: add cost
         rNet.activeForConnection = null;
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.PLAY;
