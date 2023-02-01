@@ -114,7 +114,17 @@ public class RoadNode : MonoBehaviour
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
-        if(Vector2.Distance(transform.position, rNet.activeForConnection.transform.position) <= rNet.maxRoadLenght) //  If distance is fine
+        float connectionDistance = Vector2.Distance(transform.position, rNet.activeForConnection.transform.position);
+        float price = GameManager.gm.baseRoadPrice * connectionDistance;
+
+        if (GameManager.gm.money < price)                                                        //  If not enough money - return
+        {
+            GameManager.gm.PopUp("You need at least $" + price + "\nto build this connection!");
+            return;
+        }
+        GameManager.gm.money -= price;
+
+        if (connectionDistance <= rNet.maxRoadLenght) //  If distance is fine
         {
             AddConnection(rNet.activeForConnection);    //  Connect 2 nodes
 

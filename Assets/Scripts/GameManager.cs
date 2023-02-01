@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 //  ! SINGLETON !
@@ -39,6 +37,7 @@ public class GameManager : MonoBehaviour
     //  Gameplay basic settings
     public float roadNodeCost = 50.0f;
     public float defaultCarCost = 100.0f;
+    public float baseRoadPrice = 10.0f;
 
     //  Defaults
     [SerializeField] float defaultMoney = 5000;
@@ -98,7 +97,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("FSM Error!");
 
         //  UI update
-        moneyText.text = "$" + money.ToString();
+        moneyText.text = "$" + money.ToString("F0");
         UpdateFPS();
 
         UIBuildEffect.SetActive(gState == GAME_STATE.BUILD);        //  Build mode
