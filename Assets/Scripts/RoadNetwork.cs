@@ -13,7 +13,14 @@ public class RoadNetwork : MonoBehaviour
 
     public RoadNode activeForConnection = null;
 
+    //  Settings
+    public float roadNodeCost = 50.0f;
+    public float baseRoadPrice = 10.0f;
     public float maxRoadLenght = 5.0f;
+
+
+    //  Prefabs
+    [SerializeField] GameObject roadNodePrefab;
 
     void Awake()
     {
@@ -21,6 +28,29 @@ public class RoadNetwork : MonoBehaviour
             Destroy(this);
         else
             rn = this;
+    }
+
+    public void PlaceTempNode(Vector2 placement)
+    {
+        //  TO DO:
+        //  spawn a fake node waiting for player confirmation
+    }
+
+    public void AddRoadNode(Vector2 placement)
+    {
+        if (GameManager.gm.money < roadNodeCost)
+        {
+            //  TO DO: Show an error message
+            return;
+        }
+
+        GameManager.gm.TakeMoney(roadNodeCost);
+        GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnNodeBuilt();
+
     }
 
     public void DeleteWholeNetwork()

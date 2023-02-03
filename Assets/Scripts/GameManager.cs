@@ -32,13 +32,10 @@ public class GameManager : MonoBehaviour
     public List<Car> cars;
 
     //  Prefabs     //  TO DO: probably would be nice to create a manager for them as well
-    [SerializeField] GameObject roadNodePrefab;
     [SerializeField] GameObject moneyChangePrefab;
 
     //  Gameplay basic settings
-    public float roadNodeCost = 50.0f;
     public float defaultCarCost = 100.0f;
-    public float baseRoadPrice = 10.0f;
 
     //  Defaults
     [SerializeField] float defaultMoney = 5000;
@@ -57,8 +54,6 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No moneyText assigned to the GameManager");
         if (!fpsText)
             Debug.LogError("No fpsText assigned to the GameManager");
-        if (!roadNodePrefab)
-            Debug.LogError("No roadNodePrefab assigned to the GameManager");
         if (!UIBuildEffect)
             Debug.LogError("No UIBuildEffect assigned to the GameManager");
         if (!UIConnectEffect)
@@ -202,23 +197,6 @@ public class GameManager : MonoBehaviour
 
         //  Tutorial
         ProgressController.pControll.OnBuildModeEnter();
-    }
-
-    public void AddRoadNode(Vector2 placement)
-    {
-        if(money < roadNodeCost)
-        {
-            //  TO DO: Show an error message
-            return;
-        }
-
-        TakeMoney(roadNodeCost);
-        GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
-        gState = GAME_STATE.PLAY;
-
-        //  Tutorial
-        ProgressController.pControll.OnNodeBuilt();
-
     }
 
     public void PopUp(string content)

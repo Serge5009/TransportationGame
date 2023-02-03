@@ -117,7 +117,7 @@ public class RoadNode : MonoBehaviour
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
         float connectionDistance = Vector2.Distance(transform.position, rNet.activeForConnection.transform.position);
-        float price = GameManager.gm.baseRoadPrice * connectionDistance;
+        float price = RoadNetwork.rn.baseRoadPrice * connectionDistance;
 
         if(rNet.activeForConnection == this)                                    //  If trying to connect to itself
         {

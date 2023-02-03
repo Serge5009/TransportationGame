@@ -1656,7 +1656,10 @@ MonoBehaviour:
   nodes: []
   roads: []
   activeForConnection: {fileID: 0}
+  roadNodeCost: 50
+  baseRoadPrice: 10
   maxRoadLenght: 5
+  roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
 --- !u!4 &142149948
 Transform:
   m_ObjectHideFlags: 0
@@ -13898,11 +13901,8 @@ MonoBehaviour:
   selectedCar: {fileID: 0}
   cities: []
   cars: []
-  roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
   moneyChangePrefab: {fileID: 2469172847484642898, guid: 850001eee67cd2f4a81cf182b86182b7, type: 3}
-  roadNodeCost: 50
   defaultCarCost: 100
-  baseRoadPrice: 10
   defaultMoney: 5000
   gState: 0
 --- !u!1 &1616734412
