@@ -21,6 +21,7 @@ public class RoadNetwork : MonoBehaviour
 
     //  Prefabs
     [SerializeField] GameObject roadNodePrefab;
+    [SerializeField] GameObject tempRoadNodePrefab;
 
     void Awake()
     {
@@ -32,8 +33,8 @@ public class RoadNetwork : MonoBehaviour
 
     public void PlaceTempNode(Vector2 placement)
     {
-        //  TO DO:
-        //  spawn a fake node waiting for player confirmation
+        Instantiate(tempRoadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
     }
 
     public void AddRoadNode(Vector2 placement)

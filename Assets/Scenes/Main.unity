@@ -1660,6 +1660,7 @@ MonoBehaviour:
   baseRoadPrice: 10
   maxRoadLenght: 5
   roadNodePrefab: {fileID: 886627884097379655, guid: 4e616ce9c5ff4dc49b96d8f28fc0a14f, type: 3}
+  tempRoadNodePrefab: {fileID: 886627884097379655, guid: 307545922c5b7fc4683c6f535d35443d, type: 3}
 --- !u!4 &142149948
 Transform:
   m_ObjectHideFlags: 0
