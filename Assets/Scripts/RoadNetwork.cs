@@ -51,7 +51,6 @@ public class RoadNetwork : MonoBehaviour
 
         //  Tutorial
         ProgressController.pControll.OnNodeBuilt();
-
     }
 
     public void DeleteWholeNetwork()
