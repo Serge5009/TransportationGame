@@ -76,7 +76,13 @@ public class VisualsManager : MonoBehaviour
         pathObjs = new List<GameObject>();
         foreach (RoadNode node in path)
         {
-            GameObject vis = Instantiate(pathNodePrefab, node.transform.position, Quaternion.identity);
+            GameObject prefabToSpawn = pathNodePrefab;
+            if (node.gameObject.GetComponent<City>())
+                prefabToSpawn = pathCityPrefab;
+            if (node == path[0] || node == path[path.Count - 1])
+                prefabToSpawn = pathEndsPrefab;
+
+            GameObject vis = Instantiate(prefabToSpawn, node.transform.position, Quaternion.identity);
             pathObjs.Add(vis);
             spawnedVisuals.Add(vis);
         }
