@@ -16,7 +16,14 @@ public class VisualsManager : MonoBehaviour
             visMgr = this;
     }
 
+    VISUALS_MODE currentMode = VISUALS_MODE.NONE;
     List<GameObject> spawnedVisuals;
+
+    //  Selected car
+    [SerializeField] GameObject selectedCarPrefab;
+    GameObject carTracker;
+
+    [SerializeField] GameObject pointPrefab;
 
     void Start()
     {
@@ -25,6 +32,51 @@ public class VisualsManager : MonoBehaviour
 
     void Update()
     {
-        
+        //  Selected car
+        if(GameManager.gm.selectedCar && !carTracker)
+        {
+            SelectedCarStart();
+        }
+        if(GameManager.gm.selectedCar && carTracker)
+        {
+            SelectedCarUpdate();
+        }
+        if(!GameManager.gm.selectedCar && carTracker)
+        {
+            SelectedCarStop();
+        }
     }
+
+    //  Selected car
+    void SelectedCarStart()
+    {
+        carTracker = Instantiate(selectedCarPrefab, GameManager.gm.selectedCar.transform.position, Quaternion.identity);
+    }
+    void SelectedCarUpdate()
+    {
+        carTracker.transform.position = GameManager.gm.selectedCar.transform.position;
+    }
+    void SelectedCarStop()
+    {
+        Destroy(carTracker);
+        carTracker = null;
+    }
+
+    public void RemoveAllVisuals()
+    {
+        foreach (GameObject v in spawnedVisuals)
+        {
+            Destroy(v);
+        }
+        spawnedVisuals.Clear();
+        currentMode = VISUALS_MODE.NONE;
+    }
+}
+
+enum VISUALS_MODE
+{
+    NONE,
+    PATH,
+
+    NUM_VISUALS_MODE
 }
