@@ -23,7 +23,12 @@ public class VisualsManager : MonoBehaviour
     [SerializeField] GameObject selectedCarPrefab;
     GameObject carTracker;
 
-    [SerializeField] GameObject pointPrefab;
+    //  Path
+    [SerializeField] GameObject pathNodePrefab;
+    [SerializeField] GameObject pathCityPrefab;
+    [SerializeField] GameObject pathEndsPrefab;
+    [SerializeField] GameObject pathPointPrefab;
+    List<GameObject> pathObjs;
 
     void Start()
     {
@@ -36,6 +41,7 @@ public class VisualsManager : MonoBehaviour
         if(GameManager.gm.selectedCar && !carTracker)
         {
             SelectedCarStart();
+            PathStart(GameManager.gm.selectedCar.path);
         }
         if(GameManager.gm.selectedCar && carTracker)
         {
@@ -44,6 +50,7 @@ public class VisualsManager : MonoBehaviour
         if(!GameManager.gm.selectedCar && carTracker)
         {
             SelectedCarStop();
+            PathStop();
         }
     }
 
@@ -51,6 +58,7 @@ public class VisualsManager : MonoBehaviour
     void SelectedCarStart()
     {
         carTracker = Instantiate(selectedCarPrefab, GameManager.gm.selectedCar.transform.position, Quaternion.identity);
+        spawnedVisuals.Add(carTracker);
     }
     void SelectedCarUpdate()
     {
@@ -60,6 +68,26 @@ public class VisualsManager : MonoBehaviour
     {
         Destroy(carTracker);
         carTracker = null;
+        spawnedVisuals.Remove(carTracker);
+    }
+
+    void PathStart(List<RoadNode> path)
+    {
+        pathObjs = new List<GameObject>();
+        foreach (RoadNode node in path)
+        {
+            GameObject vis = Instantiate(pathNodePrefab, node.transform.position, Quaternion.identity);
+            pathObjs.Add(vis);
+            spawnedVisuals.Add(vis);
+        }
+    }
+    void PathStop()
+    {
+        foreach (GameObject i in pathObjs)
+        {
+            Destroy(i);
+        }
+        pathObjs.Clear();
     }
 
     public void RemoveAllVisuals()

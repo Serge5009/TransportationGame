@@ -13317,7 +13317,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedCarPrefab: {fileID: 7000897753396560694, guid: 12bfab807a1420a438c4780169517956, type: 3}
-  pointPrefab: {fileID: 0}
+  pathNodePrefab: {fileID: 7000897753396560694, guid: 26458ce106b7168468047da1dd5d8dfa, type: 3}
+  pathCityPrefab: {fileID: 0}
+  pathEndsPrefab: {fileID: 0}
+  pathPointPrefab: {fileID: 0}
 --- !u!4 &1503601903
 Transform:
   m_ObjectHideFlags: 0
