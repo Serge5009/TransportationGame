@@ -24,6 +24,8 @@ public class VisualsManager : MonoBehaviour
     GameObject carTracker;
 
     //  Path
+    [SerializeField] float distanceBetweenPoints = 0.5f;
+
     [SerializeField] GameObject pathNodePrefab;
     [SerializeField] GameObject pathCityPrefab;
     [SerializeField] GameObject pathEndsPrefab;
@@ -73,6 +75,11 @@ public class VisualsManager : MonoBehaviour
 
     void PathStart(List<RoadNode> path)
     {
+        Debug.Log("Drawing a path with " + path.Count + " nodes");
+
+        if (path.Count < 2)
+            return;
+
         pathObjs = new List<GameObject>();
         foreach (RoadNode node in path)
         {
@@ -86,6 +93,31 @@ public class VisualsManager : MonoBehaviour
             pathObjs.Add(vis);
             spawnedVisuals.Add(vis);
         }
+
+
+        Vector2 pointPointer = new Vector2();   //  Funny name, isn't it?
+        pointPointer = path[0].transform.position;
+
+        SpawnAPathPoint(pointPointer);
+
+        for (int i = 0; i < path.Count - 1; i++)    //  Loop thru each node of the path but the last one
+        {
+            while (Vector2.Distance(pointPointer, path[i + 1].transform.position) > distanceBetweenPoints)  //  As long as pointer is far enough from the next node
+            {
+                Vector2 moveVector = path[i + 1].transform.position - (Vector3)pointPointer;    //  Find the vector between pointer and the next node           //  TO DO: this conversions are not nice))
+                moveVector = moveVector.normalized * distanceBetweenPoints;                     //  Calculate the length of the next step
+                pointPointer += moveVector;                                                     //  Move the pointer to a new position
+                SpawnAPathPoint(pointPointer);                                                  //  Spawn a new point
+            }
+                
+            pointPointer = path[i + 1].transform.position;                                                  //  Jump to the next node
+        }
+    }
+    void SpawnAPathPoint(Vector2 pos)
+    {
+        GameObject newPoint = Instantiate(pathPointPrefab, pos, Quaternion.identity);
+        pathObjs.Add(newPoint);
+        spawnedVisuals.Add(newPoint);
     }
     void PathStop()
     {
