@@ -73,6 +73,8 @@ public class Car : MonoBehaviour
 
             //  Interaction checks
 
+            //  TO DO:  known bug: if car passes by the destination node it turns back even if there are more nodes in the path
+
         if(destination) //  Run this code only if the car is running
         {
             if (isNear(homeCity))     //  If within range with home city will try to load more
