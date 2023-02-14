@@ -28,6 +28,7 @@ public class VisualsManager : MonoBehaviour
 
     //  Path
     [SerializeField] float distanceBetweenPoints = 0.5f;    //  How far are the small points gonna spawn from each other
+    bool isInPathCreateMode = false;                        //  For keeping track of the mode
 
     [SerializeField] GameObject pathNodePrefab;     //prefab
     [SerializeField] GameObject pathCityPrefab;     //prefab
@@ -59,7 +60,27 @@ public class VisualsManager : MonoBehaviour
             SelectedCarStop();                              //  Delete the tracker
             PathStop();                                     //  Erase path visuals
         }
+
+        //  Path creation mode
+        if(GameManager.gm.gState == GAME_STATE.PATH)
+        {
+            //  Known bug:  this causes lags on longer routes because of constant update
+            //  TO DO:
+            //  Find a way to update the visual only when the path is changed
+
+
+            PathStop();                     //  Clear old path
+            PathStart(Car.newPath);         //  Draw the new path
+            isInPathCreateMode = true;      //  Keep track of the mode
+        }
+        else if (isInPathCreateMode)
+        {
+            PathStop();                     //  Clear the path
+            isInPathCreateMode = false;     //  Keep track of the mode
+        }
     }
+
+
 
     //  Selected car
     void SelectedCarStart()     //  Spawn the car tracker and add it to the list of visuals
