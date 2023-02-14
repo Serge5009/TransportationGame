@@ -16,8 +16,7 @@ public class VisualsManager : MonoBehaviour
             visMgr = this;
     }
 
-    VISUALS_MODE currentMode = VISUALS_MODE.NONE;
-    List<GameObject> spawnedVisuals;
+    List<GameObject> spawnedVisuals;    
 
     //  Selected car
     [SerializeField] GameObject selectedCarPrefab;
@@ -35,6 +34,7 @@ public class VisualsManager : MonoBehaviour
     void Start()
     {
         spawnedVisuals = new List<GameObject>();
+        pathObjs = new List<GameObject>();
     }
 
     void Update()
@@ -75,7 +75,7 @@ public class VisualsManager : MonoBehaviour
 
     void PathStart(List<RoadNode> path)
     {
-        Debug.Log("Drawing a path with " + path.Count + " nodes");
+        //Debug.Log("Drawing a path with " + path.Count + " nodes");
 
         if (path.Count < 2)
             return;
@@ -110,7 +110,7 @@ public class VisualsManager : MonoBehaviour
                 SpawnAPathPoint(pointPointer);                                                  //  Spawn a new point
             }
                 
-            pointPointer = path[i + 1].transform.position;                                                  //  Jump to the next node
+            pointPointer = path[i + 1].transform.position;                                      //  Jump to the next node
         }
     }
     void SpawnAPathPoint(Vector2 pos)
@@ -135,14 +135,5 @@ public class VisualsManager : MonoBehaviour
             Destroy(v);
         }
         spawnedVisuals.Clear();
-        currentMode = VISUALS_MODE.NONE;
     }
-}
-
-enum VISUALS_MODE
-{
-    NONE,
-    PATH,
-
-    NUM_VISUALS_MODE
 }
