@@ -37,6 +37,7 @@ public class VisualsManager : MonoBehaviour
 
     //  Connect mode
     [SerializeField] GameObject canConnectPrefab;           //prefab
+    [SerializeField] GameObject currentConnectPrefab;       //prefab
     bool isInConnectMode = false;                           //  For keeping track of the mode
     List<GameObject> connectObjs;                           //  Keeps track of all visuals related to connect mode
 
@@ -187,6 +188,10 @@ public class VisualsManager : MonoBehaviour
                 spawnedVisuals.Add(nodeVis);
             }
         }
+
+        GameObject currentVis = Instantiate(currentConnectPrefab, RoadNetwork.rn.activeForConnection.transform.position, Quaternion.identity);
+        connectObjs.Add(currentVis);
+        spawnedVisuals.Add(currentVis);
     }
     void ConnectStop()
     {
