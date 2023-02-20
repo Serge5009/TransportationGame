@@ -23,18 +23,23 @@ public class VisualsManager : MonoBehaviour
     List<GameObject> spawnedVisuals; // Keeps track of all visuals on the screen
 
     //  Selected car
-    [SerializeField] GameObject selectedCarPrefab;  //prefab
-    GameObject carTracker;                          //  A visual that is following the selected car
+    [SerializeField] GameObject selectedCarPrefab;          //prefab
+    GameObject carTracker;                                  //  A visual that is following the selected car
 
     //  Path
     [SerializeField] float distanceBetweenPoints = 0.5f;    //  How far are the small points gonna spawn from each other
     bool isInPathCreateMode = false;                        //  For keeping track of the mode
-
-    [SerializeField] GameObject pathNodePrefab;     //prefab
-    [SerializeField] GameObject pathCityPrefab;     //prefab
-    [SerializeField] GameObject pathEndsPrefab;     //prefab
-    [SerializeField] GameObject pathPointPrefab;    //prefab
+    [SerializeField] GameObject pathNodePrefab;             //prefab
+    [SerializeField] GameObject pathCityPrefab;             //prefab
+    [SerializeField] GameObject pathEndsPrefab;             //prefab
+    [SerializeField] GameObject pathPointPrefab;            //prefab
     List<GameObject> pathObjs;                              //  Keeps track of all visuals related to the path display
+
+    //  Connect mode
+    [SerializeField] GameObject canConnectPrefab;           //prefab
+    bool isInConnectMode = false;                           //  For keeping track of the mode
+    List<GameObject> connectObjs;                           //  Keeps track of all visuals related to connect mode
+
 
     void Start()
     {
@@ -78,6 +83,22 @@ public class VisualsManager : MonoBehaviour
             PathStop();                     //  Clear the path
             isInPathCreateMode = false;     //  Keep track of the mode
         }
+
+        //  Connect mode
+        if(GameManager.gm.gState == GAME_STATE.CONNECT)
+        {
+            //  Potential bug:  this might cause lags on slower devices because it's called every frame
+            //  TO DO:
+            //  Create logic to triger only when a new node is selected
+
+            ConnectStart();
+            isInConnectMode = true;
+        }
+        else if(isInConnectMode)
+        {
+            ConnectStop();
+            isInConnectMode = false;
+        }
     }
 
 
@@ -99,6 +120,7 @@ public class VisualsManager : MonoBehaviour
         spawnedVisuals.Remove(carTracker);
     }
 
+    //  Path creation mode
     void PathStart(List<RoadNode> path)     //  Draws the path
     {
         //Debug.Log("Drawing a path with " + path.Count + " nodes");
@@ -149,6 +171,16 @@ public class VisualsManager : MonoBehaviour
             Destroy(i);         //  Delete 
         }
         pathObjs.Clear();       //  Clear the list
+    }
+
+    //  Connect mode
+    void ConnectStart()
+    {
+        Debug.Log("Connect mode");
+    }
+    void ConnectStop()
+    {
+        Debug.Log("Connect mode out");
     }
 
     public void RemoveAllVisuals()
