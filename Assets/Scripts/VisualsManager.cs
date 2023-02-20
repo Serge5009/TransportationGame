@@ -46,6 +46,7 @@ public class VisualsManager : MonoBehaviour
         //  Create lists
         spawnedVisuals = new List<GameObject>();
         pathObjs = new List<GameObject>();
+        connectObjs = new List<GameObject>();
     }
 
     void Update()
@@ -91,6 +92,7 @@ public class VisualsManager : MonoBehaviour
             //  TO DO:
             //  Create logic to triger only when a new node is selected
 
+            ConnectStop();
             ConnectStart();
             isInConnectMode = true;
         }
@@ -176,11 +178,23 @@ public class VisualsManager : MonoBehaviour
     //  Connect mode
     void ConnectStart()
     {
-        Debug.Log("Connect mode");
+        foreach (RoadNode n in RoadNetwork.rn.nodes)
+        {
+            if(RoadNetwork.rn.CanConnectNodes(n, RoadNetwork.rn.activeForConnection))   //  If this node can be connected to the active one
+            {
+                GameObject nodeVis = Instantiate(canConnectPrefab, n.transform.position, Quaternion.identity);
+                connectObjs.Add(nodeVis);
+                spawnedVisuals.Add(nodeVis);
+            }
+        }
     }
     void ConnectStop()
     {
-        Debug.Log("Connect mode out");
+        foreach (GameObject v in connectObjs)
+        {
+            Destroy(v);
+        }
+        connectObjs.Clear();
     }
 
     public void RemoveAllVisuals()

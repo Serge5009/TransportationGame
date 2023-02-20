@@ -111,4 +111,18 @@ public class RoadNetwork : MonoBehaviour
 
         return false;                                              //  Else - return false
     }
+
+    public bool CanConnectNodes(RoadNode n0, RoadNode n1)   //  Checks if it's possible to add a connection between 2 nodes
+    {       //  TO DO:  apply this to other functions
+        if (n0 == n1)
+            return false;
+
+        if (DoesRoadExistBetween(n0, n1))
+            return false;
+
+        if (Vector2.Distance(n0.transform.position, n1.transform.position) > maxRoadLenght)
+            return false;
+
+        return true;
+    }
 }

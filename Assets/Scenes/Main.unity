@@ -13322,6 +13322,7 @@ MonoBehaviour:
   pathCityPrefab: {fileID: 7000897753396560694, guid: 70591baaa7283de49afbf48968819d90, type: 3}
   pathEndsPrefab: {fileID: 7000897753396560694, guid: 0eb772e5d8c094343ae00e7b13f57554, type: 3}
   pathPointPrefab: {fileID: 7000897753396560694, guid: b87b74bc1e5008743b3bf6fff26c964a, type: 3}
+  canConnectPrefab: {fileID: 7000897753396560694, guid: dbaa7d25e129256438205b46c2131e60, type: 3}
 --- !u!4 &1503601903
 Transform:
   m_ObjectHideFlags: 0
