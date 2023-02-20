@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 //  ! SINGLETON !
 
@@ -186,6 +187,9 @@ public class VisualsManager : MonoBehaviour
                 GameObject nodeVis = Instantiate(canConnectPrefab, n.transform.position, Quaternion.identity);
                 connectObjs.Add(nodeVis);
                 spawnedVisuals.Add(nodeVis);
+
+                nodeVis.GetComponentInChildren<TextMeshPro>().text = "$" + RoadNetwork.rn.ConnectionPrice(n).ToString("F0");
+
             }
         }
 

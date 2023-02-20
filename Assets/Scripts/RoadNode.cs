@@ -111,13 +111,12 @@ public class RoadNode : MonoBehaviour
 
         GameManager.gm.DeselectCity();  //  Remove city selection
         GameManager.gm.gState = GAME_STATE.CONNECT;         //  TO DO:  should be moved to a GameManager
-
     }
 
     void ConnectToThis()            //  Final step of connection between actibe node and this
     {
         float connectionDistance = Vector2.Distance(transform.position, rNet.activeForConnection.transform.position);
-        float price = RoadNetwork.rn.baseRoadPrice * connectionDistance;
+        float price = RoadNetwork.rn.ConnectionPrice(this);
 
         if(rNet.activeForConnection == this)                                    //  If trying to connect to itself
         {

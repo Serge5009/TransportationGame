@@ -125,4 +125,18 @@ public class RoadNetwork : MonoBehaviour
 
         return true;
     }
+
+    public float ConnectionPrice(RoadNode n0)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, activeForConnection.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+    public float ConnectionPrice(RoadNode n0, RoadNode n1)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, n1.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+
 }
