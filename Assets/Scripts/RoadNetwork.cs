@@ -13,7 +13,15 @@ public class RoadNetwork : MonoBehaviour
 
     public RoadNode activeForConnection = null;
 
+    //  Settings
+    public float roadNodeCost = 50.0f;
+    public float baseRoadPrice = 10.0f;
     public float maxRoadLenght = 5.0f;
+
+
+    //  Prefabs
+    [SerializeField] GameObject roadNodePrefab;
+    [SerializeField] GameObject tempRoadNodePrefab;
 
     void Awake()
     {
@@ -21,6 +29,28 @@ public class RoadNetwork : MonoBehaviour
             Destroy(this);
         else
             rn = this;
+    }
+
+    public void PlaceTempNode(Vector2 placement)
+    {
+        Instantiate(tempRoadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
+    }
+
+    public void AddRoadNode(Vector2 placement)
+    {
+        if (GameManager.gm.money < roadNodeCost)
+        {
+            //  TO DO: Show an error message
+            return;
+        }
+
+        GameManager.gm.TakeMoney(roadNodeCost);
+        GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnNodeBuilt();
     }
 
     public void DeleteWholeNetwork()
@@ -81,4 +111,32 @@ public class RoadNetwork : MonoBehaviour
 
         return false;                                              //  Else - return false
     }
+
+    public bool CanConnectNodes(RoadNode n0, RoadNode n1)   //  Checks if it's possible to add a connection between 2 nodes
+    {       //  TO DO:  apply this to other functions
+        if (n0 == n1)
+            return false;
+
+        if (DoesRoadExistBetween(n0, n1))
+            return false;
+
+        if (Vector2.Distance(n0.transform.position, n1.transform.position) > maxRoadLenght)
+            return false;
+
+        return true;
+    }
+
+    public float ConnectionPrice(RoadNode n0)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, activeForConnection.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+    public float ConnectionPrice(RoadNode n0, RoadNode n1)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, n1.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+
 }

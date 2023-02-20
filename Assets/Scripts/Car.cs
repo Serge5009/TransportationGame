@@ -75,13 +75,13 @@ public class Car : MonoBehaviour
 
         if(destination) //  Run this code only if the car is running
         {
-            if (isNear(homeCity))     //  If within range with home city will try to load more
+            if (isNear(homeCity) && nextNode == 0)     //  If within range with home city will try to load more
             {
                 if (!isMovingTo)
                     UnloadTo(homeCity.GetComponent<City>());
                 isMovingTo = true;
             }
-            if (isNear(destination))     //  If within range with destination will try to unload
+            if (isNear(destination) && nextNode == path.Count - 1)     //  If within range with destination will try to unload
             {
                 if (isMovingTo)
                     UnloadTo(destination.GetComponent<City>());

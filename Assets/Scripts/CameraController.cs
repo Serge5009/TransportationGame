@@ -89,7 +89,7 @@ public class CameraController : MonoBehaviour
 
         if(GameManager.gm.gState == GAME_STATE.BUILD)
         {
-            GameManager.gm.AddRoadNode(screenTouchPosition);
+            RoadNetwork.rn.PlaceTempNode(screenTouchPosition);    //  TO DO: switch to temp placement
         }
 
         //  Tutorial
