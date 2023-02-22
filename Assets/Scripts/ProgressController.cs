@@ -26,11 +26,8 @@ public class ProgressController : MonoBehaviour
 
     //  Stats
     int roadsBuilt = 0;
-
-    void Start()
-    {
-        
-    }
+    //  TO DO:
+    //  Add stats with all cations using callbacks to Progress Controller 
 
     void Update()
     {

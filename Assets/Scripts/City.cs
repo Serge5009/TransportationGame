@@ -36,42 +36,15 @@ public class City : MonoBehaviour
         ResetCity();
     }
 
-    float timer = 0.01f;
     float tickTimer = 0.0f;
     void Update()
     {
-        timer -= Time.deltaTime;    //  Car spawner
-        if(timer <= 0 && isOwned)
-        {
-            timer = Random.Range(5.0f, 10.0f);                
-
-            /*
-            GameObject car = Instantiate(carPrefab, transform.position, Quaternion.identity);
-            Car carScript = car.GetComponent<Car>();
-            carScript.homeCity = this.gameObject;
-
-            List<GameObject> Cities = new List<GameObject>(GameObject.FindGameObjectsWithTag("City"));
-
-            foreach(GameObject c in Cities) //  Find target
-            {
-                if(c != this.gameObject)
-                {
-                    carScript.destination = c;
-                    break;
-                }
-            }
-
-            car.transform.SetParent(transform.parent);   //  Car should be on the canvas*/
-        }
-
         tickTimer += Time.deltaTime;
         if(tickTimer >= 1)
         {
             Tick();
             tickTimer -= 1;
         }
-
-        //counter.text = passengers.ToString();
 
         //  Click registering
         //  https://www.youtube.com/watch?v=5KLV6QpSAdI
@@ -93,7 +66,6 @@ public class City : MonoBehaviour
         priceToAccess = population / 10000;
 
         float populationFactor = population / 100000;
-        //int populationFactor = (int)Mathf.Ceil(population / 100000);
 
         if (Random.Range(0.0f, 1.0f) < 0.5f && isAccessed)    //  Random passenger increase
         {

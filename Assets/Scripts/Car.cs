@@ -156,16 +156,6 @@ public class Car : MonoBehaviour
             load++;
             toLoad.passengers--;                                        //  TO DO: this seems like it doesn't work
             parkedTimer += 0.1f;    //  Take some time to load
-
-            /*  //  Pop up text, looks bad  //  TO DO: make it nice!
-            GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
-            newText.GetComponent<TextMeshPro>().text = "1";
-            newText.GetComponent<TextMeshPro>().color = Color.green;
-            MiniPopup textScript = newText.GetComponent<MiniPopup>();
-            textScript.sideShakeIntens = 0.0f;
-            textScript.maxSpeed = 3.0f;
-            textScript.slowDown = 0.3f;
-            */
         }
     }
 

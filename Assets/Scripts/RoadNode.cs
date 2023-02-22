@@ -23,7 +23,7 @@ public class RoadNode : MonoBehaviour
         if (!roadPrefab)
             Debug.LogError("No roadPrefab attached");
         //  TO DO: rn i'm creating road segments in a very stupid way, because I'm spawning them from each node to each connection
-        //  it leads to two segments spawnd insted of one, so after that I make Road Network to delete duplicates
+        //  it leads to two segments spawnd insted of one, so after that I make Road Network to delete duplicates, needs to be fixed
 
         foreach (RoadNode n in connections) //  Loop thru all connected nodes and make sure that they're aware about the connection
         {

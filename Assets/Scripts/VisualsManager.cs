@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -51,6 +50,7 @@ public class VisualsManager : MonoBehaviour
         connectObjs = new List<GameObject>();
     }
 
+
     void Update()
     {
         //  Selected car
@@ -93,7 +93,6 @@ public class VisualsManager : MonoBehaviour
             isInConnectMode = false;
         }
     }
-
 
 
     //  Selected car
