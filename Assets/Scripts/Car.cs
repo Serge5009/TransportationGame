@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 public class Car : MonoBehaviour
@@ -153,8 +151,8 @@ public class Car : MonoBehaviour
     {
         while (load < capacity && toLoad.passengers > 0)
         {
-            load++;
-            toLoad.passengers--;                                        //  TO DO: this seems like it doesn't work
+            load++;                 //  Add a passenger to the car
+            toLoad.passengers--;    //  Remove a passenger from the city
             parkedTimer += 0.1f;    //  Take some time to load
         }
     }
@@ -164,15 +162,11 @@ public class Car : MonoBehaviour
         float distance = Vector2.Distance(transform.position, place.transform.position);
         return (distance <= interactDistance);
     }
-    
-    //  TO DO:
-    //  Known BUG:  when home city == destination -> error
 
     bool CheckPath()
     {
         if (path.Count == 0)
             return false;
-        
 
         bool returnVal = true;
 

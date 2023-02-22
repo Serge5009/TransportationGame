@@ -1,8 +1,5 @@
-//using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using TMPro;
 
 public class City : MonoBehaviour
 {
@@ -131,7 +128,7 @@ public class City : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
             return;
         }
-        GameManager.gm.TakeMoney(price);                                                          //  Take money
+        GameManager.gm.TakeMoney(price);                                                        //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
         newCar.homeCity = this.gameObject;                                                      //  Set the home base
