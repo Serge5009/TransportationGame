@@ -70,18 +70,12 @@ public class VisualsManager : MonoBehaviour
         }
 
         //  Path creation mode
-        if(GameManager.gm.gState == GAME_STATE.PATH)
+        if(GameManager.gm.gState == GAME_STATE.PATH && !isInPathCreateMode)
         {
-            //  Known bug:  this causes lags on longer routes because of constant update
-            //  TO DO:
-            //  Find a way to update the visual only when the path is changed
-
-
-            PathStop();                     //  Clear old path
             PathStart(Car.newPath);         //  Draw the new path
             isInPathCreateMode = true;      //  Keep track of the mode
         }
-        else if (isInPathCreateMode)
+        if (GameManager.gm.gState != GAME_STATE.PATH && isInPathCreateMode)
         {
             PathStop();                     //  Clear the path
             isInPathCreateMode = false;     //  Keep track of the mode
@@ -175,6 +169,11 @@ public class VisualsManager : MonoBehaviour
             Destroy(i);         //  Delete 
         }
         pathObjs.Clear();       //  Clear the list
+    }
+    public void PathUpdate()    //  This is called every time there's a change in path, redraws the whole path
+    {
+        PathStop();
+        PathStart(Car.newPath);
     }
 
     //  Connect mode

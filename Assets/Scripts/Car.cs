@@ -260,6 +260,7 @@ public class Car : MonoBehaviour
         else                                //  If the route is fine 
         {
             GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
+            VisualsManager.visMgr.PathUpdate(); //  Refreshes path visuals
         }
 
         //  Tutorial
