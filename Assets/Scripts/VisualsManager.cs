@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -51,6 +50,7 @@ public class VisualsManager : MonoBehaviour
         connectObjs = new List<GameObject>();
     }
 
+
     void Update()
     {
         //  Selected car
@@ -70,41 +70,29 @@ public class VisualsManager : MonoBehaviour
         }
 
         //  Path creation mode
-        if(GameManager.gm.gState == GAME_STATE.PATH)
+        if(GameManager.gm.gState == GAME_STATE.PATH && !isInPathCreateMode)
         {
-            //  Known bug:  this causes lags on longer routes because of constant update
-            //  TO DO:
-            //  Find a way to update the visual only when the path is changed
-
-
-            PathStop();                     //  Clear old path
             PathStart(Car.newPath);         //  Draw the new path
             isInPathCreateMode = true;      //  Keep track of the mode
         }
-        else if (isInPathCreateMode)
+        if (GameManager.gm.gState != GAME_STATE.PATH && isInPathCreateMode)
         {
             PathStop();                     //  Clear the path
             isInPathCreateMode = false;     //  Keep track of the mode
         }
 
         //  Connect mode
-        if(GameManager.gm.gState == GAME_STATE.CONNECT)
+        if(GameManager.gm.gState == GAME_STATE.CONNECT && !isInConnectMode)
         {
-            //  Potential bug:  this might cause lags on slower devices because it's called every frame
-            //  TO DO:
-            //  Create logic to triger only when a new node is selected
-
-            ConnectStop();
             ConnectStart();
             isInConnectMode = true;
         }
-        else if(isInConnectMode)
+        if(GameManager.gm.gState != GAME_STATE.CONNECT && isInConnectMode)
         {
             ConnectStop();
             isInConnectMode = false;
         }
     }
-
 
 
     //  Selected car
@@ -176,6 +164,11 @@ public class VisualsManager : MonoBehaviour
         }
         pathObjs.Clear();       //  Clear the list
     }
+    public void PathUpdate()    //  This is called every time there's a change in path, redraws all path visuals
+    {
+        PathStop();
+        PathStart(Car.newPath);
+    }
 
     //  Connect mode
     void ConnectStart()
@@ -204,6 +197,11 @@ public class VisualsManager : MonoBehaviour
             Destroy(v);
         }
         connectObjs.Clear();
+    }
+    public void ConnectUpdate() //  This is called every time there's a change in connections, redraws all connect visuals
+    {
+        ConnectStop();
+        ConnectStart();
     }
 
     public void RemoveAllVisuals()

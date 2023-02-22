@@ -109,19 +109,7 @@ public class CameraController : MonoBehaviour
             ProgressController.pControll.OnCameraZoom();
     }
 
+    //  TO DO:
+    //  Try to implement somne sort of raycast to select objects
 
-
-
-
-    //  Failed to use raycast for object selection, still might be a good idea...
-
-    //void FixedUpdate()
-    //{
-    //    RaycastHit hit;
-    //    if(Physics.Raycast(transform.position, Vector3.forward, out hit, Mathf.Infinity))
-    //    {
-    //        Debug.Log("Wow");
-    //    }
-    //    Debug.DrawRay(transform.position, Vector3.forward, Color.red);
-    //}
 }

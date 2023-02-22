@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,11 +25,8 @@ public class ProgressController : MonoBehaviour
 
     //  Stats
     int roadsBuilt = 0;
-
-    void Start()
-    {
-        
-    }
+    //  TO DO:
+    //  Add stats with all cations using callbacks to Progress Controller 
 
     void Update()
     {

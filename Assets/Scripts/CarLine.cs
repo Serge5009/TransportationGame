@@ -6,7 +6,6 @@ public class CarLine : MonoBehaviour
     public Car assignedCar;
     [SerializeField] TMP_Text CarID;
     [SerializeField] TMP_Text LocationText;
-    //  TO DO: Add more text fields
 
     void Start()
     {

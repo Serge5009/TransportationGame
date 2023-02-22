@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 public class Car : MonoBehaviour
@@ -153,19 +151,9 @@ public class Car : MonoBehaviour
     {
         while (load < capacity && toLoad.passengers > 0)
         {
-            load++;
-            toLoad.passengers--;                                        //  TO DO: this seems like it doesn't work
+            load++;                 //  Add a passenger to the car
+            toLoad.passengers--;    //  Remove a passenger from the city
             parkedTimer += 0.1f;    //  Take some time to load
-
-            /*  //  Pop up text, looks bad  //  TO DO: make it nice!
-            GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
-            newText.GetComponent<TextMeshPro>().text = "1";
-            newText.GetComponent<TextMeshPro>().color = Color.green;
-            MiniPopup textScript = newText.GetComponent<MiniPopup>();
-            textScript.sideShakeIntens = 0.0f;
-            textScript.maxSpeed = 3.0f;
-            textScript.slowDown = 0.3f;
-            */
         }
     }
 
@@ -174,15 +162,11 @@ public class Car : MonoBehaviour
         float distance = Vector2.Distance(transform.position, place.transform.position);
         return (distance <= interactDistance);
     }
-    
-    //  TO DO:
-    //  Known BUG:  when home city == destination -> error
 
     bool CheckPath()
     {
         if (path.Count == 0)
             return false;
-        
 
         bool returnVal = true;
 
@@ -260,6 +244,7 @@ public class Car : MonoBehaviour
         else                                //  If the route is fine 
         {
             GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
+            VisualsManager.visMgr.PathUpdate(); //  Refreshes path visuals
         }
 
         //  Tutorial

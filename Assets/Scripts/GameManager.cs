@@ -162,17 +162,9 @@ public class GameManager : MonoBehaviour
 
     public void SelectCar(Car newSelected)
     {
-        selectedCar = newSelected;
-        foreach (Car c in cars)
-        {   //  TO DO: i'm too lazy to optimize this now)
-            if (c == newSelected)
-                c.isSelected = true;
-            else
-                c.isSelected = false;
-        }
-
-        MenuManager.menuMgr.carMenu.SetActive(false);    //  TO DO: must be a better way to implement this
-        MenuManager.menuMgr.carMenu.SetActive(true);     //  rn is switching the object off and on to call its OnEnable function and update selected car
+        selectedCar = newSelected;  
+        foreach (Car c in cars)     //  Change isSelected for each car
+            c.isSelected = (c == newSelected);
 
         gState = GAME_STATE.INMENU;
 
@@ -228,7 +220,7 @@ public class GameManager : MonoBehaviour
         return isEnoughMoney;
     }
 
-    public void SetMoney(float amount)  //  Avoid using
+    public void SetMoney(float amount)  //  Should only be used by Progress Manager
     {
         money = amount;
     }
