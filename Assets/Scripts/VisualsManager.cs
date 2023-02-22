@@ -82,17 +82,12 @@ public class VisualsManager : MonoBehaviour
         }
 
         //  Connect mode
-        if(GameManager.gm.gState == GAME_STATE.CONNECT)
+        if(GameManager.gm.gState == GAME_STATE.CONNECT && !isInConnectMode)
         {
-            //  Potential bug:  this might cause lags on slower devices because it's called every frame
-            //  TO DO:
-            //  Create logic to triger only when a new node is selected
-
-            ConnectStop();
             ConnectStart();
             isInConnectMode = true;
         }
-        else if(isInConnectMode)
+        if(GameManager.gm.gState != GAME_STATE.CONNECT && isInConnectMode)
         {
             ConnectStop();
             isInConnectMode = false;
@@ -170,7 +165,7 @@ public class VisualsManager : MonoBehaviour
         }
         pathObjs.Clear();       //  Clear the list
     }
-    public void PathUpdate()    //  This is called every time there's a change in path, redraws the whole path
+    public void PathUpdate()    //  This is called every time there's a change in path, redraws all path visuals
     {
         PathStop();
         PathStart(Car.newPath);
@@ -203,6 +198,11 @@ public class VisualsManager : MonoBehaviour
             Destroy(v);
         }
         connectObjs.Clear();
+    }
+    public void ConnectUpdate() //  This is called every time there's a change in connections, redraws all connect visuals
+    {
+        ConnectStop();
+        ConnectStart();
     }
 
     public void RemoveAllVisuals()

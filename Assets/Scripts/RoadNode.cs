@@ -156,6 +156,9 @@ public class RoadNode : MonoBehaviour
 
             //  Tutorial
             ProgressController.pControll.OnNodeConnectSuccess();
+
+            //  Visuals
+            VisualsManager.visMgr.ConnectUpdate();
         }
         else
         {
