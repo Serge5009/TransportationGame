@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,15 @@ public class RoadNetwork : MonoBehaviour
 
     public RoadNode activeForConnection = null;
 
+    //  Settings
+    public float roadNodeCost = 50.0f;
+    public float baseRoadPrice = 10.0f;
     public float maxRoadLenght = 5.0f;
+
+
+    //  Prefabs
+    [SerializeField] GameObject roadNodePrefab;
+    [SerializeField] GameObject tempRoadNodePrefab;
 
     void Awake()
     {
@@ -23,14 +30,44 @@ public class RoadNetwork : MonoBehaviour
             rn = this;
     }
 
-    void Start()
+    public void PlaceTempNode(Vector2 placement)
     {
-        
+        Instantiate(tempRoadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
     }
 
-    void Update()
+    public void AddRoadNode(Vector2 placement)
     {
-        
+        if (GameManager.gm.money < roadNodeCost)
+        {
+            //  TO DO: Show an error message
+            return;
+        }
+
+        GameManager.gm.TakeMoney(roadNodeCost);
+        GameObject newRoad = Instantiate(roadNodePrefab, placement, Quaternion.identity);
+        GameManager.gm.gState = GAME_STATE.PLAY;
+
+        //  Tutorial
+        ProgressController.pControll.OnNodeBuilt();
+    }
+
+    public void DeleteWholeNetwork()
+    {
+        foreach (RoadLine r in roads)
+            Destroy(r.gameObject);                  //  Destroy all roads
+
+        foreach (RoadNode n in nodes)
+        {
+            n.ResetConnections();                   //  Remove all connections in nodes (doesn't affect roads)
+        }
+        foreach (RoadNode n in nodes)
+        {
+            if (!n.gameObject.GetComponent<City>())  //  Unless it's a city
+            {
+                Destroy(n.gameObject);              //  Delete the node
+            }
+        }    
     }
 
     public void RoadDuplicateCheck(RoadLine toCheck)    //  Called by each segment when spawned, deletes duplicate segments
@@ -64,4 +101,41 @@ public class RoadNetwork : MonoBehaviour
                 Debug.LogError("What the...?");
         }
     }
+
+    public static bool DoesRoadExistBetween(RoadNode n0, RoadNode n1)
+    {
+        foreach (RoadLine line in RoadNetwork.rn.roads)                            //  Loop thru all roads
+            if(line.ends.Contains(n0) && line.ends.Contains(n1))    //  If road had both nodes among its ends
+                return true;                                        //  Return true
+
+        return false;                                              //  Else - return false
+    }
+
+    public bool CanConnectNodes(RoadNode n0, RoadNode n1)   //  Checks if it's possible to add a connection between 2 nodes
+    {       //  TO DO:  apply this to other functions
+        if (n0 == n1)
+            return false;
+
+        if (DoesRoadExistBetween(n0, n1))
+            return false;
+
+        if (Vector2.Distance(n0.transform.position, n1.transform.position) > maxRoadLenght)
+            return false;
+
+        return true;
+    }
+
+    public float ConnectionPrice(RoadNode n0)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, activeForConnection.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+    public float ConnectionPrice(RoadNode n0, RoadNode n1)
+    {
+        float connectionDistance = Vector2.Distance(n0.transform.position, n1.transform.position);
+
+        return baseRoadPrice * connectionDistance;
+    }
+
 }

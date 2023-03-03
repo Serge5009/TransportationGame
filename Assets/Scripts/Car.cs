@@ -1,75 +1,117 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.UI;
 using TMPro;
 
 public class Car : MonoBehaviour
 {
+    //  Track keeping
+    public int carID;
+    static int numCars = 0;
+
+    //  Stats
     public GameObject homeCity;
     public GameObject destination;
     public float speed = 20.0f;
     public int capacity = 10;
     public int load = 0;
+    float parkedTimer = 0.0f;
 
-    [SerializeField] float interactDistance = 25.0f;
+    //  Settings
+    public float interactDistance = 25.0f;
+    public bool isSelected = false;
 
+    //  Route
     public List<RoadNode> path;
     int nextNode;
     bool isMovingTo = true;
-
-    public bool isSelected = false;
-
+        //  Static
     [HideInInspector] public static List<RoadNode> newPath;
     [HideInInspector] public static Car newPathAssociatedCar;
+
+    //  Prefabs     //  TO DO: move to another object
+    [SerializeField] GameObject FlyingTextPrefab;
+    [SerializeField] GameObject AddedTextPrefab;
+    [SerializeField] GameObject PathCreatedTextPrefab;
+
+    //  Components
+    SpriteRenderer thisSprite;
 
     void Start()
     {
         CheckPath();
         nextNode = 0;
+        carID = numCars;
+        numCars++;
+
+        if (!FlyingTextPrefab)
+            Debug.LogError("No FlyingTextPrefab found");
+        if (!AddedTextPrefab)
+            Debug.LogError("No AddedTextPrefab found");
+        if (!PathCreatedTextPrefab)
+            Debug.LogError("No PathCreatedTextPrefab found");
+
+        thisSprite = GetComponent<SpriteRenderer>();
+        if (!thisSprite)
+            Debug.LogError("No thisSprite found");
+
+        if (!homeCity.GetComponent<City>().assignedCars.Contains(this)) //  Add the car to the list in its city if needed
+            homeCity.GetComponent<City>().assignedCars.Add(this);
     }
 
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f); //  Keep the car on z=0
-
+            //  Error checks
         if (!homeCity)
             Debug.LogError("No homeCity found");
-
         if (!destination)
-            Debug.LogError("No destination found");
+        {
+            ResetToHomeCity();
+            parkedTimer = 1.0f;
+        }
 
+            //  Interaction checks
+
+        if(destination) //  Run this code only if the car is running
+        {
+            if (isNear(homeCity) && nextNode == 0)     //  If within range with home city will try to load more
+            {
+                if (!isMovingTo)
+                    UnloadTo(homeCity.GetComponent<City>());
+                isMovingTo = true;
+            }
+            if (isNear(destination) && nextNode == path.Count - 1)     //  If within range with destination will try to unload
+            {
+                if (isMovingTo)
+                    UnloadTo(destination.GetComponent<City>());
+                isMovingTo = false;
+            }
+            if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
+            {
+                if (path[nextNode].GetComponent<City>())
+                    LoadFrom(path[nextNode].GetComponent<City>());
+
+                if (isMovingTo)
+                    nextNode++;
+                else
+                    nextNode--;
+            }
+        }
+
+        //  Parking check
+        if (parkedTimer > 0.0f)    //  If the car is in porcess of interaction - skip the rest of the update and make the car invisible
+        {
+            thisSprite.color = new Color(1, 1, 1, 0);
+            parkedTimer -= Time.deltaTime;
+            return;
+        }
+        thisSprite.color = new Color(1, 1, 1, 1);
+        parkedTimer = 0.0f;
+        
+            //  Movement
         transform.position += (path[nextNode].transform.position - transform.position).normalized * speed * Time.deltaTime;   //  Move towards the next node
-
-
-        if (isNear(homeCity))     //  If within range with home city will try to load more
-        {
-            if (!isMovingTo)
-                UnloadTo(homeCity.GetComponent<City>());
-
-            isMovingTo = true;
-            LoadFrom(homeCity.GetComponent<City>());
-        }
-        if (isNear(destination))     //  If within range with destination will try to unload
-        {
-            isMovingTo = false;
-            UnloadTo(destination.GetComponent<City>());
-            //LoadFrom(destination.GetComponent<City>());
-        }
-        if (isNear(path[nextNode].gameObject))     //  If within range with with the next node will swith to the next one
-        {
-            if (path[nextNode].GetComponent<City>())
-                LoadFrom(path[nextNode].GetComponent<City>());
-
-            if (isMovingTo)
-                nextNode++;
-            else
-                nextNode--;            
-        }
-
-        //  Making the car face it's direction
-        transform.LookAt(path[nextNode].transform.position);
+        transform.LookAt(path[nextNode].transform.position);    //  Making the car face it's direction
         transform.Rotate(0.0f, 90.0f, 90.0f);
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0.0f); //  Keep the car on z=0
 
         //  Click registering
         //  https://www.youtube.com/watch?v=5KLV6QpSAdI
@@ -85,9 +127,23 @@ public class Car : MonoBehaviour
         }
     }
 
+    public static void ResetCars()
+    {
+        numCars = 0;
+    }
+
     void UnloadTo(City toUnload)
     {
-        GameManager.gm.money += load; //  TO DO: make money logic more ineresting
+        if (load == 0)
+            return;
+
+        GameObject newText = Instantiate(FlyingTextPrefab, transform.position, Quaternion.identity);
+        newText.GetComponent<TextMeshPro>().text = load.ToString();
+        newText.GetComponent<TextMeshPro>().color = Color.yellow;
+
+        parkedTimer += load / 10;       //  Take some time to unload
+
+        GameManager.gm.TakeMoney(-load, false);         //  TO DO: make money logic more ineresting ;   TO DO: take -load is not really readable)))
         load = 0;
     }
 
@@ -95,8 +151,9 @@ public class Car : MonoBehaviour
     {
         while (load < capacity && toLoad.passengers > 0)
         {
-            load++;
-            toLoad.passengers--; //  TO DO: this seems like it doesn't work
+            load++;                 //  Add a passenger to the car
+            toLoad.passengers--;    //  Remove a passenger from the city
+            parkedTimer += 0.1f;    //  Take some time to load
         }
     }
 
@@ -108,6 +165,9 @@ public class Car : MonoBehaviour
 
     bool CheckPath()
     {
+        if (path.Count == 0)
+            return false;
+
         bool returnVal = true;
 
         if (path[0].gameObject != homeCity)
@@ -158,6 +218,9 @@ public class Car : MonoBehaviour
         newPathAssociatedCar = this;
         newPath = new List<RoadNode>();
         newPath.Add(homeCity.GetComponent<RoadNode>());
+
+        //  Tutorial
+        ProgressController.pControll.OnPathModeEnter();
     }
 
     public void AddPathNode(RoadNode nodeToAdd)
@@ -173,11 +236,19 @@ public class Car : MonoBehaviour
 
         newPath.Add(nodeToAdd);
 
-        if(!CheckPath(newPath))
+        if(!CheckPath(newPath))             //  If sequence is incorrect
         {
-            newPath.Remove(nodeToAdd);
+            newPath.Remove(nodeToAdd);      //  Remove the new node
             //  TO DO: Add sound effect
         }
+        else                                //  If the route is fine 
+        {
+            GameObject newAddedText = Instantiate(AddedTextPrefab, nodeToAdd.transform.position, Quaternion.identity);
+            VisualsManager.visMgr.PathUpdate(); //  Refreshes path visuals
+        }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathNodeAdded();
     }
 
     public void FinishPath()
@@ -196,16 +267,51 @@ public class Car : MonoBehaviour
         path = newPath;
         destination = path[path.Count - 1].gameObject;
         newPath = null;
-
-        nextNode = 0;                                       //  Reset path following order
-        transform.position = homeCity.transform.position;   //  Teleport home
-        load = 0;                                           //  Empty the trunk
-        GameManager.gm.PopUp("New path created!");
+        ResetToHomeCity();
+        GameObject newpopupobject = Instantiate(PathCreatedTextPrefab, destination.transform.position, Quaternion.identity);
+        newpopupobject.transform.localScale = new Vector3(3, 3, 1);
 
         if(!CheckPath())    //  Just another check, why not?    (Should'n trigger)
         {
             GameManager.gm.PopUp("This should never happen,\nbut there's something wrong here 2!");
             Debug.LogError("Oh no, you messed up the path!");
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnPathFinish();
+    }
+
+    void ResetToHomeCity()  //  This function teleports the car to its hub and reset data
+    {
+        nextNode = 0;                                       //  Reset path following order
+        transform.position = homeCity.transform.position;   //  Teleport home
+        load = 0;                                           //  Empty the trunk
+    }
+
+    public float GetDistanceFrom(Vector3 fromWhere)
+    {
+        return Vector3.Distance(transform.position, fromWhere);
+    }
+    public float GetDistanceFromHome()
+    {
+        return Vector3.Distance(transform.position, homeCity.transform.position);
+    }
+
+    public City GetClosestCity()
+    {
+        City closest = homeCity.GetComponent<City>();   //  By default home is the closest
+        float dist = GetDistanceFromHome();             //  Find distance
+            
+        foreach (City c in GameManager.gm.cities)       //  Loop thru all cities
+        {
+            float newDist = GetDistanceFrom(c.transform.position);  //  Remeber distance
+            if (newDist < dist)                                     //  Compare
+            {
+                closest = c;                                        //  Update with the new closest
+                dist = newDist;
+            }
+        }
+            
+        return closest;
     }
 }

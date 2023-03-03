@@ -2,21 +2,28 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    //  Input tracking
     Vector3 touchStart;
     Vector3 touchStartLocal;
     Vector3 screenTouchPosition;
+
+    //  Zoom settings
     [SerializeField] float minZoom = 2.0f;
     [SerializeField] float maxZoom = 50.0f;
-
     [SerializeField] float zoomSens = 1.0f;
     [SerializeField] float mouseZoomSens = 1.0f;
 
+    //  How far can you move the finger before lifting it to still count it as a click, not swipe
     [SerializeField] float clickRadius = 10.0f;
+
     private void Start()
     {
         zoomSens *= 0.01f;  //  Some default ajustments
         mouseZoomSens *= 5; //  TO DO: new zoom multiplier logic would be nice
     }
+
+    //  Tutorial
+    float totalMove = 0.0f;
 
     private void Update()
     {
@@ -52,6 +59,10 @@ public class CameraController : MonoBehaviour
         {
             Vector3 camMoveDirection = touchStart - screenTouchPosition;
             Camera.main.transform.position += camMoveDirection;
+
+            //  Tutorial
+            if(totalMove >= 500.0f)
+                ProgressController.pControll.OnCameraMove();
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -60,6 +71,8 @@ public class CameraController : MonoBehaviour
 
             if (Vector3.Distance(touchStartLocal, touchEndLocal) <= clickRadius)
                 Click();
+
+            totalMove += Vector2.Distance(touchStartLocal, touchEndLocal);
         }
 
         //  TO DO: Add keyboard input
@@ -76,28 +89,27 @@ public class CameraController : MonoBehaviour
 
         if(GameManager.gm.gState == GAME_STATE.BUILD)
         {
-            GameManager.gm.AddRoadNode(screenTouchPosition);
+            RoadNetwork.rn.PlaceTempNode(screenTouchPosition);    //  TO DO: switch to temp placement
         }
+
+        //  Tutorial
+        ProgressController.pControll.OnCameraClick();
     }
 
+    float totalZoom = 0.0f;
     void Zoom(float amount)
     {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - amount, minZoom, maxZoom);
+
+        //  Tutorial
+        if (amount < 0) //  TO DO: should move zoom and move tracking to a ProgressController
+            amount *= -1;
+        totalZoom += amount;
+        if(totalZoom >= 10.0f)
+            ProgressController.pControll.OnCameraZoom();
     }
 
+    //  TO DO:
+    //  Try to implement somne sort of raycast to select objects
 
-
-
-
-    //  Failed to use raycast for object selection, still might be a good idea...
-
-    //void FixedUpdate()
-    //{
-    //    RaycastHit hit;
-    //    if(Physics.Raycast(transform.position, Vector3.forward, out hit, Mathf.Infinity))
-    //    {
-    //        Debug.Log("Wow");
-    //    }
-    //    Debug.DrawRay(transform.position, Vector3.forward, Color.red);
-    //}
 }
