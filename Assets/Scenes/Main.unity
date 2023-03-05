@@ -11411,8 +11411,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3a4a2a6c623514d98bc0eceaae2d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultCitySprite: {fileID: 0}
-  sizeCitySprites: []
+  carPrefab: {fileID: 0}
+  defaultCitySprite: {fileID: 7482667652216324306, guid: e2405b6e05dc34d4a97127d4f224ed29, type: 3}
+  sizeCitySprites:
+  - {fileID: 21300000, guid: 9c84ad5ee4c0632469431c9f2137e562, type: 3}
+  - {fileID: 21300000, guid: 9461c69bf9a584f43aaad7ad47b48c5d, type: 3}
+  - {fileID: 21300000, guid: 3c133361c0de8b54e974d3961b09dc63, type: 3}
+  - {fileID: 21300000, guid: 627e5d91647c51b46af585d206f895c9, type: 3}
+  - {fileID: 21300000, guid: aafd1e072b7542c47bba957e2bd81527, type: 3}
+  - {fileID: 21300000, guid: 5d4cce278dedce546ab544c155017c52, type: 3}
+  - {fileID: 21300000, guid: 7abb13e85cbc0924489cec4951d7ea94, type: 3}
+  - {fileID: 21300000, guid: 4858708a880c4284cab546277e2e9906, type: 3}
 --- !u!4 &1213803677
 Transform:
   m_ObjectHideFlags: 0
