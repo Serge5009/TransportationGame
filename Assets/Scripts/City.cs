@@ -53,6 +53,32 @@ public class City : MonoBehaviour
         }
     }
 
+    void SelectSprite()
+    {
+        //  Determining what sprite should represent the city
+        Sprite toShow = PrefabManager.prefMgr.defaultCitySprite;
+
+        if (population >= 5000000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[7];
+        else if (population >= 1000000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[6];
+        else if (population >= 500000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[5];
+        else if (population >= 100000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[4];
+        else if (population >= 50000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[3];
+        else if (population >= 25000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[2];
+        else if (population >= 10000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[1];
+        else if (population >= 5000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[0];
+
+        //  Display the selected sprite
+        this.GetComponent<SpriteRenderer>().sprite = toShow;
+    }
+
     void Tick()
     {
         priceToOwn = population / 100;
@@ -81,6 +107,8 @@ public class City : MonoBehaviour
             }
 
         assignedCars.Clear();
+
+        SelectSprite();
     }
 
     public void BuyCityHub()
