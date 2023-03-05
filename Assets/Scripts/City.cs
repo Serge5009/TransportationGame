@@ -53,7 +53,7 @@ public class City : MonoBehaviour
         }
     }
 
-    void SelectSprite()
+    void AdjustSprite()
     {
         //  Determining what sprite should represent the city
         Sprite toShow = PrefabManager.prefMgr.defaultCitySprite;
@@ -77,6 +77,14 @@ public class City : MonoBehaviour
 
         //  Display the selected sprite
         this.GetComponent<SpriteRenderer>().sprite = toShow;
+
+        //  Scale
+        float scaleFactor = 0.2f;
+
+        if (population >= 10000)
+            scaleFactor = 0.5f;
+
+        transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
     }
 
     void Tick()
@@ -108,7 +116,7 @@ public class City : MonoBehaviour
 
         assignedCars.Clear();
 
-        SelectSprite();
+        AdjustSprite();
     }
 
     public void BuyCityHub()
