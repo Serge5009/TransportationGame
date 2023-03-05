@@ -16,14 +16,10 @@ public class City : MonoBehaviour
     public int passengers = 0;
     public List<Car> assignedCars;
 
-    [SerializeField] GameObject carPrefab;  //  TO DO: move to another script
-
     [HideInInspector] public bool isSelected = false;
 
     void Start()
     {
-        if (!carPrefab)
-            Debug.LogError("No carPrefab added");
         if (!(cityName.Length > 3))
             Debug.LogError("No name added to the city or the name is too short");
         if (population <= 0)
@@ -57,6 +53,32 @@ public class City : MonoBehaviour
         }
     }
 
+    void SelectSprite()
+    {
+        //  Determining what sprite should represent the city
+        Sprite toShow = PrefabManager.prefMgr.defaultCitySprite;
+
+        if (population >= 5000000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[7];
+        else if (population >= 1000000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[6];
+        else if (population >= 500000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[5];
+        else if (population >= 100000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[4];
+        else if (population >= 50000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[3];
+        else if (population >= 25000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[2];
+        else if (population >= 10000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[1];
+        else if (population >= 5000)
+            toShow = PrefabManager.prefMgr.sizeCitySprites[0];
+
+        //  Display the selected sprite
+        this.GetComponent<SpriteRenderer>().sprite = toShow;
+    }
+
     void Tick()
     {
         priceToOwn = population / 100;
@@ -85,6 +107,8 @@ public class City : MonoBehaviour
             }
 
         assignedCars.Clear();
+
+        SelectSprite();
     }
 
     public void BuyCityHub()
@@ -128,6 +152,7 @@ public class City : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
             return;
         }
+        GameObject carPrefab = PrefabManager.prefMgr.carPrefab;                                 //  Load the prefab
         GameManager.gm.TakeMoney(price);                                                        //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
