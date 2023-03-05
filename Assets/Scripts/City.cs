@@ -16,14 +16,10 @@ public class City : MonoBehaviour
     public int passengers = 0;
     public List<Car> assignedCars;
 
-    [SerializeField] GameObject carPrefab;  //  TO DO: move to another script
-
     [HideInInspector] public bool isSelected = false;
 
     void Start()
     {
-        if (!carPrefab)
-            Debug.LogError("No carPrefab added");
         if (!(cityName.Length > 3))
             Debug.LogError("No name added to the city or the name is too short");
         if (population <= 0)
@@ -128,6 +124,7 @@ public class City : MonoBehaviour
             GameManager.gm.PopUp("You need at least $" + price + "\nto buy a new car here!");
             return;
         }
+        GameObject carPrefab = PrefabManager.prefMgr.carPrefab;                                 //  Load the prefab
         GameManager.gm.TakeMoney(price);                                                        //  Take money
         GameObject newCarObj = Instantiate(carPrefab, transform.position, Quaternion.identity); //  Spawn a new Car
         Car newCar = newCarObj.GetComponent<Car>();                                             //  Rememver it's script
