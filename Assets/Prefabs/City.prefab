@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.1254902}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -108,7 +108,6 @@ MonoBehaviour:
   maxCarCapacity: 10
   passengers: 0
   assignedCars: []
-  carPrefab: {fileID: 7412482290164224640, guid: e3896c2d733b07c43ae3356bdd050098, type: 3}
   isSelected: 0
 --- !u!114 &1510435988523184173
 MonoBehaviour:

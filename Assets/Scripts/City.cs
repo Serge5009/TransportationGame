@@ -78,6 +78,9 @@ public class City : MonoBehaviour
         //  Display the selected sprite
         this.GetComponent<SpriteRenderer>().sprite = toShow;
 
+        //  Be default color.a is set to a low value for easier map editing. This line sets alpha back to normal
+        this.GetComponent<SpriteRenderer>().color = new Vector4(255, 255, 255, 255);
+
         //  Scale
         float scaleFactor = 0.2f;
 
@@ -98,6 +101,7 @@ public class City : MonoBehaviour
         else if (population >= 5000)
             scaleFactor = 0.25f;
 
+        scaleFactor /= 3;   //  TO DO:  this is a quick fix while I'm experimenting with the map
 
         transform.localScale = new Vector3(scaleFactor, scaleFactor, 1);
     }
